@@ -181,14 +181,14 @@ export default function App() {
             <strong>The Build.</strong> I developed a Python program using the tweepy library to monitor his feed 24/7.
           </p>
           <p>
-            <strong>The Logic.</strong> Each tweet was automatically passed through OpenAI GPT 3.5 to determine if the news was potentially good or bad for Tesla or SpaceX.
+            <strong>The Logic.</strong> Each tweet was automatically passed through OpenAI GPT-3.5 to determine if the news was potentially good or bad for Tesla or SpaceX.
           </p>
           <p>
             <strong>The Status.</strong> While I eventually discontinued it due to rising API costs, the logic proved that you can turn social media noise into actionable data.
           </p>
         </div>
       ),
-      image: '/src/public/images/elon.jpg'
+      image: '/images/elon.jpg'
     },
     {
       title: "Neptune Beach Parking Strategy",
@@ -209,7 +209,7 @@ export default function App() {
           </p>
         </div>
       ),
-      image: '/src/public/images/image ncb.png'
+      image: '/images/neptune.png'
     }
   ];
 
