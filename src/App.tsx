@@ -17,8 +17,8 @@ import {
   MapPin
 } from "lucide-react";
 import { ReactNode, useState, useEffect } from "react";
-import elonImg from '../public/images/elon.jpg'; 
-import neptuneImg from '../public/images/neptune.png';
+import elonImg from './images/elon.jpg'; 
+import neptuneImg from './images/neptune.png';
 
 interface SectionProps {
   children: ReactNode;
