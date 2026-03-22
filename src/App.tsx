@@ -17,6 +17,8 @@ import {
   MapPin
 } from "lucide-react";
 import { ReactNode, useState, useEffect } from "react";
+import elonImg from './public/images/elon.jpg';
+import neptuneImg from './public/images/neptune.png';
 
 interface SectionProps {
   children: ReactNode;
@@ -188,7 +190,7 @@ export default function App() {
           </p>
         </div>
       ),
-      image: '/images/elon.jpg'
+      image: elonImg
     },
     {
       title: "Neptune Beach Parking Strategy",
@@ -209,7 +211,7 @@ export default function App() {
           </p>
         </div>
       ),
-      image: '/images/neptune.png'
+      image: neptuneImg
     }
   ];
 
