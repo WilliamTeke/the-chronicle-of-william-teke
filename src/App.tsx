@@ -198,7 +198,7 @@ export default function App() {
       content: (
         <div className="text-[#2c1810] opacity-90 space-y-4 leading-relaxed">
           <p>
-            <strong>The Context.</strong> This was a pro bono engagement I led through the Association of Information Systems, a grad school club at UF. We worked with the City of Neptune Beach to solve a massive congestion problem involving a tiny footprint of 160 parking spaces and thousands of seasonal visitors.
+            <strong>The Context.</strong> This was a pro bono engagement I led through the Association of Information Systems, a grad school club at UF. We worked with the City of Neptune Beach to solve a massive congestion problem involving a 160-space parking shortage and thousands of seasonal visitors.
           </p>
           <p>
             <strong>The Analysis.</strong> We used Replica mobility data to find that 90% of trips for shopping and eating were car centric.
@@ -207,7 +207,7 @@ export default function App() {
             <strong>My Contribution.</strong> While a teammate built the RShiny dashboard to visualize parking presence, I focused on the strategic modeling side.
           </p>
           <p>
-            <strong>The Strategy.</strong> I developed the dynamic pricing model to increase turnover during peak lunch and dinner spikes. I also designed the curbside delegation plan to convert specific spots into dedicated zones for UberEats and DoorDash drivers to improve traffic safety.
+            <strong>The Strategy.</strong> I developed the Dynamic Pricing model to increase turnover during peak lunch and dinner spikes. I also designed the curbside delegation plan to convert specific spots into dedicated zones for UberEats and DoorDash drivers to improve traffic safety.
           </p>
         </div>
       ),
