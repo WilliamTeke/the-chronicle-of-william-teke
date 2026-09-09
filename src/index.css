@@ -272,3 +272,23 @@
 @media(max-width:540px) { .atlas-heading { align-items: start; flex-direction: column; gap: 14px; } .atlas-place { padding: 17px 14px; min-height: 185px; } .atlas-place h4 { font-size: 18px; } .atlas-miniature { width: 106px; height: 106px; right: -24px; top: 28px; opacity: .45; } .atlas-place-copy { margin-top: 39px; } .atlas-detail { line-height: 1.6; } }
 @media(max-width:360px) { .atlas-grid { grid-template-columns: 1fr; } .atlas-miniature { right: 5px; } }
 @media(prefers-reduced-motion:reduce) { .atlas-place, .atlas-miniature, .atlas-arrow { transition: none; } }
+
+.predictions-intro { max-width: 690px; color: #afbec8; font-size: 16px; line-height: 1.8; margin: -18px 0 36px; }
+.prediction-status { display: block; font-size: 10px; letter-spacing: .04em; color: #b7cbd6; margin-bottom: 12px; }
+.prediction-watch { margin-top: 25px; padding-top: 20px; border-top: 1px solid #ffffff20; }
+.prediction-watch > span { display: block; color: #d7e4e9; font-size: 12px; margin-bottom: 6px; }
+.prediction-watch p { font-size: 13px; line-height: 1.7; color: #a9bdca; margin: 0 0 18px; }
+.clarity-options { display: grid; grid-template-columns: repeat(3,1fr); gap: 7px; margin-top: 25px; }
+.clarity-options span { text-align: center; border: 1px solid #ffffff26; padding: 10px 3px; border-radius: 4px; color: #b9ccd6; font-size: 12px; }
+.diagram-connector { text-align: center; color: #9bbdcb; margin: 10px 0; font-size: 22px; }
+.clarity-filter { border: 1px solid #a0c4d0; border-radius: 20px 20px 9px 9px; padding: 16px 8px; text-align: center; color: #e5eff3; background: #29404c; font-size: 15px; }
+.clarity-filter small { display: block; margin-top: 8px; font-size: 11px; color: #b7cdd7; }
+.diagram-result { text-align: center; color: #dbe9ee; font-size: 14px; padding: 12px; background: #ffffff08; border-radius: 5px; }
+.physical-cycle { margin-top: 24px; text-align: center; }
+.physical-cycle > div { padding: 13px; border: 1px solid #819fac66; background: #ffffff04; border-radius: 6px; }
+.physical-cycle div > span { display: block; font: 9px ui-monospace,monospace; letter-spacing: .1em; color: #9db6c4; }
+.physical-cycle strong { display: block; margin: 7px 0; font-size: 14px; font-weight: 500; color: #dbe9ef; }
+.physical-cycle small { font-size: 11px; color: #aec1cb; }
+.physical-cycle > span { display: block; margin: 5px; color: #a6c1ce; }
+.folder-tab:hover { background: #ffffff06; }
+@media(max-width:767px) { .predictions-intro { margin-top: -12px; } }
