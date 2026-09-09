@@ -76,22 +76,6 @@
 .profile-practice > p:not(.profile-kicker) { color: #b4bec5; font-size: 16px; line-height: 1.8; max-width: 420px; }
 .profile-text-link { display: inline-flex; gap: 30px; font-size: 14px; margin-top: 30px; padding-bottom: 6px; border-bottom: 1px solid #ffffff40; }
 .profile-text-link:hover { color: #badff2; }
-.profile-certificate { position: relative; overflow: hidden; isolation: isolate; min-height: 410px; padding: 52px 40px; background: radial-gradient(ellipse at 90% 20%, #21374a, transparent 65%), #0a141d; border-left: 1px solid #ffffff15; }
-.certificate-copy { position: relative; z-index: 1; }
-.certificate-copy h3 { font-size: clamp(2.4rem, 3.8vw, 3.5rem); margin: 54px 0 18px; }
-.certificate-copy > p:not(.profile-kicker) { font-size: 16px; color: #d6e3eb; }
-.certificate-date { display: block; margin-top: 16px; font-size: 12px; color: #9eafb9; }
-.certificate-orbits { position: absolute; width: 260px; height: 260px; right: -70px; top: 20px; z-index: 0; opacity: .45; }
-.certificate-orbits i { position: absolute; inset: 0; border: 1px solid #a3c7dd50; border-radius: 50%; transform: rotate(-30deg) scaleX(.45); }
-.certificate-orbits i:nth-child(2) { transform: rotate(30deg) scaleX(.45); }
-.certificate-orbits i:nth-child(3) { transform: rotate(90deg) scaleX(.45); }
-.certificate-orbits span { position: absolute; inset: 0; display: grid; place-items: center; font-size: 24px; font-weight: 300; color: #c4deec; }
-.profile-foundation { display: grid; grid-template-columns: 1fr 1.2fr 1fr; gap: 40px; padding: 48px 0; border-bottom: 1px solid #ffffff25; }
-.profile-foundation h3 { margin-top: 20px; font-size: 30px; }
-.degree-year { color: #9fafb9; font-size: 14px; font-variant-numeric: tabular-nums; }
-.profile-foundation h4 { font-size: 20px; margin: 20px 0 12px; }
-.profile-foundation article p { font-size: 16px; color: #b2bfc7; line-height: 1.6; }
-.degree-detail { display: inline-block; margin-top: 20px; font-size: 13px; color: #c0d8e5; border-left: 2px solid #789bad; padding-left: 12px; }
 .profile-personal { display: grid; grid-template-columns: 1.45fr 1fr; gap: 48px; padding-top: 46px; }
 .language-grid { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 18px; margin-top: 30px; }
 .language-code { font-size: 38px; letter-spacing: -.06em; color: #a2bac8; font-weight: 300; }
@@ -103,10 +87,60 @@
 .profile-instructor > p:last-child span { font-size: 12px; color: #9eafb9; }
 @media(max-width: 767px) {
   .profile-highlights { padding-top: 0; padding-bottom: 80px; }
-  .profile-feature, .profile-foundation, .profile-personal { grid-template-columns: minmax(0,1fr); }
+  .profile-feature, .profile-personal { grid-template-columns: minmax(0,1fr); }
   .profile-practice { padding: 34px 0; }
-  .profile-certificate { min-height: 370px; padding: 36px 24px; border-left: 0; }
-  .profile-foundation { gap: 32px; }
-  .profile-foundation article { border-top: 1px solid #ffffff15; padding-top: 24px; }
   .profile-instructor { border-left: 0; border-top: 1px solid #ffffff20; padding: 30px 0 0; }
+}
+
+.profile-feature { display: block; border-bottom: 0; }
+.profile-practice { padding: 28px 0 36px; display: grid; grid-template-columns: 1fr 1.35fr; column-gap: 48px; }
+.profile-practice .profile-kicker { grid-column: 1 / -1; margin-bottom: 18px; }
+.profile-practice h3 { margin: 0; font-size: 30px; }
+.profile-practice > p:not(.profile-kicker) { max-width: none; }
+.profile-practice .profile-text-link { grid-column: 2; justify-self: start; margin-top: 16px; }
+.education-heading { display: flex; justify-content: space-between; align-items: center; gap: 16px; margin: 12px 0 18px; }
+.education-heading > span { font-size: 12px; color: #9aabb6; }
+.education-grid { display: grid; grid-template-columns: minmax(0,1.85fr) minmax(0,1fr); gap: 20px; }
+.education-uf, .education-northwestern { overflow: hidden; border: 1px solid #ffffff20; border-radius: 8px; background: #0b1319; display: flex; flex-direction: column; }
+.campus-photo { position: relative; overflow: hidden; isolation: isolate; }
+.campus-photo img { display: block; height: 100%; width: 100%; object-fit: cover; }
+.uf-photo { height: 180px; background: #172f3c; }
+.uf-photo img { object-position: center 40%; }
+.uf-photo::after { content: ''; position: absolute; inset: 0; background: linear-gradient(0deg,#05121aeb,transparent 95%); }
+.campus-title { position: absolute; bottom: 22px; left: 24px; z-index: 1; right: 65px; }
+.campus-eyebrow { font-size: 12px; color: #e1eaf0; }
+.campus-title h3 { font-size: clamp(24px,2.6vw,34px); margin-top: 8px; line-height: 1.1; }
+.school-monogram { position: absolute; right: 20px; bottom: 18px; z-index: 1; font-size: 35px; font-family: Georgia,serif; color: #ffb77e; letter-spacing: -.07em; }
+.uf-degrees { display: grid; grid-template-columns: 1.2fr 1fr; gap: 24px; padding: 24px; }
+.uf-degrees > div + div { border-left: 1px solid #ffffff20; padding-left: 24px; }
+.education-year { font-size: 12px; color: #a9bac6; }
+.uf-degrees h4 { font-size: 18px; margin: 12px 0 9px; }
+.uf-degrees p { font-size: 14px; line-height: 1.6; color: #c1ccd3; }
+.education-concentration { display: inline-block; font-size: 12px; color: #eab68c; margin-top: 12px; }
+.northwestern-photo { height: 130px; background: #242333; }
+.northwestern-photo img { object-position: center 52%; }
+.certificate-badge { position: absolute; left: 16px; bottom: 12px; background: #181529ed; color: #f0eafa; border: 1px solid #ffffff35; border-radius: 4px; padding: 5px 8px; font-size: 12px; }
+.northwestern-detail { padding: 20px 20px 16px; }
+.education-school { font-size: 16px; }
+.education-provider { margin-top: 5px; color: #b3aabd; font-size: 12px; }
+.northwestern-detail h4 { margin: 22px 0 10px; font-size: 20px; }
+.education-certificate-name { font-size: 12px; color: #b7b1c4; line-height: 1.6; }
+.campus-credit { display: block; margin-top: auto; padding: 0 24px 16px; color: #8fa4b2; font-size: 12px; }
+.campus-credit:hover { color: white; }
+@media(max-width:767px) {
+  .profile-practice { display: block; }
+  .profile-practice h3 { margin-bottom: 20px; }
+  .education-grid { grid-template-columns: minmax(0,1fr); }
+  .education-heading { align-items: start; flex-direction: column; gap: 6px; }
+  .uf-degrees { gap: 16px; padding: 20px; }
+  .uf-degrees > div + div { padding-left: 16px; }
+  .education-northwestern { display: grid; grid-template-columns: 110px minmax(0,1fr); }
+  .northwestern-photo { height: 100%; grid-row: 1 / 3; }
+  .certificate-badge { left: 6px; right: 6px; font-size: 10px; text-align: center; }
+  .northwestern-detail { padding: 18px 16px; }
+  .education-northwestern .campus-credit { padding-left: 16px; }
+}
+@media(max-width:380px) {
+  .uf-degrees { grid-template-columns: 1fr; }
+  .uf-degrees > div + div { border-left: 0; padding-left: 0; border-top: 1px solid #ffffff20; padding-top: 16px; }
 }
