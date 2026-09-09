@@ -4,6 +4,7 @@ import Globe from "./components/Globe";
 import StarField from "./components/StarField";
 import ProfileHighlights from "./components/ProfileHighlights";
 import ParkingDiagram from "./components/ParkingDiagram";
+import PredictionCabinet from "./components/PredictionCabinet";
 import productSpaceLogo from "./assets/product-space-logo.png";
 import elonTweetExample from "./assets/elon-tweet-example.png";
 
@@ -652,83 +653,8 @@ export default function App() {
         <div style={{ maxWidth: 1000, margin: "0 auto" }}>
           <SectionHeader label="Predictions" title="Where things are going" />
 
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-80px" }}
-            variants={stagger}
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
-              gap: 14,
-            }}
-          >
-            {predictions.map((pred, i) => (
-              <motion.div
-                key={i}
-                variants={fadeUp}
-                className="glass-card"
-                style={{
-                  padding: "32px 36px",
-                  gridColumn: i === 4 ? "1 / -1" : undefined,
-                }}
-                whileHover={{ scale: 1.01 }}
-                transition={{ duration: 0.22 }}
-              >
-                <p
-                  style={{
-                    fontSize: 44,
-                    fontWeight: 400,
-                    color: "rgba(255,255,255,0.07)",
-                    fontFamily: "ui-monospace, 'SF Mono', Menlo, monospace",
-                    lineHeight: 1,
-                    marginBottom: 16,
-                  }}
-                >
-                  {pred.n}
-                </p>
-                <h3
-                  style={{
-                    fontSize: "1.2rem",
-                    fontWeight: 400,
-                    color: "#f5f5f7",
-                    letterSpacing: "-0.02em",
-                    marginBottom: 14,
-                  }}
-                >
-                  {pred.title}
-                </h3>
-                <p
-                  style={{
-                    fontSize: "1rem",
-                    color: "rgba(255,255,255,0.52)",
-                    lineHeight: 1.78,
-                    marginBottom: 18,
-                  }}
-                >
-                  {pred.body}
-                </p>
-                <ul style={{ listStyle: "none", margin: 0, padding: 0 }}>
-                  {pred.bullets.map((b, j) => (
-                    <li
-                      key={j}
-                      style={{
-                        display: "flex",
-                        gap: 8,
-                        fontSize: "0.8rem",
-                        color: "rgba(255,255,255,0.6)",
-                        lineHeight: 1.7,
-                        marginBottom: 4,
-                      }}
-                    >
-                      <span style={{ color: "rgba(255,255,255,0.5)", flexShrink: 0 }}>·</span>
-                      <span>{linkAcademicOrganizations(b)}</span>
-                    </li>
-                  ))}
-                </ul>
-              </motion.div>
-            ))}
-          </motion.div>
+          <PredictionCabinet predictions={predictions} />
+
         </div>
       </section>
 
