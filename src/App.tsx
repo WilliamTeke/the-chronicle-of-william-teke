@@ -492,9 +492,8 @@ export default function App() {
             >
               <motion.div variants={stagger} style={{ marginBottom: 40 }}>
                 {[
-                  "I grew up in Fort Lauderdale, Florida, with a Turkish dad and a Colombian mom. Different languages, religions, and traditions were just part of life at home, and they've shaped how I see the world.",
-                  "I started at the University of Florida thinking I'd go into medicine, but after a semester, I realized I was more interested in business and technology. I'd always loved trying out new tech. Getting my first iPod got me hooked on Apple, and conversations with my dad about investing sparked an interest in finance. Information Systems felt like a natural way to bring those interests together. I switched majors and stayed at UF for my master's, concentrating in Data Science.",
-                  "While I was at UF, a friend introduced me to product management. I liked the idea of helping decide what to build and how it should work. I went on to help start Product Space at UF, giving other students a place to explore the field together.",
+                  "I grew up in Fort Lauderdale, Florida, with a Turkish dad and a Colombian mom. I followed my sister to the University of Florida, where she was studying medicine. A dorm mate introduced me to Information Systems, and the blend of business and technology felt hard to go wrong with. I finished my bachelor's on an accelerated path, then stayed to complete my master's.",
+                  "Product management wasn't a career people at UF really talked about. A friend happened to discover it, and our conversations got me curious enough to learn more. That led me and a group of friends to start Product Space at UF. These days, product management is the career I'm pursuing.",
                 ].map((text, i) => (
                   <motion.p
                     key={i}
