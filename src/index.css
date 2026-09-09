@@ -65,7 +65,7 @@
   *, *::before, *::after { animation: none !important; transition: none !important; }
 }
 
-.profile-highlights { max-width: 1200px; margin: auto; padding: 20px 48px 130px; }
+.profile-highlights { max-width: 1200px; margin: auto; padding: 20px 48px 64px; }
 .profile-heading { margin-bottom: 42px; }
 .profile-heading h2 { font-size: clamp(2.3rem, 4.7vw, 3.7rem); margin-top: 18px; }
 .profile-feature { display: grid; grid-template-columns: 1fr 1fr; border-top: 1px solid #ffffff25; border-bottom: 1px solid #ffffff25; }
@@ -76,20 +76,24 @@
 .profile-practice > p:not(.profile-kicker) { color: #b4bec5; font-size: 16px; line-height: 1.8; max-width: 420px; }
 .profile-text-link { display: inline-flex; gap: 30px; font-size: 14px; margin-top: 30px; padding-bottom: 6px; border-bottom: 1px solid #ffffff40; }
 .profile-text-link:hover { color: #badff2; }
-.profile-personal { display: grid; grid-template-columns: 1.45fr 1fr; gap: 48px; padding-top: 46px; }
-.language-grid { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 18px; margin-top: 30px; }
-.language-code { font-size: 38px; letter-spacing: -.06em; color: #a2bac8; font-weight: 300; }
-.language-grid h4 { font-size: 16px; margin: 12px 0 8px; }
-.language-grid p { font-size: 12px; color: #9eafb9; line-height: 1.5; }
-.profile-instructor { border-left: 1px solid #ffffff20; padding-left: 36px; }
-.profile-instructor h3 { margin: 26px 0 20px; font-size: 28px; }
-.profile-instructor > p:last-child { font-size: 15px; line-height: 1.7; }
-.profile-instructor > p:last-child span { font-size: 12px; color: #9eafb9; }
+/* Balanced personal details: compact language list and a side-by-side video card. */
+.profile-personal { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.4fr); gap: 24px; padding-top: 28px; align-items: start; }
+.profile-languages { padding: 22px 24px; background: #0b1319; border: 1px solid #ffffff18; border-radius: 8px; }
+.language-grid { display: grid; gap: 0; margin-top: 14px; }
+.language-grid > div { display: flex; gap: 18px; align-items: center; padding: 12px 0; }
+.language-grid > div + div { border-top: 1px solid #ffffff14; }
+.language-code { flex: 0 0 34px; font-size: 23px; letter-spacing: -.04em; color: #a2bac8; font-weight: 300; }
+.language-grid h4 { font-size: 15px; margin: 0 0 4px; }
+.language-grid p { font-size: 12px; color: #9eafb9; line-height: 1.5; margin: 0; }
+.profile-instructor { display: grid; grid-template-columns: minmax(0,1fr) 144px; align-items: center; gap: 24px; padding: 16px 16px 16px 24px; border: 1px solid #ffffff18; border-radius: 8px; background: #0b1319; }
+.profile-instructor h3 { margin: 20px 0 16px; font-size: clamp(22px,2.2vw,28px); line-height: 1.15; }
+.instructor-copy > p:last-child { font-size: 14px; line-height: 1.6; }
+.instructor-copy > p:last-child span { display: block; margin-top: 5px; font-size: 12px; color: #9eafb9; }
 @media(max-width: 767px) {
-  .profile-highlights { padding-top: 0; padding-bottom: 80px; }
+  .profile-highlights { padding-top: 0; padding-bottom: 48px; }
   .profile-feature, .profile-personal { grid-template-columns: minmax(0,1fr); }
   .profile-practice { padding: 34px 0; }
-  .profile-instructor { border-left: 0; border-top: 1px solid #ffffff20; padding: 30px 0 0; }
+  .profile-instructor { padding: 18px; }
 }
 
 .profile-feature { display: block; border-bottom: 0; }
@@ -187,4 +191,7 @@
 .tweet-example img { display: block; width: 100%; height: auto; border-radius: 8px; border: 1px solid #ffffff25; }
 .tweet-example figcaption { margin-top: 12px; font-size: 12px; line-height: 1.6; color: #9db0bc; }
 
-.jiu-jitsu-video { display: block; width: min(100%, 180px); height: auto; aspect-ratio: 9 / 16; object-fit: contain; margin-top: 18px; border-radius: 8px; background: #05090c; border: 1px solid #ffffff20; }
+.jiu-jitsu-video { display: block; width: 100%; height: auto; aspect-ratio: 9 / 16; object-fit: contain; margin: 0; border-radius: 6px; background: #05090c; border: 1px solid #ffffff20; }
+
+@media(min-width:768px) and (max-width:950px) { .profile-personal { grid-template-columns: minmax(0,.85fr) minmax(0,1.3fr); gap: 16px; } .profile-instructor { grid-template-columns: minmax(0,1fr) 120px; gap: 16px; padding: 16px; } .profile-languages { padding: 20px 16px; } }
+@media(max-width:380px) { .profile-instructor { grid-template-columns: minmax(0,1fr) 112px; gap: 12px; } .profile-instructor h3 { font-size: 20px; } }
