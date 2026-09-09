@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import Globe from "./components/Globe";
 import StarField from "./components/StarField";
 import ProfileHighlights from "./components/ProfileHighlights";
+import ParkingDiagram from "./components/ParkingDiagram";
 
 // ── Types ───────────────────────────────────────────────────────────────────
 interface TlItem {
@@ -69,7 +70,6 @@ const projects: Project[] = [
     findings: [
       { value: "160", label: "Available spaces at Beaches Town Center" },
       { value: "90%", label: "Car-centric trips across Neptune Beach" },
-      { value: "40%", label: "Cited individuals still unpaid as of Oct 2022" },
     ],
   },
   {
@@ -604,6 +604,7 @@ export default function App() {
                 >
                   {p.title}
                 </h3>
+                {p.findings && <ParkingDiagram />}
                 {p.findings && <div className="project-findings" aria-label="Findings from the 2022 parking study">{p.findings.map(finding => <div key={finding.value}><span>{finding.value}</span><p>{finding.label}</p></div>)}</div>}
                 <div style={{ display: "flex", flexDirection: "column", gap: 12, marginBottom: 24 }}>
                   {p.body.map((para, j) => (
