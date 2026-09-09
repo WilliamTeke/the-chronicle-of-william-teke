@@ -9,6 +9,7 @@ import ProfileHighlights from "./components/ProfileHighlights";
 import ParkingDiagram from "./components/ParkingDiagram";
 import PredictionCabinet from "./components/PredictionCabinet";
 import productSpaceLogo from "./assets/product-space-logo.png";
+import neptuneBeachPhoto from "./assets/neptune-beach.jpg";
 import elonTweetExample from "./assets/elon-tweet-example.png";
 
 // ── Types ───────────────────────────────────────────────────────────────────
@@ -541,6 +542,7 @@ export default function App() {
                 whileHover={{ scale: 1.005 }}
                 transition={{ duration: 0.25 }}
               >
+                {p.findings && <figure className="project-corner-photo"><img src={neptuneBeachPhoto} alt="Palm-lined street and shops in Neptune Beach" width="480" height="318" loading="lazy" decoding="async" /><figcaption>Neptune Beach, FL</figcaption></figure>}
                 <p
                   style={{
                     fontSize: 12,

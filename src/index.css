@@ -297,3 +297,9 @@
 @media(max-width:900px) { .deferred-atlas { min-height: 741px; } }
 @media(max-width:540px) { .deferred-atlas { min-height: 780px; } }
 @media(max-width:360px) { .deferred-atlas { min-height: 1320px; } }
+
+.project-corner-photo { float: right; width: 156px; margin: 0 0 20px 24px; }
+.project-corner-photo img { display: block; width: 100%; height: auto; aspect-ratio: 480 / 318; object-fit: cover; border-radius: 8px; border: 1px solid #ffffff20; }
+.project-corner-photo figcaption { margin-top: 7px; font-size: 10px; letter-spacing: .04em; color: #9dafba; text-align: right; }
+.project-corner-photo ~ .pricing-diagram { clear: both; }
+@media(max-width:540px) { .project-corner-photo { width: 104px; margin-left: 14px; margin-bottom: 16px; } }
