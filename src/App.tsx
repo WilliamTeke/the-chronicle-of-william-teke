@@ -17,6 +17,7 @@ interface Project {
   title: string;
   body: string[];
   meta: string;
+  findings?: { value: string; label: string }[];
 }
 
 interface Prediction {
@@ -37,8 +38,8 @@ const heritage = [
 ];
 
 const timeline: TlItem[] = [
-  { date: "Jul 2026 · Present", role: "Senior Associate Product Manager", company: "PwC · Boca Raton, FL", bullets: ["Building enterprise AI products for client intelligence and research, helping client-facing teams find and use the information they need."] },
-  { date: "Sep 2024 · Jul 2026", role: "Associate Product Manager", company: "PwC · Miami, FL", bullets: ["Worked on enterprise AI products."] },
+  { date: "Jul 2026 · Present", role: "Senior Associate Product Manager", company: "PwC · Boca Raton, FL", bullets: ["Building an AI-powered client intelligence tool"] },
+  { date: "Sep 2024 · Jul 2026", role: "Associate Product Manager", company: "PwC · Miami, FL", bullets: ["Supporting enterprise AI adoption and ChatGPT Enterprise’s then-largest contract"] },
   { date: "Jan 2023 · Dec 2023", role: "Founding Director", company: "Product Space @ UF", bullets: ["Helped establish the first Product Space chapter at the University of Florida."] },
   { date: "Jun 2023 · Aug 2023", role: "Product Management Intern", company: "PwC · Hallandale Beach, FL", bullets: ["Worked in Low Code Services, building internal automations with Microsoft Power Platform."] },
   { date: "Aug 2022 · Jan 2023", role: "Consulting Analyst", company: "City of Neptune Beach · Neptune Beach, FL", bullets: ["Developed parking and pricing strategy through a pro bono consulting engagement with UF AIS."] },
@@ -61,10 +62,15 @@ const projects: Project[] = [
     tag: "Pro Bono Consulting · UF",
     title: "Neptune Beach Parking Strategy",
     body: [
-      "Pro bono engagement led through the Association for Information Systems at UF. Worked with the City of Neptune Beach to solve a 160-space parking shortage affecting thousands of seasonal visitors.",
-      "Used Replica mobility data showing 90% of trips were car-centric. Developed a Dynamic Pricing model to increase turnover during peak hours and designed a curbside delegation plan for rideshare/delivery drivers.",
+      "Pro bono consulting through the Association for Information Systems at UF, studying parking demand around the 160 available spaces at Beaches Town Center. My contribution focused on proposed parking-management solutions.",
+      "Using Replica mobility data and the team’s Flowbird parking analysis, recommended variable pricing around lunch (11am–2pm) and dinner (5–7pm), plus designated curbside spaces for delivery and rideshare. These were proposals to improve turnover and safety; implementation outcomes were not measured.",
     ],
-    meta: "Tools: Replica Data · RShiny · Strategic Modeling  |  Role: Strategy Lead",
+    meta: "Sources: 2022 Replica & Flowbird data · Team deliverables: Excel citation dashboard, R Shiny visitor dashboard, research white paper",
+    findings: [
+      { value: "160", label: "Available spaces at Beaches Town Center" },
+      { value: "90%", label: "Car-centric trips across Neptune Beach" },
+      { value: "2", label: "Daily parking peaks: lunch & dinner" },
+    ],
   },
   {
     tag: "Community · University of Florida",
@@ -598,6 +604,7 @@ export default function App() {
                 >
                   {p.title}
                 </h3>
+                {p.findings && <div className="project-findings" aria-label="Findings from the 2022 parking study">{p.findings.map(finding => <div key={finding.value}><span>{finding.value}</span><p>{finding.label}</p></div>)}</div>}
                 <div style={{ display: "flex", flexDirection: "column", gap: 12, marginBottom: 24 }}>
                   {p.body.map((para, j) => (
                     <p
