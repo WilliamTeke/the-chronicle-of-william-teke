@@ -492,9 +492,9 @@ export default function App() {
             >
               <motion.div variants={stagger} style={{ marginBottom: 40 }}>
                 {[
-                  "I was born and raised in Fort Lauderdale, Florida, but my story starts long before that. My dad is Turkish and my mom is Colombian, so I grew up surrounded by different languages, religions, and ways of seeing the world. That mix wasn't something I studied. It was just everyday life.",
-                  "In high school, I was convinced I'd be a doctor. I went to the University of Florida wanting to be pre-med, but one semester in, I realized I was just following someone else's script. I switched to Information Systems and sprinted through my undergrad, staying at UF for grad school.",
-                  "During that time, a friend introduced me to Product Management. I fell in love with the idea of having such a massive impact so early in a product's life. That spark led me to co-start Product Space, the first PM club at UF. Now one of the most competitive orgs on campus to get into.",
+                  "I grew up in Fort Lauderdale, Florida, with a Turkish dad and a Colombian mom. Different languages, religions, and traditions were just part of life at home, and they've shaped how I see the world.",
+                  "I started at the University of Florida thinking I'd go into medicine, but after a semester, I realized I was more interested in business and technology. I'd always loved trying out new tech. Getting my first iPod got me hooked on Apple, and conversations with my dad about investing sparked an interest in finance. Information Systems felt like a natural way to bring those interests together. I switched majors and stayed at UF for my master's, concentrating in Data Science.",
+                  "While I was at UF, a friend introduced me to product management. I liked the idea of helping decide what to build and how it should work. I went on to help start Product Space at UF, giving other students a place to explore the field together.",
                 ].map((text, i) => (
                   <motion.p
                     key={i}
