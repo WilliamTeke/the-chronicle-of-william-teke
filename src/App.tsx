@@ -28,7 +28,7 @@ interface Prediction {
 // ── Data ────────────────────────────────────────────────────────────────────
 const heritage = [
   { flag: "🇺🇸", city: "Fort Lauderdale", detail: "Florida, USA · Pop. 182K", connection: "Born & raised here" },
-  { flag: "🇨🇴", city: "Santander",        detail: "Colombia · Pop. 580K",    connection: "Mom & grandmother" },
+  { flag: "🇨🇴", city: "Santander",        detail: "Department · Colombia",    connection: "Mom & grandmother" },
   { flag: "🇨🇴", city: "Bogotá",           detail: "Colombia · Pop. 7.7M",    connection: "Grandfather" },
   { flag: "🇹🇷", city: "Bursa",            detail: "Turkey · Pop. 3.1M",      connection: "Dad is from here" },
   { flag: "🇹🇷", city: "Yalova",           detail: "Turkey · Pop. 262K",      connection: "Grandmother" },
