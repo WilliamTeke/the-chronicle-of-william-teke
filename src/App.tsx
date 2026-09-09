@@ -4,6 +4,7 @@ import Globe from "./components/Globe";
 import StarField from "./components/StarField";
 import ProfileHighlights from "./components/ProfileHighlights";
 import ParkingDiagram from "./components/ParkingDiagram";
+import productSpaceLogo from "./assets/product-space-logo.png";
 
 // ── Types ───────────────────────────────────────────────────────────────────
 interface TlItem {
@@ -19,6 +20,8 @@ interface Project {
   body: string[];
   meta: string;
   findings?: { value: string; label: string }[];
+  logo?: string;
+  href?: string;
 }
 
 interface Prediction {
@@ -75,6 +78,8 @@ const projects: Project[] = [
   {
     tag: "Community · University of Florida",
     title: "Product Space @ UF",
+    logo: productSpaceLogo,
+    href: "https://www.instagram.com/ufproductspace/",
     body: [
       "Co-founded the first product management club at the University of Florida. At the time, PM wasn't even a known career path for students locally.",
       "Built curriculum from scratch, created a community, and watched it grow into one of the most competitive organizations on campus to get into.",
@@ -602,7 +607,7 @@ export default function App() {
                     lineHeight: 1.1,
                   }}
                 >
-                  {p.title}
+                  {p.href ? <a className="project-brand" href={p.href} target="_blank" rel="noreferrer">{p.logo && <img src={p.logo} alt="" width="56" height="56" loading="lazy" />}<span>{p.title}</span><span className="project-brand-arrow" aria-hidden="true">↗</span></a> : p.title}
                 </h3>
                 {p.findings && <ParkingDiagram />}
                 {p.findings && <div className="project-findings" aria-label="Findings from the 2022 parking study">{p.findings.map(finding => <div key={finding.value}><span>{finding.value}</span><p>{finding.label}</p></div>)}</div>}
@@ -632,6 +637,7 @@ export default function App() {
                 >
                   {p.meta}
                 </p>
+                {p.href && <a className="project-social-link" href={p.href} target="_blank" rel="noreferrer">Explore @ufproductspace on Instagram <span aria-hidden="true">↗</span></a>}
               </motion.div>
             ))}
           </motion.div>

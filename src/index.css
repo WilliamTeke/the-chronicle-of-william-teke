@@ -175,3 +175,10 @@
 .pricing-feedback strong { color: #dbe8ef; font-weight: 500; margin-right: 8px; }
 .pricing-diagram figcaption { font-size: 12px; line-height: 1.7; color: #92a7b3; margin-top: 16px; }
 @media(max-width:640px) { .pricing-flow { grid-template-columns: 1fr; gap: 24px; } .pricing-flow > li:not(:last-child)::after { display: none; } .pricing-diagram { padding: 20px; } }
+
+.project-brand { display: flex; align-items: center; gap: 16px; width: fit-content; }
+.project-brand img { flex: 0 0 56px; width: 56px; height: 56px; object-fit: contain; border-radius: 50%; }
+.project-brand-arrow { font-size: 20px; color: #bb9bd2; }
+.project-brand:hover { color: #ddc9ec; }
+.project-social-link { display: inline-flex; align-items: center; gap: 16px; margin-top: 22px; font-size: 14px; color: #dbc4ed; border-bottom: 1px solid #b792d055; padding-bottom: 5px; }
+.project-social-link:hover { color: white; border-color: currentColor; }
