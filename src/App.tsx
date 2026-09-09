@@ -1,6 +1,7 @@
 import { motion, useScroll, useSpring } from "framer-motion";
 import { useEffect, useState } from "react";
 import Globe from "./components/Globe";
+import HeritageAtlas from "./components/HeritageAtlas";
 import StarField from "./components/StarField";
 import ProfileHighlights from "./components/ProfileHighlights";
 import ParkingDiagram from "./components/ParkingDiagram";
@@ -35,15 +36,6 @@ interface Prediction {
 }
 
 // ── Data ────────────────────────────────────────────────────────────────────
-const heritage = [
-  { flag: "🇺🇸", city: "Fort Lauderdale", detail: "Florida, USA · Pop. 182K", connection: "Born & raised here" },
-  { flag: "🇨🇴", city: "Santander",        detail: "Department · Colombia",    connection: "Mom & grandmother" },
-  { flag: "🇨🇴", city: "Bogotá",           detail: "Colombia · Pop. 7.7M",    connection: "Grandfather" },
-  { flag: "🇹🇷", city: "Çiftlikköy",       detail: "Yalova · Turkey",      connection: "Dad is from here" },
-  { flag: "🇹🇷", city: "Yalova",           detail: "Turkey · Pop. 262K",      connection: "Grandmother" },
-  { flag: "🇷🇺", city: "Uchkulan",         detail: "Russia · Pop. ~5K",       connection: "Grandfather" },
-];
-
 const timeline: TlItem[] = [
   { date: "Jul 2026 · Present", role: "Senior Associate Product Manager", company: "PwC · Boca Raton, FL", bullets: ["Building an AI-powered client intelligence tool"] },
   { date: "Sep 2024 · Jul 2026", role: "Associate Product Manager", company: "PwC · Miami, FL", bullets: ["Supporting enterprise AI adoption and ChatGPT Enterprise’s then-largest contract"] },
@@ -511,39 +503,10 @@ export default function App() {
                 ))}
               </motion.div>
 
-              {/* Heritage location cards */}
-              <motion.div
-                variants={staggerFast}
-                style={{
-                  display: "grid",
-                  gridTemplateColumns: "1fr 1fr",
-                  gap: 10,
-                }}
-              >
-                {heritage.map((h) => (
-                  <motion.div
-                    key={h.city}
-                    variants={fadeUp}
-                    className="glass-card"
-                    style={{ padding: "14px 16px", cursor: "default" }}
-                    whileHover={{ scale: 1.02 }}
-                    transition={{ duration: 0.2 }}
-                  >
-                    <div style={{ fontSize: 22, marginBottom: 8 }}>{h.flag}</div>
-                    <div style={{ fontSize: 13, fontWeight: 600, color: "rgba(255,255,255,0.88)", marginBottom: 3 }}>
-                      {h.city}
-                    </div>
-                    <div style={{ fontSize: 12, color: "rgba(255,255,255,0.6)", marginBottom: 2 }}>
-                      {h.detail}
-                    </div>
-                    <div style={{ fontSize: 12, fontStyle: "italic", color: "rgba(255,255,255,0.48)" }}>
-                      {h.connection}
-                    </div>
-                  </motion.div>
-                ))}
-              </motion.div>
+
             </motion.div>
           </div>
+          <HeritageAtlas />
         </div>
       </section>
 
