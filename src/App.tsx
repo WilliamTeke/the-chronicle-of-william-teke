@@ -30,7 +30,7 @@ const heritage = [
   { flag: "🇺🇸", city: "Fort Lauderdale", detail: "Florida, USA · Pop. 182K", connection: "Born & raised here" },
   { flag: "🇨🇴", city: "Santander",        detail: "Department · Colombia",    connection: "Mom & grandmother" },
   { flag: "🇨🇴", city: "Bogotá",           detail: "Colombia · Pop. 7.7M",    connection: "Grandfather" },
-  { flag: "🇹🇷", city: "Bursa",            detail: "Turkey · Pop. 3.1M",      connection: "Dad is from here" },
+  { flag: "🇹🇷", city: "Çiftlikköy",       detail: "Yalova · Turkey",      connection: "Dad is from here" },
   { flag: "🇹🇷", city: "Yalova",           detail: "Turkey · Pop. 262K",      connection: "Grandmother" },
   { flag: "🇷🇺", city: "Uchkulan",         detail: "Russia · Pop. ~5K",       connection: "Grandfather" },
 ];
@@ -781,7 +781,6 @@ export default function App() {
               {[
                 { label: "Connect on LinkedIn", sub: "linkedin.com/in/williamteke", href: "https://linkedin.com/in/williamteke" },
                 { label: "Send an Email",       sub: "your@email.com",             href: "mailto:your@email.com" },
-                { label: "Download Resume",     sub: "PDF",                        href: "#" },
               ].map((link) => (
                 <motion.a
                   key={link.label}

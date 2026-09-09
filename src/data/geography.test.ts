@@ -34,7 +34,7 @@ test('back hemisphere markers are hidden across an entire rotation', () => {
 
 test('nearby cities keep distinct coordinates', () => {
   const yalova = HERITAGE_LOCATIONS.find(item => item.label === 'Yalova')!;
-  const bursa = HERITAGE_LOCATIONS.find(item => item.label === 'Bursa')!;
-  assert.ok(yalova.coordinates[1] > bursa.coordinates[1]);
-  assert.notDeepEqual(yalova.coordinates, bursa.coordinates);
+  const ciftlikkoy = HERITAGE_LOCATIONS.find(item => item.label === 'Çiftlikköy')!;
+  assert.ok(ciftlikkoy.coordinates[0] > yalova.coordinates[0]);
+  assert.notDeepEqual(yalova.coordinates, ciftlikkoy.coordinates);
 });

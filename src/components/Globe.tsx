@@ -105,7 +105,7 @@ export default function Globe() {
   }, [paused]);
 
   return <div style={{ width: '100%', maxWidth: SIZE }}>
-    <canvas ref={canvasRef} role="img" aria-label="Geographic globe showing country boundaries and heritage locations in Fort Lauderdale, Santander department, Bogotá, Yalova, Bursa, and Uchkulan." style={{ width: '100%', aspectRatio: '1 / 1', display: 'block' }} />
+    <canvas ref={canvasRef} role="img" aria-label="Geographic globe showing country boundaries and heritage locations in Fort Lauderdale, Santander department, Bogotá, Yalova, Çiftlikköy, and Uchkulan." style={{ width: '100%', aspectRatio: '1 / 1', display: 'block' }} />
     <div style={{ display: 'flex', justifyContent: 'center', gap: 20, alignItems: 'center', fontSize: 12, color: '#a9bdc8' }}>
       <button type="button" onClick={() => setPaused(!paused)} aria-pressed={paused} style={{ cursor: 'pointer', border: '1px solid #ffffff30', borderRadius: 20, padding: '6px 12px', background: 'transparent', color: 'inherit' }}>{paused ? 'Resume rotation' : 'Pause rotation'}</button>
       <a href="https://www.naturalearthdata.com/about/" target="_blank" rel="noreferrer">Map: Natural Earth ↗</a>
