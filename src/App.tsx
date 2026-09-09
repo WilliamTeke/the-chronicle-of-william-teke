@@ -2,6 +2,7 @@ import { motion, useScroll, useSpring } from "framer-motion";
 import { useEffect, useState } from "react";
 import Globe from "./components/Globe";
 import StarField from "./components/StarField";
+import ProfileHighlights from "./components/ProfileHighlights";
 
 // ── Types ───────────────────────────────────────────────────────────────────
 interface TlItem {
@@ -36,46 +37,14 @@ const heritage = [
 ];
 
 const timeline: TlItem[] = [
-  {
-    date: "2023 · Present",
-    role: "Associate Product Manager",
-    company: "PricewaterhouseCoopers · Fort Lauderdale, FL",
-    bullets: [
-      "Building a client intelligence product within PwC's suite of firmwide AI tools, focused on surfacing insights that help teams understand and serve clients better",
-    ],
-  },
-  {
-    date: "2022 · 2023",
-    role: "PM Intern",
-    company: "PricewaterhouseCoopers · Fort Lauderdale, FL",
-    bullets: [
-      "Built internal automations using Microsoft Power Platform, turning repetitive manual workflows into something people actually wanted to use",
-    ],
-  },
-  {
-    date: "2022",
-    role: "Product Development Intern",
-    company: "Merge · Fort Lauderdale, FL",
-    bullets: [
-      "Helped shape early product direction through market research, competitive analysis, and outreach. The kind of foundational work that happens before anything gets built",
-    ],
-  },
-  {
-    date: "2021 · 2022",
-    role: "Recreation Associate",
-    company: "Holiday Park · Fort Lauderdale, FL",
-    bullets: [
-      "Coached and refereed sports leagues, ran summer camp programming. Learned how to manage energy, read a room, and keep things moving",
-    ],
-  },
-  {
-    date: "2019 · 2021",
-    role: "Kitchen Team",
-    company: "Maya Papaya · Fort Lauderdale, FL",
-    bullets: [
-      "Worked the kitchen, made a lot of acai bowls, and learned that pace and consistency matter more than most things",
-    ],
-  },
+  { date: "Jul 2026 · Present", role: "Senior Associate Product Manager", company: "PwC · Boca Raton, FL", bullets: ["Building enterprise AI products for client intelligence and research, helping client-facing teams find and use the information they need."] },
+  { date: "Sep 2024 · Jul 2026", role: "Associate Product Manager", company: "PwC · Miami, FL", bullets: ["Worked on enterprise AI products."] },
+  { date: "Jan 2023 · Dec 2023", role: "Founding Director", company: "Product Space @ UF", bullets: ["Helped establish the first Product Space chapter at the University of Florida."] },
+  { date: "Jun 2023 · Aug 2023", role: "Product Management Intern", company: "PwC · Hallandale Beach, FL", bullets: ["Worked in Low Code Services, building internal automations with Microsoft Power Platform."] },
+  { date: "Aug 2022 · Jan 2023", role: "Consulting Analyst", company: "City of Neptune Beach · Neptune Beach, FL", bullets: ["Developed parking and pricing strategy through a pro bono consulting engagement with UF AIS."] },
+  { date: "Jun 2022 · Aug 2022", role: "Product Development Intern", company: "Merge", bullets: ["Supported product development for credit card rewards through market research, competitive analysis, and outreach."] },
+  { date: "2021 · 2022", role: "Recreation Associate", company: "Holiday Park · Fort Lauderdale, FL", bullets: ["Coached and refereed sports leagues and ran summer camp programming."] },
+  { date: "2019 · 2021", role: "Kitchen Team", company: "Maya Papaya · Fort Lauderdale, FL", bullets: ["Worked the kitchen, made a lot of acai bowls, and learned that pace and consistency matter."] },
 ];
 
 const projects: Project[] = [
@@ -449,10 +418,12 @@ export default function App() {
       <section className="introduction" aria-label="Introduction">
         <p className="section-label">People. Products. Possibilities.</p>
         <h2>A story still unfolding.</h2>
-        <p>Product Manager &amp; Strategist at PricewaterhouseCoopers.
+        <p>Senior Associate Product Manager at PwC, building enterprise AI products for client intelligence and research.
         Turkish, Colombian, and American. University of Florida graduate.</p>
         <div className="intro-actions"><a className="pill primary" href="#projects">See my work <span aria-hidden="true">↗</span></a><a className="pill" href="#contact">Get in touch <span aria-hidden="true">↗</span></a></div>
       </section>
+
+      <ProfileHighlights />
 
       {/* ── ORIGINS ────────────────────────────────────────────────────────── */}
       <section id="origins" style={{ padding: "120px 48px", background: "#080d11" }}>
@@ -770,8 +741,8 @@ export default function App() {
                 marginBottom: 48,
               }}
             >
-              I'm actively exploring PM and product strategy roles. Whether you want to collaborate, talk
-              product, or just have a conversation about what's coming. I'm here for it.
+              Always happy to connect with people building in enterprise AI. Whether you want to collaborate, talk
+              product, or share something you’re learning, I’m here for it.
             </motion.p>
 
             <motion.div
@@ -828,7 +799,7 @@ export default function App() {
                 Outside of Work
               </p>
               <div style={{ display: "flex", gap: 8, justifyContent: "center", flexWrap: "wrap" }}>
-                {["Biohacking", "Chess", "Music", "Sports"].map((l) => (
+                {["Guitar", "Working out", "Music", "Jiu-Jitsu"].map((l) => (
                   <span
                     key={l}
                     style={{
