@@ -607,7 +607,7 @@ export default function App() {
       <section id="predictions" style={{ padding: "120px 48px", background: "#05090c" }}>
         <div style={{ maxWidth: 1000, margin: "0 auto" }}>
           <SectionHeader label="Ideas I’m exploring" title="My predictions" />
-          <p className="predictions-intro">My personal guesses about where technology and work could go. These are ideas I’m exploring, not certainties, and I expect them to change as I learn more. The visuals illustrate my thinking, not measured data.</p>
+          <p className="predictions-intro">My personal guesses about where technology and work could go. These are ideas I’m exploring, not certainties, and I expect them to change as I learn more. Most visuals illustrate my thinking. The energy chart includes sourced estimates and projections.</p>
 
           <PredictionCabinet predictions={predictions} />
 
