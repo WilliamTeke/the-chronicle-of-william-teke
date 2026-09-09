@@ -233,3 +233,7 @@
 .prediction-visual > p { font-size: 12px; color: #91aab8; text-align: center; margin: 12px 0 0; }
 .cabinet-bottom { padding-top: 18px; font-family: ui-monospace,monospace; font-size: 10px; letter-spacing: .08em; }
 @media(max-width:767px) { .prediction-cabinet { padding: 16px 12px 12px; } .cabinet-top { flex-direction: column; align-items: start; gap: 8px; padding-bottom: 20px; } .folder-tab { padding: 20px 14px; gap: 12px; } .folder-handle { display: none; } .folder-toggle { margin-left: auto; } .folder-paper { padding: 20px 16px; margin: 0 6px 6px; } .folder-paper.with-visual { grid-template-columns: minmax(0,1fr); gap: 24px; } }
+
+.prediction-folder.is-open .folder-paper { animation: folder-reveal .25s ease-out; transform-origin: top; }
+@keyframes folder-reveal { from { opacity: 0; transform: translateY(-7px); } to { opacity: 1; transform: translateY(0); } }
+@media(prefers-reduced-motion: reduce) { .prediction-folder.is-open .folder-paper { animation: none; } }

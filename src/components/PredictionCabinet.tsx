@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 interface Prediction { n: string; title: string; body: string; bullets: string[] }
 
@@ -30,11 +30,24 @@ function EnergyDiagram() {
 
 export default function PredictionCabinet({ predictions }: { predictions: Prediction[] }) {
   const [open, setOpen] = useState<number | null>(0);
-  return <div className="prediction-cabinet">
+  const hoverTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const cancelHover = () => {
+    if (hoverTimer.current) clearTimeout(hoverTimer.current);
+    hoverTimer.current = null;
+  };
+  useEffect(() => () => { if (hoverTimer.current) clearTimeout(hoverTimer.current); }, []);
+  return <div className="prediction-cabinet" onKeyDown={event => {
+    if (event.key === 'Escape') {
+      cancelHover();
+      const index = open;
+      setOpen(null);
+      if (index !== null) document.getElementById(`prediction-tab-${index}`)?.focus();
+    }
+  }}>
     <div className="cabinet-top"><span><i aria-hidden="true" />Field notes / Future of work</span><span>Hover to open · click to toggle</span></div>
     <div className="cabinet-files">
-      {predictions.map((prediction, index) => <article className={`prediction-folder ${open === index ? 'is-open' : ''}`} key={prediction.n} onPointerEnter={event => { if (event.pointerType === 'mouse') setOpen(index); }}>
-        <h3><button type="button" className="folder-tab" id={`prediction-tab-${index}`} aria-controls={`prediction-panel-${index}`} aria-expanded={open === index} onClick={() => setOpen(open === index ? null : index)}>
+      {predictions.map((prediction, index) => <article className={`prediction-folder ${open === index ? 'is-open' : ''}`} key={prediction.n} onPointerEnter={event => { if (event.pointerType === 'mouse') { cancelHover(); hoverTimer.current = setTimeout(() => setOpen(index), 180); } }} onPointerLeave={cancelHover}>
+        <h3><button type="button" className="folder-tab" id={`prediction-tab-${index}`} aria-controls={`prediction-panel-${index}`} aria-expanded={open === index} onClick={() => { cancelHover(); setOpen(open === index ? null : index); }}>
           <span className="folder-number">{String(index + 1).padStart(2, '0')}</span><span className="folder-name">{prediction.title}</span><span className="folder-handle" aria-hidden="true" /><span className="folder-toggle" aria-hidden="true">{open === index ? '−' : '+'}</span>
         </button></h3>
         <div id={`prediction-panel-${index}`} role="region" aria-labelledby={`prediction-tab-${index}`} hidden={open !== index}>
@@ -45,6 +58,6 @@ export default function PredictionCabinet({ predictions }: { predictions: Predic
         </div>
       </article>)}
     </div>
-    <div className="cabinet-bottom"><span>PERSONAL PREDICTIONS</span><span>05 files</span></div>
+    <div className="cabinet-bottom"><span>PERSONAL PREDICTIONS</span><span>{String(predictions.length).padStart(2, '0')} files</span></div>
   </div>;
 }
