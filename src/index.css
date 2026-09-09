@@ -182,3 +182,7 @@
 .project-brand:hover { color: #ddc9ec; }
 .project-social-link { display: inline-flex; align-items: center; gap: 16px; margin-top: 22px; font-size: 14px; color: #dbc4ed; border-bottom: 1px solid #b792d055; padding-bottom: 5px; }
 .project-social-link:hover { color: white; border-color: currentColor; }
+
+.tweet-example { margin: 24px 0 28px; max-width: 720px; }
+.tweet-example img { display: block; width: 100%; height: auto; border-radius: 8px; border: 1px solid #ffffff25; }
+.tweet-example figcaption { margin-top: 12px; font-size: 12px; line-height: 1.6; color: #9db0bc; }
