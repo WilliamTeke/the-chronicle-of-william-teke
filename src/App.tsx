@@ -574,7 +574,7 @@ export default function App() {
                 >
                   {p.href ? <a className="project-brand" href={p.href} target="_blank" rel="noreferrer">{p.logo && <img src={p.logo} alt="" width="56" height="56" loading="lazy" />}<span>{p.title}</span><span className="project-brand-arrow" aria-hidden="true">↗</span></a> : p.title}
                 </h3>
-                {p.exampleImage && <figure className="tweet-example"><img src={p.exampleImage} alt="Screenshot of Elon Musk’s tweets considering taking Tesla private at $420, stating funding secured, and discussing shareholder participation." width="1200" height="630" loading="lazy" /><figcaption>An example of the kind of tweet that motivated this project—not an output from the tracker.</figcaption></figure>}
+                {p.exampleImage && <figure className="tweet-example"><img src={p.exampleImage} alt="Screenshot of Elon Musk’s tweets considering taking Tesla private at $420, stating funding secured, and discussing shareholder participation." width="1200" height="630" loading="lazy" /><figcaption>An example of the kind of tweet that motivated this project. This is not an output from the tracker.</figcaption></figure>}
                 {p.findings && <ParkingDiagram />}
                 {p.findings && <div className="project-findings" aria-label="Findings from the 2022 parking study">{p.findings.map(finding => <div key={finding.value}><span>{finding.value}</span><p>{finding.label}</p></div>)}</div>}
                 <div style={{ display: "flex", flexDirection: "column", gap: 12, marginBottom: 24 }}>
@@ -614,7 +614,7 @@ export default function App() {
       <section id="predictions" style={{ padding: "120px 48px", background: "#05090c" }}>
         <div style={{ maxWidth: 1000, margin: "0 auto" }}>
           <SectionHeader label="Ideas I’m exploring" title="My predictions" />
-          <p className="predictions-intro">My personal guesses about where technology and work could go. These are ideas I’m exploring, not certainties—and I expect them to change as I learn more. The visuals illustrate my thinking, not measured data.</p>
+          <p className="predictions-intro">My personal guesses about where technology and work could go. These are ideas I’m exploring, not certainties, and I expect them to change as I learn more. The visuals illustrate my thinking, not measured data.</p>
 
           <PredictionCabinet predictions={predictions} />
 
