@@ -49,7 +49,7 @@ const timeline: TlItem[] = [
   { date: "Jan 2023 · Dec 2023", role: "Founding Director", company: "Product Space @ UF", bullets: ["Helped establish the first Product Space chapter at the University of Florida."] },
   { date: "Jun 2023 · Aug 2023", role: "Product Management Intern", company: "PwC · Hallandale Beach, FL", bullets: ["Worked in Low Code Services, building internal automations with Microsoft Power Platform."] },
   { date: "Aug 2022 · Jan 2023", role: "Consulting Analyst", company: "City of Neptune Beach · Neptune Beach, FL", bullets: ["Developed parking and pricing strategy through a pro bono consulting engagement with UF AIS."] },
-  { date: "Jun 2022 · Aug 2022", role: "Product Development Intern", company: "Merge", bullets: ["Supported product development for credit card rewards through market research, competitive analysis, and outreach."] },
+  { date: "Jun 2022 · Aug 2022", role: "Product Development Intern", company: "Merge · Startup · Unpaid internship", bullets: ["Outreach and app design for a credit card rewards product"] },
   { date: "2021 · 2022", role: "Recreation Associate", company: "Holiday Park · Fort Lauderdale, FL", bullets: ["Coached and refereed sports leagues and ran summer camp programming."] },
   { date: "2019 · 2021", role: "Kitchen Team", company: "Maya Papaya · Fort Lauderdale, FL", bullets: ["Worked the kitchen, made a lot of acai bowls, and learned that pace and consistency matter."] },
 ];
