@@ -702,7 +702,7 @@ export default function App() {
             >
               {[
                 { label: "Connect on LinkedIn", sub: "linkedin.com/in/williamteke", href: "https://linkedin.com/in/williamteke" },
-                { label: "Send an Email",       sub: "your@email.com",             href: "mailto:your@email.com" },
+                { label: "Send an Email",       sub: "willteke@yahoo.com",             href: "mailto:willteke@yahoo.com" },
               ].map((link) => (
                 <motion.a
                   key={link.label}
@@ -737,35 +737,7 @@ export default function App() {
               ))}
             </motion.div>
 
-            <motion.div variants={fadeUp} style={{ marginTop: 52 }}>
-              <p
-                style={{
-                  fontSize: 12,
-                  letterSpacing: "0.25em",
-                  textTransform: "uppercase",
-                  color: "rgba(255,255,255,0.2)",
-                  marginBottom: 14,
-                }}
-              >
-                Outside of Work
-              </p>
-              <div style={{ display: "flex", gap: 8, justifyContent: "center", flexWrap: "wrap" }}>
-                {["Guitar", "Working out", "Music", "Jiu-Jitsu"].map((l) => (
-                  <span
-                    key={l}
-                    style={{
-                      fontSize: 12,
-                      padding: "7px 18px",
-                      borderRadius: 999,
-                      color: "rgba(255,255,255,0.42)",
-                      border: "1px solid rgba(255,255,255,0.12)",
-                    }}
-                  >
-                    {l}
-                  </span>
-                ))}
-              </div>
-            </motion.div>
+
           </motion.div>
         </div>
       </section>
