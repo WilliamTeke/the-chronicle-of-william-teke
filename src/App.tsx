@@ -422,7 +422,6 @@ export default function App() {
       <main>
       <section id="home" className="astra-hero">
         <StarField />
-        <p className="hero-eyebrow">The Chronicle of</p>
         <h1 className="hero-name"><span>William</span><span>Teke</span></h1>
         <div className="hero-bottom">
           <div><p className="hero-role">Product Manager &amp; Strategist</p>
