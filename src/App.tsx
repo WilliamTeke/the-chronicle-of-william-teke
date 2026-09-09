@@ -61,7 +61,7 @@ const projects: Project[] = [
     tag: "Pro Bono Consulting · UF",
     title: "Neptune Beach Parking Strategy",
     body: [
-      "Pro bono engagement led through the Association of Information Systems at UF. Worked with the City of Neptune Beach to solve a 160-space parking shortage affecting thousands of seasonal visitors.",
+      "Pro bono engagement led through the Association for Information Systems at UF. Worked with the City of Neptune Beach to solve a 160-space parking shortage affecting thousands of seasonal visitors.",
       "Used Replica mobility data showing 90% of trips were car-centric. Developed a Dynamic Pricing model to increase turnover during peak hours and designed a curbside delegation plan for rideshare/delivery drivers.",
     ],
     meta: "Tools: Replica Data · RShiny · Strategic Modeling  |  Role: Strategy Lead",
@@ -151,6 +151,14 @@ const staggerFast = {
   visible: { transition: { staggerChildren: 0.07 } },
 };
 
+function linkAcademicOrganizations(text: string) {
+  return text.split(/(Association for Information Systems at UF|UF AIS)/g).map((part, index) =>
+    part === "UF AIS" || part === "Association for Information Systems at UF"
+      ? <a key={index} className="academic-link" href="https://www.ufais.org/" target="_blank" rel="noreferrer">{part}</a>
+      : part
+  );
+}
+
 // ── TimelineItem ─────────────────────────────────────────────────────────────
 function TimelineItem({ item, isLast }: { item: TlItem; isLast: boolean }) {
   return (
@@ -190,7 +198,7 @@ function TimelineItem({ item, isLast }: { item: TlItem; isLast: boolean }) {
               }}
             >
               <span style={{ color: "rgba(255,255,255,0.5)", flexShrink: 0, marginTop: 4, fontSize: 6 }}>●</span>
-              <span>{b}</span>
+              <span>{linkAcademicOrganizations(b)}</span>
             </li>
           ))}
         </ul>
@@ -600,7 +608,7 @@ export default function App() {
                         lineHeight: 1.78,
                       }}
                     >
-                      {para}
+                      {linkAcademicOrganizations(para)}
                     </p>
                   ))}
                 </div>
@@ -697,7 +705,7 @@ export default function App() {
                       }}
                     >
                       <span style={{ color: "rgba(255,255,255,0.5)", flexShrink: 0 }}>·</span>
-                      <span>{b}</span>
+                      <span>{linkAcademicOrganizations(b)}</span>
                     </li>
                   ))}
                 </ul>

@@ -24,8 +24,8 @@ export default function ProfileHighlights() {
           <span className="school-monogram" aria-hidden="true">UF</span>
         </div>
         <div className="uf-degrees">
-          <div><span className="education-year">2024 · Graduate</span><h4>Master of Science</h4><p>Information Systems and Operations Management</p><span className="education-concentration">Data Science concentration</span></div>
-          <div><span className="education-year">2023 · Undergraduate</span><h4>Bachelor of Science</h4><p>Information Systems</p></div>
+          <div><span className="education-year">2024 · Graduate</span><h4><a className="academic-link" href="https://warrington.ufl.edu/graduate/masters-information-systems-operations-management-data-science/" target="_blank" rel="noreferrer">Master of Science <span aria-hidden="true">↗</span></a></h4><p>Information Systems and Operations Management</p><span className="education-concentration">Data Science concentration</span></div>
+          <div><span className="education-year">2023 · Undergraduate</span><h4><a className="academic-link" href="https://catalog.ufl.edu/UGRD/colleges-schools/UGBUS/IST_BSBA/" target="_blank" rel="noreferrer">Bachelor of Science <span aria-hidden="true">↗</span></a></h4><p>Information Systems</p></div>
         </div>
         <a className="campus-credit" href="https://dermatology.med.ufl.edu/recruitment/" target="_blank" rel="noreferrer">Campus photo · University of Florida ↗</a>
       </article>
