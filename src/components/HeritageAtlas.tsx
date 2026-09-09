@@ -1,12 +1,7 @@
 import { geoGraticule10, geoOrthographic, geoPath } from 'd3-geo';
-import { feature } from 'topojson-client';
-import type { GeometryCollection, Topology } from 'topojson-specification';
-import worldData from 'world-atlas/countries-50m.json';
+import { land, countries } from '../data/world';
 import { HERITAGE_LOCATIONS } from '../data/geography';
 
-const world = worldData as unknown as Topology<{ countries: GeometryCollection; land: GeometryCollection }>;
-const land = feature(world, world.objects.land);
-const countries = feature(world, world.objects.countries);
 const places = [
   { city: 'Fort Lauderdale', code: 'US', detail: 'Florida, USA · Pop. 182K', connection: 'Born & raised here', label: 'Fort Lauderdale' },
   { city: 'Santander', code: 'CO', detail: 'Department · Colombia', connection: 'Mom & grandmother', label: 'Santander (region)' },

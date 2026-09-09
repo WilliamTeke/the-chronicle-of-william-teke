@@ -50,14 +50,17 @@ export default function StarField() {
     const tick = (time: number) => {
       frame = 0;
       if (paused || reducedMotion.matches || !visible || document.hidden) return;
-      if (lastTime) phase += Math.min(time - lastTime, 50) * 0.000012;
-      lastTime = time;
-      draw();
+      // The slow background motion needs at most 30 draws per second.
+      if (!lastTime || time - lastTime >= 1000 / 30) {
+        if (lastTime) phase += Math.min(time - lastTime, 100) * 0.000012;
+        lastTime = time;
+        draw();
+      }
       frame = requestAnimationFrame(tick);
     };
     const resume = () => {
-      cancelAnimationFrame(frame); lastTime = 0; draw();
-      frame = requestAnimationFrame(tick);
+      cancelAnimationFrame(frame); lastTime = 0;
+      if (visible && !document.hidden) { draw(); frame = requestAnimationFrame(tick); }
     };
     const resize = new ResizeObserver(() => {
       width = canvas.clientWidth; height = canvas.clientHeight;

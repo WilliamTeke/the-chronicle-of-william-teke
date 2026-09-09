@@ -1,4 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 @import "tailwindcss";
 
 @theme { --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Helvetica Neue", system-ui, sans-serif; }
@@ -292,3 +291,9 @@
 .physical-cycle > span { display: block; margin: 5px; color: #a6c1ce; }
 .folder-tab:hover { background: #ffffff06; }
 @media(max-width:767px) { .predictions-intro { margin-top: -12px; } }
+
+.deferred-globe { width: 100%; max-width: 500px; aspect-ratio: 1 / 1; padding-bottom: 36px; box-sizing: content-box; }
+.deferred-atlas { min-height: 548px; display: flow-root; }
+@media(max-width:900px) { .deferred-atlas { min-height: 741px; } }
+@media(max-width:540px) { .deferred-atlas { min-height: 780px; } }
+@media(max-width:360px) { .deferred-atlas { min-height: 1320px; } }

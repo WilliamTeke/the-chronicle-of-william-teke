@@ -1,7 +1,9 @@
 import { motion, useScroll, useSpring } from "framer-motion";
-import { useEffect, useState } from "react";
-import Globe from "./components/Globe";
-import HeritageAtlas from "./components/HeritageAtlas";
+import { lazy, useEffect, useState } from "react";
+import Deferred from "./components/Deferred";
+import LiveClock from "./components/LiveClock";
+const Globe = lazy(() => import("./components/Globe"));
+const HeritageAtlas = lazy(() => import("./components/HeritageAtlas"));
 import StarField from "./components/StarField";
 import ProfileHighlights from "./components/ProfileHighlights";
 import ParkingDiagram from "./components/ParkingDiagram";
@@ -245,31 +247,18 @@ function SectionHeader({ label, title }: { label: string; title: string }) {
 
 // ── App ──────────────────────────────────────────────────────────────────────
 export default function App() {
-  const [clock, setClock]             = useState("");
   const [menuOpen, setMenuOpen]       = useState(false);
   const [activeSection, setActiveSection] = useState("");
   const { scrollYProgress }           = useScroll();
   const scaleX                        = useSpring(scrollYProgress, { stiffness: 100, damping: 30 });
 
-  // Live clock (EST)
-  useEffect(() => {
-    const tick = () =>
-      setClock(
-        new Date().toLocaleTimeString("en-US", {
-          hour: "2-digit", minute: "2-digit", second: "2-digit",
-          timeZone: "America/New_York",
-        })
-      );
-    tick();
-    const id = setInterval(tick, 1000);
-    return () => clearInterval(id);
-  }, []);
-
   // Active section tracking
   useEffect(() => {
-    const sections = ["origins", "experience", "projects", "predictions", "contact"];
-    const handler = () => {
-      for (const s of [...sections].reverse()) {
+    const sections = ["contact", "predictions", "projects", "experience", "origins"];
+    let frame = 0;
+    const update = () => {
+      frame = 0;
+      for (const s of sections) {
         const el = document.getElementById(s);
         if (el && window.scrollY >= el.offsetTop - 150) {
           setActiveSection(s);
@@ -278,8 +267,10 @@ export default function App() {
       }
       setActiveSection("");
     };
+    const handler = () => { if (!frame) frame = requestAnimationFrame(update); };
+    update();
     window.addEventListener("scroll", handler, { passive: true });
-    return () => window.removeEventListener("scroll", handler);
+    return () => { window.removeEventListener("scroll", handler); cancelAnimationFrame(frame); };
   }, []);
 
   const navItems = [
@@ -425,7 +416,7 @@ export default function App() {
         <h1 className="hero-name"><span>William</span><span>Teke</span></h1>
         <div className="hero-bottom">
           <div><p className="hero-role">Product Manager &amp; Strategist</p>
-          <p className="hero-location">Fort Lauderdale, FL <span>· {clock} ET</span></p></div>
+          <p className="hero-location">Fort Lauderdale, FL <LiveClock /></p></div>
           <a href="#origins" className="explore-link">Explore the chronicle <span aria-hidden="true">↓</span></a>
         </div>
       </section>
@@ -461,7 +452,7 @@ export default function App() {
               transition={{ duration: 1.3, ease: easeApple }}
               style={{ display: "flex", flexDirection: "column", alignItems: "center" }}
             >
-              <Globe />
+              <Deferred className="deferred-globe"><Globe /></Deferred>
               <p
                 style={{
                   marginTop: 16,
@@ -505,7 +496,7 @@ export default function App() {
 
             </motion.div>
           </div>
-          <HeritageAtlas />
+          <Deferred className="deferred-atlas"><HeritageAtlas /></Deferred>
         </div>
       </section>
 

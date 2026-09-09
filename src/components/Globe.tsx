@@ -1,17 +1,15 @@
 import { useEffect, useRef, useState } from 'react';
 import { geoGraticule10, geoOrthographic, geoPath } from 'd3-geo';
-import { feature, mesh } from 'topojson-client';
-import type { Topology, GeometryCollection } from 'topojson-specification';
-import worldData from 'world-atlas/countries-50m.json';
+import { land, countries, borders } from '../data/world';
 import { HERITAGE_LOCATIONS, isVisible } from '../data/geography';
 
 // Natural Earth 1:50m boundaries, redistributed by world-atlas (public domain).
 // One projection clips the land, country borders, and markers to the same hemisphere.
-const world = worldData as unknown as Topology<{ countries: GeometryCollection; land: GeometryCollection }>;
-const land = feature(world, world.objects.land);
-const countries = feature(world, world.objects.countries);
-const borders = mesh(world, world.objects.countries, (a, b) => a !== b);
 const graticule = geoGraticule10();
+const tintedCountries = countries.features.flatMap(country => {
+  const location = HERITAGE_LOCATIONS.find(loc => loc.country === String(country.id));
+  return location ? [{ country, color: location.color }] : [];
+});
 const SIZE = 500;
 const RADIUS = 204;
 
@@ -46,10 +44,8 @@ export default function Globe() {
       ctx.beginPath(); path(graticule); ctx.strokeStyle = '#789eac20'; ctx.lineWidth = .6; ctx.stroke();
       ctx.beginPath(); path(land); ctx.fillStyle = '#203e4e'; ctx.fill();
       // Tint heritage countries while preserving their real geographic outlines.
-      for (const country of countries.features) {
-        const location = HERITAGE_LOCATIONS.find(loc => loc.country === country.id);
-        if (!location) continue;
-        ctx.beginPath(); path(country); ctx.fillStyle = location.color + '24'; ctx.fill();
+      for (const { country, color } of tintedCountries) {
+        ctx.beginPath(); path(country); ctx.fillStyle = color + '24'; ctx.fill();
       }
       ctx.beginPath(); path(land); ctx.strokeStyle = '#8fc9df99'; ctx.lineWidth = .75; ctx.stroke();
       ctx.beginPath(); path(borders); ctx.strokeStyle = '#98c5d576'; ctx.lineWidth = .5; ctx.stroke();
@@ -91,7 +87,7 @@ export default function Globe() {
       }
       frame = requestAnimationFrame(tick);
     };
-    const resume = () => { cancelAnimationFrame(frame); lastTime = 0; draw(); frame = requestAnimationFrame(tick); };
+    const resume = () => { cancelAnimationFrame(frame); lastTime = 0; if (visible && !document.hidden) { draw(); frame = requestAnimationFrame(tick); } };
     const observer = new IntersectionObserver(([entry]) => { visible = entry.isIntersecting; resume(); });
     observer.observe(canvas);
     document.addEventListener('visibilitychange', resume);
