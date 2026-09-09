@@ -1,655 +1,916 @@
-import { motion, useScroll, useSpring, AnimatePresence } from "motion/react";
-import { 
-  ScrollText, 
-  Compass, 
-  Hammer, 
-  Sparkles, 
-  Mail,
-  ChevronDown,
-  Activity,
-  Castle,
-  Music,
-  Swords,
-  ArrowRight,
-  ArrowDown,
-  Lightbulb,
-  Trophy,
-  MapPin
-} from "lucide-react";
-import { ReactNode, useState, useEffect } from "react";
-import elonImg from './elon.jpg'; 
-import neptuneImg from './neptune.png';
+import { motion, useScroll, useSpring } from "framer-motion";
+import { useEffect, useState } from "react";
+import Globe from "./components/Globe";
+import StarField from "./components/StarField";
 
-interface SectionProps {
-  children: ReactNode;
-  id: string;
-  className?: string;
+// ── Types ───────────────────────────────────────────────────────────────────
+interface TlItem {
+  date: string;
+  role: string;
+  company: string;
+  bullets: string[];
 }
 
-const Section = ({ children, id, className = "" }: SectionProps) => {
-  return (
-    <motion.section
-      id={id}
-      initial={{ opacity: 0, y: 50 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-100px" }}
-      transition={{ duration: 1, ease: "easeOut" }}
-      className={`mb-24 relative ${className}`}
-    >
-      {children}
-    </motion.section>
-  );
+interface Project {
+  tag: string;
+  title: string;
+  body: string[];
+  meta: string;
+}
+
+interface Prediction {
+  n: string;
+  title: string;
+  body: string;
+  bullets: string[];
+}
+
+// ── Data ────────────────────────────────────────────────────────────────────
+const heritage = [
+  { flag: "🇺🇸", city: "Fort Lauderdale", detail: "Florida, USA · Pop. 182K", connection: "Born & raised here" },
+  { flag: "🇨🇴", city: "Santander",        detail: "Colombia · Pop. 580K",    connection: "Mom & grandmother" },
+  { flag: "🇨🇴", city: "Bogotá",           detail: "Colombia · Pop. 7.7M",    connection: "Grandfather" },
+  { flag: "🇹🇷", city: "Bursa",            detail: "Turkey · Pop. 3.1M",      connection: "Dad is from here" },
+  { flag: "🇹🇷", city: "Yalova",           detail: "Turkey · Pop. 262K",      connection: "Grandmother" },
+  { flag: "🇷🇺", city: "Uchkulan",         detail: "Russia · Pop. ~5K",       connection: "Grandfather" },
+];
+
+const timeline: TlItem[] = [
+  {
+    date: "2023 · Present",
+    role: "Associate Product Manager",
+    company: "PricewaterhouseCoopers · Fort Lauderdale, FL",
+    bullets: [
+      "Building a client intelligence product within PwC's suite of firmwide AI tools, focused on surfacing insights that help teams understand and serve clients better",
+    ],
+  },
+  {
+    date: "2022 · 2023",
+    role: "PM Intern",
+    company: "PricewaterhouseCoopers · Fort Lauderdale, FL",
+    bullets: [
+      "Built internal automations using Microsoft Power Platform, turning repetitive manual workflows into something people actually wanted to use",
+    ],
+  },
+  {
+    date: "2022",
+    role: "Product Development Intern",
+    company: "Merge · Fort Lauderdale, FL",
+    bullets: [
+      "Helped shape early product direction through market research, competitive analysis, and outreach. The kind of foundational work that happens before anything gets built",
+    ],
+  },
+  {
+    date: "2021 · 2022",
+    role: "Recreation Associate",
+    company: "Holiday Park · Fort Lauderdale, FL",
+    bullets: [
+      "Coached and refereed sports leagues, ran summer camp programming. Learned how to manage energy, read a room, and keep things moving",
+    ],
+  },
+  {
+    date: "2019 · 2021",
+    role: "Kitchen Team",
+    company: "Maya Papaya · Fort Lauderdale, FL",
+    bullets: [
+      "Worked the kitchen, made a lot of acai bowls, and learned that pace and consistency matter more than most things",
+    ],
+  },
+];
+
+const projects: Project[] = [
+  {
+    tag: "Personal Project · 2023",
+    title: "Elon Sentiment Tracker",
+    body: [
+      "Elon's Twitter feed was a literal market-moving force. Single tweets swinging stock prices before most people saw the notification. Since I was invested in his companies, I wanted to stay ahead of the volatility rather than just reacting to it.",
+      "Built a Python program using tweepy to monitor his feed 24/7. Each tweet was automatically passed through OpenAI GPT-3.5 to determine if the news was potentially good or bad for Tesla or SpaceX.",
+    ],
+    meta: "Stack: Python · Tweepy · OpenAI API  |  Status: Discontinued (API costs)",
+  },
+  {
+    tag: "Pro Bono Consulting · UF",
+    title: "Neptune Beach Parking Strategy",
+    body: [
+      "Pro bono engagement led through the Association of Information Systems at UF. Worked with the City of Neptune Beach to solve a 160-space parking shortage affecting thousands of seasonal visitors.",
+      "Used Replica mobility data showing 90% of trips were car-centric. Developed a Dynamic Pricing model to increase turnover during peak hours and designed a curbside delegation plan for rideshare/delivery drivers.",
+    ],
+    meta: "Tools: Replica Data · RShiny · Strategic Modeling  |  Role: Strategy Lead",
+  },
+  {
+    tag: "Community · University of Florida",
+    title: "Product Space @ UF",
+    body: [
+      "Co-founded the first product management club at the University of Florida. At the time, PM wasn't even a known career path for students locally.",
+      "Built curriculum from scratch, created a community, and watched it grow into one of the most competitive organizations on campus to get into.",
+    ],
+    meta: "Impact: First PM club at UF · Now highly competitive to join",
+  },
+];
+
+const predictions: Prediction[] = [
+  {
+    n: "I",
+    title: "End-to-End Doers",
+    body: "The traditional corporate assembly line is breaking. The cost of execution has dropped so significantly that time spent syncing between departments is now more expensive than the work itself.",
+    bullets: [
+      "Traditional: Idea → PM → Designer → Engineer → QA → Deploy",
+      "Future: Concept ↔ Execution (the End-to-End Doer)",
+      "Success belongs to those who own the entire road",
+    ],
+  },
+  {
+    n: "II",
+    title: "Clarity of Thought",
+    body: "In a world where AI generates infinite content and code, the 'how' is becoming a commodity. We are shifting from an economy of labor to an economy of intent.",
+    bullets: [
+      "Precision as a filter: inability to define a problem = high-speed garbage",
+      "The Editor Mindset: future professionals look more like high-stakes editors",
+      "Your most valuable asset is your ability to think, not to work",
+    ],
+  },
+  {
+    n: "III",
+    title: "The Energy Bottleneck",
+    body: "While everyone is fixated on AGI, we are quietly hitting a physical wall. Every generative model requires staggering power. Energy is no longer a background utility; it is the primary constraint.",
+    bullets: [
+      "Shifting from a compute-first to an energy-first era",
+      "Sustainable energy becoming the highest-stakes tech sector",
+    ],
+  },
+  {
+    n: "IV",
+    title: "A Dynamic Workforce",
+    body: "The career ladder is being replaced by a jungle gym. Stability is no longer found in a job title. It is found in your pivot speed.",
+    bullets: [
+      "Pivot Speed: your value = how fast you can unlearn and relearn",
+      "Modular Skillsets: generalist during disruption, specialist during boom",
+      "Flash Organizations: teams assemble, execute, dissolve",
+    ],
+  },
+  {
+    n: "V",
+    title: "Resurgence of the Physical",
+    body: "We used machines to automate physical labor so we could focus on thinking jobs. Now AI is automating thinking jobs, driving value back into the physical world.",
+    bullets: [
+      "There is a ceiling to what can be solved behind a screen",
+      "The person who can build the machine becomes the most important person in the room",
+    ],
+  },
+];
+
+// ── Animation variants ───────────────────────────────────────────────────────
+const easeApple = [0.25, 0.4, 0.25, 1] as const;
+
+const fadeUp = {
+  hidden:  { opacity: 0, y: 36 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.9, ease: easeApple } },
 };
 
-const Divider = () => <div className="scroll-divider" />;
+const fadeIn = {
+  hidden:  { opacity: 0 },
+  visible: { opacity: 1, transition: { duration: 0.8, ease: easeApple } },
+};
 
-const mapLocations = [
-  { 
-    id: 'fl', 
-    name: 'Fort Lauderdale, Florida, USA', 
-    label: 'Fort Lauderdale',
-    x: 27.7, y: 35.5, pos: '-translate-y-full -translate-x-1/2 -mt-2',
-    connection: 'I was born and raised here',
-    population: '~182,000',
-    languages: 'English, Spanish',
-    tooltipPos: 'bottom-full mb-3 left-1/2 -translate-x-1/2'
-  },
-  { 
-    id: 'santander', 
-    name: 'Santander, Colombia', 
-    label: 'Santander',
-    x: 29.7, y: 46.6, pos: '-translate-y-1/2 -translate-x-full -ml-2',
-    connection: 'My mom and grandmother are from here',
-    population: '~580,000',
-    languages: 'Spanish',
-    tooltipPos: 'bottom-full mb-3 left-1/2 -translate-x-1/2'
-  },
-  { 
-    id: 'bogota', 
-    name: 'Bogotá, Colombia', 
-    label: 'Bogotá',
-    x: 29.4, y: 47.7, pos: 'translate-y-2 -translate-x-1/2',
-    connection: 'My grandfather is from here',
-    population: '~7.7 million',
-    languages: 'Spanish',
-    tooltipPos: 'top-full mt-3 left-1/2 -translate-x-1/2'
-  },
-  { 
-    id: 'bursa', 
-    name: 'Bursa, Turkey', 
-    label: 'Bursa',
-    x: 58.0, y: 28.5, pos: 'translate-y-2 -translate-x-1/2',
-    connection: 'My dad is from here',
-    population: '~3.1 million',
-    languages: 'Turkish',
-    tooltipPos: 'top-full mt-3 left-1/2 -translate-x-1/2'
-  },
-  { 
-    id: 'yalova', 
-    name: 'Yalova, Turkey', 
-    label: 'Yalova',
-    x: 58.0, y: 26.5, pos: '-translate-y-full -translate-x-1/2 -mt-2',
-    connection: 'My grandmother is from here',
-    population: '~262,000',
-    languages: 'Turkish',
-    tooltipPos: 'bottom-full mb-3 left-1/2 -translate-x-1/2'
-  },
-  { 
-    id: 'uchkulan', 
-    name: 'Uchkulan, Russia', 
-    label: 'Uchkulan',
-    x: 61.6, y: 26.1, pos: '-translate-y-1/2 translate-x-2',
-    connection: 'My grandfather is from here',
-    population: '~5,000 (approximate)',
-    languages: 'Russian, Karachay-balkar, Chechen',
-    tooltipPos: 'bottom-full mb-3 left-1/2 -translate-x-1/2'
-  },
-];
+const stagger = {
+  hidden:  {},
+  visible: { transition: { staggerChildren: 0.1 } },
+};
 
-const craftNodes = [
-  {
-    role: "Kitchen Team", company: "Maya Papaya",
-    desc: "Cleaned kitchen. Prepared acai bowls."
-  },
-  {
-    role: "Recreation Associate", company: "Holiday Park",
-    desc: "Managed summer camps. Park activities."
-  },
-  {
-    role: "Product Dev Intern", company: "Fintech Startup",
-    desc: "User outreach. Product development."
-  },
-  {
-    role: "PM Intern", company: "PwC",
-    desc: "Workflow automation. Client engagement."
-  },
-  {
-    role: "Associate PM", company: "PwC",
-    desc: "Internal AI. Knowledge management."
-  },
-  {
-    role: "Future Target", company: "Unknown",
-    desc: "Next elevation."
-  }
-];
+const staggerFast = {
+  hidden:  {},
+  visible: { transition: { staggerChildren: 0.07 } },
+};
 
-// Define a type for project data
-interface ProjectData {
-  title: string;
-  type: string;
-  content: ReactNode;
-  image: string;
+// ── TimelineItem ─────────────────────────────────────────────────────────────
+function TimelineItem({ item, isLast }: { item: TlItem; isLast: boolean }) {
+  return (
+    <div className="relative pl-8 pb-12">
+      {!isLast && <div className="timeline-line" />}
+      <div
+        style={{
+          position: "absolute",
+          left: 0,
+          top: 6,
+          width: 14,
+          height: 14,
+          borderRadius: "50%",
+          border: "2px solid rgba(255,255,255,0.2)",
+          background: "#05090c",
+        }}
+      />
+      <p className="section-label mb-2">{item.date}</p>
+      <p style={{ fontSize: "1.2rem", fontWeight: 600, color: "#f5f5f7", marginBottom: 2 }}>
+        {item.role}
+      </p>
+      <p style={{ fontSize: "0.85rem", color: "rgba(255,255,255,0.4)", marginBottom: 12 }}>
+        {item.company}
+      </p>
+      {item.bullets.length > 0 && (
+        <ul style={{ listStyle: "none", margin: 0, padding: 0 }}>
+          {item.bullets.map((b, j) => (
+            <li
+              key={j}
+              style={{
+                display: "flex",
+                gap: 10,
+                fontSize: "1rem",
+                color: "rgba(255,255,255,0.55)",
+                lineHeight: 1.75,
+                marginBottom: 6,
+              }}
+            >
+              <span style={{ color: "rgba(255,255,255,0.5)", flexShrink: 0, marginTop: 4, fontSize: 6 }}>●</span>
+              <span>{b}</span>
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+  );
 }
 
+// ── SectionHeader ────────────────────────────────────────────────────────────
+function SectionHeader({ label, title }: { label: string; title: string }) {
+  return (
+    <motion.div
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, margin: "-80px" }}
+      variants={stagger}
+      style={{ marginBottom: 64 }}
+    >
+      <motion.p variants={fadeUp} className="section-label" style={{ marginBottom: 14 }}>
+        {label}
+      </motion.p>
+      <motion.h2
+        variants={fadeUp}
+        style={{
+          fontSize: "clamp(2.4rem, 5vw, 4rem)",
+          fontWeight: 400,
+          letterSpacing: "-0.03em",
+          color: "#f5f5f7",
+          lineHeight: 1.05,
+        }}
+      >
+        {title}
+      </motion.h2>
+    </motion.div>
+  );
+}
+
+// ── App ──────────────────────────────────────────────────────────────────────
 export default function App() {
-  const { scrollYProgress } = useScroll();
-  const scaleX = useSpring(scrollYProgress, {
-    stiffness: 100,
-    damping: 30,
-    restDelta: 0.001
-  });
+  const [clock, setClock]             = useState("");
+  const [menuOpen, setMenuOpen]       = useState(false);
+  const [activeSection, setActiveSection] = useState("");
+  const { scrollYProgress }           = useScroll();
+  const scaleX                        = useSpring(scrollYProgress, { stiffness: 100, damping: 30 });
 
-  const [time, setTime] = useState<string>("");
-  const [hoveredPrediction, setHoveredPrediction] = useState<number | null>(null);
-  const [expandedLeisure, setExpandedLeisure] = useState<number | null>(null);
-
+  // Live clock (EST)
   useEffect(() => {
-    const updateTime = () => {
-      const etTime = new Date().toLocaleTimeString('en-US', {
-        timeZone: 'America/New_York',
-        hour12: false,
-        hour: '2-digit',
-        minute: '2-digit',
-        second: '2-digit'
-      });
-      setTime(`Site live as of: ${etTime} ET`);
-    };
-    
-    updateTime();
-    const interval = setInterval(updateTime, 1000);
-    return () => clearInterval(interval);
+    const tick = () =>
+      setClock(
+        new Date().toLocaleTimeString("en-US", {
+          hour: "2-digit", minute: "2-digit", second: "2-digit",
+          timeZone: "America/New_York",
+        })
+      );
+    tick();
+    const id = setInterval(tick, 1000);
+    return () => clearInterval(id);
   }, []);
 
-  const projects: ProjectData[] = [
-    {
-      title: "Elon Sentiment Tracker",
-      type: "Real Time Market Intelligence",
-      content: (
-        <div className="text-[#2c1810] opacity-90 space-y-4 leading-relaxed">
-          <p>
-            <strong>The "Why".</strong> I built this in college because Elon's Twitter feed was a literal market moving force. He was tweeting at random hours and a single post could swing a stock price before most people even saw the notification. Since I was invested in his companies, I wanted to stay ahead of the volatility rather than just reacting to it.
-          </p>
-          <p>
-            <strong>The Build.</strong> I developed a Python program using the tweepy library to monitor his feed 24/7.
-          </p>
-          <p>
-            <strong>The Logic.</strong> Each tweet was automatically passed through OpenAI GPT-3.5 to determine if the news was potentially good or bad for Tesla or SpaceX.
-          </p>
-          <p>
-            <strong>The Status.</strong> While I eventually discontinued it due to rising API costs, the logic proved that you can turn social media noise into actionable data.
-          </p>
-        </div>
-      ),
-      image: elonImg
-    },
-    {
-      title: "Neptune Beach Parking Strategy",
-      type: "Pro Bono Data Consulting",
-      content: (
-        <div className="text-[#2c1810] opacity-90 space-y-4 leading-relaxed">
-          <p>
-            <strong>The Context.</strong> This was a pro bono engagement I led through the Association of Information Systems, a grad school club at UF. We worked with the City of Neptune Beach to solve a massive congestion problem involving a 160-space parking shortage and thousands of seasonal visitors.
-          </p>
-          <p>
-            <strong>The Analysis.</strong> We used Replica mobility data to find that 90% of trips for shopping and eating were car centric.
-          </p>
-          <p>
-            <strong>My Contribution.</strong> While a teammate built the RShiny dashboard to visualize parking presence, I focused on the strategic modeling side.
-          </p>
-          <p>
-            <strong>The Strategy.</strong> I developed the Dynamic Pricing model to increase turnover during peak lunch and dinner spikes. I also designed the curbside delegation plan to convert specific spots into dedicated zones for UberEats and DoorDash drivers to improve traffic safety.
-          </p>
-        </div>
-      ),
-      image: neptuneImg
-    }
+  // Active section tracking
+  useEffect(() => {
+    const sections = ["origins", "experience", "projects", "predictions", "contact"];
+    const handler = () => {
+      for (const s of [...sections].reverse()) {
+        const el = document.getElementById(s);
+        if (el && window.scrollY >= el.offsetTop - 150) {
+          setActiveSection(s);
+          return;
+        }
+      }
+      setActiveSection("");
+    };
+    window.addEventListener("scroll", handler, { passive: true });
+    return () => window.removeEventListener("scroll", handler);
+  }, []);
+
+  const navItems = [
+    { href: "#origins",     label: "Origins" },
+    { href: "#experience",  label: "Experience" },
+    { href: "#projects",    label: "Projects" },
+    { href: "#predictions", label: "Predictions" },
+    { href: "#contact",     label: "Contact" },
   ];
 
   return (
-    <div className="min-h-screen relative overflow-x-hidden burnt-edges">
-      {/* Texture Overlays */}
-      <div className="parchment-overlay" />
-      <div className="fixed inset-0 bg-gradient-to-b from-black/5 via-transparent to-black/10 pointer-events-none z-40" />
-      
-      {/* Spotlight Global Overlay */}
-      <div 
-        className={`fixed inset-0 bg-[#1a0f0a]/50 transition-opacity duration-500 pointer-events-none ${hoveredPrediction !== null ? 'opacity-100 z-[60]' : 'opacity-0 -z-10'}`}
+    <div className="chronicle" style={{ background: "#05090c", color: "#f5f5f7", minHeight: "100vh" }}>
+      <a className="skip-link" href="#origins">Skip to content</a>
+      {/* Scroll progress bar */}
+      <motion.div
+        style={{
+          scaleX,
+          position: "fixed",
+          top: 0,
+          left: 0,
+          right: 0,
+          height: 2,
+          background: "rgba(255,255,255,0.55)",
+          transformOrigin: "0%",
+          zIndex: 101,
+        }}
       />
 
-      {/* Progress Bar (Ink Line) */}
-      <motion.div 
-        className="fixed top-0 left-0 right-0 h-1 bg-[#4a2c1d] origin-left z-50"
-        style={{ scaleX }}
-      />
+      {/* ── NAV ────────────────────────────────────────────────────────────── */}
+      <nav aria-label="Main navigation"
+        style={{
+          position: "fixed",
+          top: 0,
+          left: 0,
+          right: 0,
+          zIndex: 100,
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          padding: "0 48px",
+          height: 72,
+          background: "rgba(5,9,12,0.82)",
+          backdropFilter: "blur(20px) saturate(1.8)",
+          WebkitBackdropFilter: "blur(20px) saturate(1.8)",
+          borderBottom: "1px solid rgba(255,255,255,0.06)",
+        }}
+      >
+        <a
+          href="#"
+          style={{
+            fontSize: 15,
+            fontWeight: 600,
+            color: "#f5f5f7",
+            letterSpacing: "-0.02em",
+          }}
+        >
+          William Teke
+        </a>
 
-      <main className="scroll-container relative z-auto">
-        {/* 1. Opening Title */}
-        <Section id="hero">
-          <div className="text-center py-20">
-            <motion.div
-              initial={{ scale: 0.9, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              transition={{ duration: 1.5 }}
+        {/* Desktop nav */}
+        <div
+          style={{
+            display: "flex",
+            gap: 32,
+            alignItems: "center",
+          }}
+          className="desktop-nav"
+        >
+          {navItems.map(({ href, label }) => {
+            const active = activeSection === href.slice(1);
+            return (
+              <a
+                key={href}
+                href={href}
+                style={{
+                  fontSize: 13,
+                  fontWeight: 500,
+                  color: active ? "#f5f5f7" : "rgba(255,255,255,0.5)",
+                  letterSpacing: "0.01em",
+                  transition: "color 0.2s",
+                }}
+              >
+                {label}
+              </a>
+            );
+          })}
+        </div>
+
+        {/* Mobile burger */}
+        <button
+          onClick={() => setMenuOpen(!menuOpen)}
+          style={{
+            background: "none",
+            border: "none",
+            color: "rgba(255,255,255,0.7)",
+            fontSize: 20,
+            cursor: "pointer",
+            padding: "4px 8px",
+          }}
+          className="mobile-toggle"
+          aria-label={menuOpen ? "Close menu" : "Open menu"}
+          aria-expanded={menuOpen}
+          aria-controls="mobile-navigation"
+        >
+          {menuOpen ? "✕" : "☰"}
+        </button>
+      </nav>
+
+      {/* Mobile menu */}
+      {menuOpen && (
+        <div id="mobile-navigation"
+          style={{
+            position: "fixed",
+            top: 72,
+            left: 0,
+            right: 0,
+            zIndex: 99,
+            padding: "24px 24px",
+            display: "flex",
+            flexDirection: "column",
+            gap: 20,
+            background: "rgba(0,0,0,0.95)",
+            backdropFilter: "blur(20px)",
+            borderBottom: "1px solid rgba(255,255,255,0.08)",
+          }}
+        >
+          {navItems.map(({ href, label }) => (
+            <a
+              key={href}
+              href={href}
+              onClick={() => setMenuOpen(false)}
+              style={{ fontSize: 15, fontWeight: 500, color: "rgba(255,255,255,0.7)" }}
             >
-              <ScrollText className="w-16 h-16 mx-auto mb-6 text-[#9b6b43] opacity-80" />
-              <h1 className="text-6xl md:text-8xl font-bold mb-4 tracking-tight text-[#4a2c1d]">
-                The Chronicle of <br />
-                <span className="italic font-light">William Teke</span>
-              </h1>
-              {time && (
-                <p className="text-sm font-bold tracking-widest text-[#9b6b43] uppercase mb-6 opacity-80">
-                  {time}
-                </p>
-              )}
-              <p className="text-xl md:text-2xl italic text-[#7a5230] max-w-3xl mx-auto leading-relaxed">
-                "An unfiltered chronicle of the logic and heritage behind the work, offering a look under the microscope at the person the resume can't capture."
+              {label}
+            </a>
+          ))}
+        </div>
+      )}
+
+      <main>
+      <section id="home" className="astra-hero">
+        <StarField />
+        <p className="hero-eyebrow">The Chronicle of</p>
+        <h1 className="hero-name"><span>William</span><span>Teke</span></h1>
+        <div className="hero-bottom">
+          <div><p className="hero-role">Product Manager &amp; Strategist</p>
+          <p className="hero-location">Fort Lauderdale, FL <span>· {clock} ET</span></p></div>
+          <a href="#origins" className="explore-link">Explore the chronicle <span aria-hidden="true">↓</span></a>
+        </div>
+      </section>
+      <section className="introduction" aria-label="Introduction">
+        <p className="section-label">People. Products. Possibilities.</p>
+        <h2>A story still unfolding.</h2>
+        <p>Product Manager &amp; Strategist at PricewaterhouseCoopers.
+        Turkish, Colombian, and American. University of Florida graduate.</p>
+        <div className="intro-actions"><a className="pill primary" href="#projects">See my work <span aria-hidden="true">↗</span></a><a className="pill" href="#contact">Get in touch <span aria-hidden="true">↗</span></a></div>
+      </section>
+
+      {/* ── ORIGINS ────────────────────────────────────────────────────────── */}
+      <section id="origins" style={{ padding: "120px 48px", background: "#080d11" }}>
+        <div style={{ maxWidth: 1100, margin: "0 auto" }}>
+          <SectionHeader label="A Chronicle of Origins" title="The Roots" />
+
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "1fr 1fr",
+              gap: 80,
+              alignItems: "start",
+            }}
+            className="origins-grid"
+          >
+            {/* Globe */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.88 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true, margin: "-80px" }}
+              transition={{ duration: 1.3, ease: easeApple }}
+              style={{ display: "flex", flexDirection: "column", alignItems: "center" }}
+            >
+              <Globe />
+              <p
+                style={{
+                  marginTop: 16,
+                  fontSize: 12,
+                  color: "rgba(255,255,255,0.25)",
+                  letterSpacing: "0.06em",
+                  textAlign: "center",
+                }}
+              >
+                Rotating globe · heritage regions highlighted
               </p>
             </motion.div>
-            
-            <motion.div 
-              animate={{ y: [0, 10, 0] }}
-              transition={{ repeat: Infinity, duration: 2 }}
-              className="mt-20 text-[#9b6b43]"
+
+            {/* Story + Heritage cards */}
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-80px" }}
+              variants={stagger}
             >
-              <ChevronDown className="mx-auto w-8 h-8" />
-            </motion.div>
-          </div>
-        </Section>
-
-        <Divider />
-
-        {/* 2. Origins */}
-        <Section id="origins">
-          <div className="flex items-center gap-4 mb-8">
-            <Compass className="w-8 h-8 text-[#9b6b43]" />
-            <h2 className="text-4xl font-bold text-[#4a2c1d]">A Chronicle of Origins</h2>
-          </div>
-          <div className="prose prose-lg text-[#2c1810] leading-relaxed mb-12">
-            <p className="mb-6 first-letter:text-6xl first-letter:font-bold first-letter:mr-3 first-letter:float-left first-letter:text-[#9b6b43]">
-              I was born and raised in Fort Lauderdale, Florida, but my story starts long before that. My dad is Turkish and my mom is Colombian, so I grew up surrounded by different languages, religions, and ways of seeing the world. That mix wasn’t something I studied, it was just everyday life. Growing up in America with this perspective made me realize early on that there isn’t just one way to solve a problem or approach a situation.
-            </p>
-            <p className="mb-6">
-              In high school, I was convinced I’d be a doctor. My sister was on that path, my cousins were doctors, and it felt like the correct template to follow. I went to the University of Florida wanting to be a pre-med student, but one semester in, I realized I was just following someone else's script. Life has a funny way of proving that point. My sister actually finished the whole journey, graduated pre-med, did everything right, and now she works at a bank in New York.
-            </p>
-            <p className="mb-6">
-              I decided to make the pivot early. I switched to Information Systems and sprinted through my undergrad, staying at UF for grad school. During that time, a friend introduced me to Product Management. At the time, PM wasn't even a known career path for students locally. I fell in love with the idea that you could have such a massive impact so early in a product's life.
-            </p>
-            <p className="mb-6">
-              That spark led me to co-start Product Space, the first PM club at the University of Florida. It is wild to see it now because it has become one of the most competitive orgs on campus to get into. Seeing that growth from a simple idea to a high-bar community confirmed everything for me. The rest is history.
-            </p>
-          </div>
-
-          <div className="mt-16 w-full max-w-5xl mx-auto relative pt-10 border-t border-[#9b6b43]/20">
-            <div className="relative w-full aspect-[2/1] max-w-4xl mx-auto">
-              {/* Horizontal Map Background Mask */}
-              <div 
-                className="absolute inset-0 bg-[#9b6b43] opacity-[0.15]"
-                style={{ 
-                  WebkitMaskImage: "url('https://upload.wikimedia.org/wikipedia/commons/e/ec/World_map_blank_without_borders.svg')", 
-                  WebkitMaskSize: "100% 100%",
-                  WebkitMaskRepeat: "no-repeat",
-                  WebkitMaskPosition: "center",
-                  maskImage: "url('https://upload.wikimedia.org/wikipedia/commons/e/ec/World_map_blank_without_borders.svg')",
-                  maskSize: "100% 100%",
-                  maskRepeat: "no-repeat",
-                  maskPosition: "center"
-                }} 
-              />
-
-              {/* Static Location Markers */}
-              <div className="absolute inset-0 pointer-events-none">
-                {mapLocations.map((loc) => (
-                  <div 
-                    key={loc.id} 
-                    className="absolute group z-10 hover:z-50"
-                    style={{ left: `${loc.x}%`, top: `${loc.y}%` }}
+              <motion.div variants={stagger} style={{ marginBottom: 40 }}>
+                {[
+                  "I was born and raised in Fort Lauderdale, Florida, but my story starts long before that. My dad is Turkish and my mom is Colombian, so I grew up surrounded by different languages, religions, and ways of seeing the world. That mix wasn't something I studied. It was just everyday life.",
+                  "In high school, I was convinced I'd be a doctor. I went to the University of Florida wanting to be pre-med, but one semester in, I realized I was just following someone else's script. I switched to Information Systems and sprinted through my undergrad, staying at UF for grad school.",
+                  "During that time, a friend introduced me to Product Management. I fell in love with the idea of having such a massive impact so early in a product's life. That spark led me to co-start Product Space, the first PM club at UF. Now one of the most competitive orgs on campus to get into.",
+                ].map((text, i) => (
+                  <motion.p
+                    key={i}
+                    variants={fadeUp}
+                    style={{
+                      fontSize: "1rem",
+                      color: "rgba(255,255,255,0.6)",
+                      lineHeight: 1.82,
+                      marginBottom: 18,
+                    }}
                   >
-                    <div className="relative w-2 h-2 bg-[#9b6b43] rounded-full transform -translate-x-1/2 -translate-y-1/2 shadow-sm transition-all duration-300 group-hover:scale-150 group-hover:bg-[#4a2c1d] pointer-events-none" />
-                    <span className={`absolute ${loc.pos} text-[10px] md:text-xs font-bold tracking-wider text-[#7a5230] whitespace-nowrap bg-[#f4e4bc]/50 px-1 rounded-sm backdrop-blur-sm transition-opacity duration-300 pointer-events-auto cursor-pointer`}>
-                      {loc.label}
-                    </span>
-                    
-                    {/* Tooltip */}
-                    <div className={`absolute ${loc.tooltipPos} opacity-0 group-hover:opacity-100 transition-all duration-300 bg-[#f4e4bc] border border-[#9b6b43]/30 px-4 py-3 rounded-sm shadow-xl pointer-events-none w-max max-w-[220px] md:max-w-none text-left`}>
-                      <p className="text-sm font-bold text-[#4a2c1d] mb-2 border-b border-[#9b6b43]/20 pb-1">{loc.name}</p>
-                      <div className="text-xs text-[#7a5230] space-y-1.5 whitespace-normal md:whitespace-nowrap">
-                        <p><span className="font-bold text-[#9b6b43] uppercase tracking-wider text-[10px] mr-1">Connection:</span> {loc.connection}</p>
-                        <p><span className="font-bold text-[#9b6b43] uppercase tracking-wider text-[10px] mr-1">Population:</span> {loc.population}</p>
-                        <p><span className="font-bold text-[#9b6b43] uppercase tracking-wider text-[10px] mr-1">Languages:</span> {loc.languages}</p>
-                      </div>
-                    </div>
-                  </div>
+                    {text}
+                  </motion.p>
                 ))}
-              </div>
-            </div>
-          </div>
-        </Section>
+              </motion.div>
 
-        <Divider />
-
-        {/* 3. Craft */}
-        <Section id="craft">
-          <div className="flex items-center justify-center gap-4 mb-8">
-            <Activity className="w-8 h-8 text-[#9b6b43]" />
-            <h2 className="text-4xl font-bold text-[#4a2c1d]">The Craft</h2>
-          </div>
-          
-          <div className="w-full max-w-6xl mx-auto py-12 px-4">
-            <div className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-2 lg:gap-4 relative">
-              {craftNodes.map((step, i) => (
-                <div key={i} className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-2 lg:gap-4 flex-1 w-full md:w-auto">
-                  {/* Glassmorphism Card */}
+              {/* Heritage location cards */}
+              <motion.div
+                variants={staggerFast}
+                style={{
+                  display: "grid",
+                  gridTemplateColumns: "1fr 1fr",
+                  gap: 10,
+                }}
+              >
+                {heritage.map((h) => (
                   <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: i * 0.1, duration: 0.5 }}
-                    className="group w-full md:w-auto flex-1 min-w-[120px] p-4 bg-[#f4e4bc]/30 backdrop-blur-md border border-[#9b6b43]/20 rounded-sm shadow-sm hover:shadow-xl hover:bg-[#f4e4bc]/60 transition-all duration-500 cursor-pointer flex flex-col items-center text-center relative z-10"
+                    key={h.city}
+                    variants={fadeUp}
+                    className="glass-card"
+                    style={{ padding: "14px 16px", cursor: "default" }}
+                    whileHover={{ scale: 1.02 }}
+                    transition={{ duration: 0.2 }}
                   >
-                    <h3 className="text-sm md:text-xs lg:text-sm font-bold text-[#4a2c1d] leading-tight mb-1">{step.role}</h3>
-                    <p className="text-xs md:text-[10px] lg:text-xs italic text-[#7a5230]">{step.company}</p>
-                    
-                    <div className="grid grid-rows-[0fr] group-hover:grid-rows-[1fr] transition-all duration-500 ease-in-out w-full">
-                      <div className="overflow-hidden">
-                        <div className="mt-3 pt-3 border-t border-[#9b6b43]/20">
-                          <p className="text-xs md:text-[10px] lg:text-xs font-medium text-[#2c1810] opacity-90 leading-snug">
-                            {step.desc}
-                          </p>
-                        </div>
-                      </div>
+                    <div style={{ fontSize: 22, marginBottom: 8 }}>{h.flag}</div>
+                    <div style={{ fontSize: 13, fontWeight: 600, color: "rgba(255,255,255,0.88)", marginBottom: 3 }}>
+                      {h.city}
+                    </div>
+                    <div style={{ fontSize: 12, color: "rgba(255,255,255,0.6)", marginBottom: 2 }}>
+                      {h.detail}
+                    </div>
+                    <div style={{ fontSize: 12, fontStyle: "italic", color: "rgba(255,255,255,0.48)" }}>
+                      {h.connection}
                     </div>
                   </motion.div>
-                  
-                  {/* Directional Connector */}
-                  {i < craftNodes.length - 1 && (
-                    <motion.div
-                      initial={{ opacity: 0 }}
-                      whileInView={{ opacity: 1 }}
-                      viewport={{ once: true }}
-                      transition={{ delay: i * 0.1 + 0.3, duration: 0.5 }}
-                      className="flex items-center justify-center shrink-0"
-                    >
-                      <ArrowRight className="hidden md:block w-4 h-4 lg:w-5 lg:h-5 text-[#9b6b43] opacity-40" />
-                      <ArrowDown className="block md:hidden w-5 h-5 text-[#9b6b43] opacity-40 my-1" />
-                    </motion.div>
-                  )}
-                </div>
-              ))}
-            </div>
+                ))}
+              </motion.div>
+            </motion.div>
           </div>
-        </Section>
+        </div>
+      </section>
 
-        <Divider />
+      {/* ── EXPERIENCE ─────────────────────────────────────────────────────── */}
+      <section id="experience" style={{ padding: "120px 48px", background: "#05090c" }}>
+        <div style={{ maxWidth: 720, margin: "0 auto" }}>
+          <SectionHeader label="The Craft" title="How I got here" />
 
-        {/* 4. Creations */}
-        <Section id="creations">
-          <div className="flex items-center gap-4 mb-8">
-            <Sparkles className="w-8 h-8 text-[#9b6b43]" />
-            <h2 className="text-4xl font-bold text-[#4a2c1d]">Creations</h2>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-            {projects.map((project, i) => (
-              <motion.div 
-                key={i}
-                whileHover={{ y: -5 }}
-                className="group"
-              >
-                <div className="relative overflow-hidden rounded-t-sm border-b border-[#9b6b43]/20 shadow-lg mb-4 bg-[#4a2c1d]/5">
-                  <img
-                    src={project.image}
-                    alt={`Preview image for the ${project.title} project`}
-                    className="w-full h-48 md:h-56 object-contain p-2 md:p-4 transition-transform duration-700 group-hover:scale-105"
-                  />
-                </div>
-                <h3 className="text-2xl font-bold text-[#4a2c1d]">{project.title}</h3>
-                <p className="text-sm uppercase tracking-widest text-[#9b6b43] mb-4">{project.type}</p>
-                {project.content}
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-80px" }}
+            variants={stagger}
+          >
+            {timeline.map((item, i) => (
+              <motion.div key={i} variants={fadeUp}>
+                <TimelineItem item={item} isLast={i === timeline.length - 1} />
               </motion.div>
             ))}
-          </div>
-        </Section>
+          </motion.div>
+        </div>
+      </section>
 
-        <Divider />
+      {/* ── PROJECTS ───────────────────────────────────────────────────────── */}
+      <section id="projects" style={{ padding: "120px 48px", background: "#080d11" }}>
+        <div style={{ maxWidth: 900, margin: "0 auto" }}>
+          <SectionHeader label="Creations" title="Things I've built" />
 
-        {/* 5. Predictions */}
-        <Section id="predictions" className={hoveredPrediction !== null ? "z-[70]" : "relative z-10"}>
-          <div className={`flex items-center gap-4 mb-8 transition-opacity duration-500 ${hoveredPrediction !== null ? 'opacity-50' : 'opacity-100'}`}>
-            <Lightbulb className="w-8 h-8 text-[#9b6b43]" />
-            <h2 className="text-4xl font-bold text-[#4a2c1d]">Predictions</h2>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {[
-              {
-                title: "End-to-End Doers",
-                content: (
-                  <>
-                    <p>The traditional corporate assembly line is breaking. For a long time, the path from an idea to a finished product was a relay race where your title was your boundary. If you were a Front-end Engineer, you didn't touch the database. If you were a Product Manager, you didn't touch the code. If you were a Scrum Master, you just managed the friction between the two. These labels are starting to feel like caps on our potential rather than definitions of our skills.</p>
-                    <p>We are moving toward an era of the End-to-End Doer. The cost of execution has dropped so significantly that the time spent in a meeting "syncing" between departments is now more expensive than the work itself.</p>
-                    <p className="pl-4 border-l-2 border-[#9b6b43]/30 italic">Traditional Flow: Idea → Product Manager (Specs) → Designer (UI) → Engineer (Code) → QA (Test) → Deployment</p>
-                    <p className="pl-4 border-l-2 border-[#9b6b43] font-medium">Future Flow: Concept ↔ Execution (The End-to-End Doer)</p>
-                    <p>In this new landscape, the roles are blurring. Engineers are drafting product roadmaps and mastering user experience, while Product Managers are using AI to prototype and ship functional code without waiting for a sprint cycle. Success no longer belongs to those who stay in their lane, but to those who can own the entire road. If you narrowly define yourself by a legacy title, you are essentially limiting your ability to solve the whole problem.</p>
-                  </>
-                )
-              },
-              {
-                title: "Clarity of Thought",
-                content: (
-                  <>
-                    <p>In a world where AI can generate infinite content and code, the "how" is becoming a commodity while the "what" and "why" are the only real differentiators. We are shifting from an economy of labor to an economy of intent. When execution is nearly instantaneous, the bottleneck is no longer technical skill, it is the clarity of the instruction.</p>
-                    <p><strong>Precision as a Filter:</strong> If you cannot define a problem with total accuracy, you will just produce high-speed garbage.</p>
-                    <p><strong>The Editor Mindset:</strong> The professional of the future looks less like a traditional worker and more like a high-stakes editor.</p>
-                    <p><strong>Signal over Noise:</strong> You have to navigate a sea of generated noise to find the one signal that actually moves the needle.</p>
-                    <p>You must be able to defend your logic with the rigor of a strategist and the pragmatism of a builder. The most valuable asset you have isn't your ability to work, it is your ability to think.</p>
-                  </>
-                )
-              },
-              {
-                title: "The Energy Bottleneck",
-                content: (
-                  <>
-                    <p>While everyone is fixated on the race for AGI or the mystery of quantum computing, we are quietly hitting a physical wall. We have spent a decade optimizing bits, but the next decade will be defined by atoms. Every generative model and every cloud cluster requires a staggering amount of power and water to stay functional.</p>
-                    <p>Energy is no longer a background utility. It is the primary constraint on human progress. We are shifting from a compute-first era to an energy-first era. The most influential players won't just be the ones with the best algorithms, but the ones who solve the fundamental crisis of sustainable infrastructure. The real innovators will be those who can decouple massive technological growth from environmental exhaustion, turning sustainable energy and water preservation into the most high-stakes tech sectors on the planet.</p>
-                  </>
-                )
-              },
-              {
-                title: "A Dynamic Workforce",
-                content: (
-                  <>
-                    <p>The concept of a career ladder is being replaced by something more like a jungle gym. We are entering a period of high-frequency volatility where the half-life of a specific technical skill is shrinking every year. This does not mean work is disappearing, but it does mean that stability is no longer found in a job title. It is found in your pivot speed.</p>
-                    <p><strong>Pivot Speed:</strong> Your value is defined by how fast you can unlearn and relearn.</p>
-                    <p><strong>Modular Skillsets:</strong> Being a generalist during a disruption and a specialist during a boom.</p>
-                    <p><strong>Flash Organizations:</strong> Teams that assemble for a project, execute at light speed, and then dissolve.</p>
-                    <p>The winners will be those who treat uncertainty as a tool for repositioning rather than a threat to their identity. Resilience in this environment isn't about hunkering down, it is about staying fluid.</p>
-                  </>
-                )
-              },
-              {
-                title: "Resurgence of the Physical",
-                content: (
-                  <>
-                    <p>We are witnessing a strange reversal of the Industrial Revolution. Back then, we used machines to automate physical labor so we could focus on "thinking" jobs. Now, we are using AI to automate the "thinking" jobs, which is driving value back into the physical world. It is a bit of a paradox: as digital intelligence becomes infinite and free, tangible reality becomes the ultimate premium.</p>
-                    <p>There is a ceiling to what can be solved behind a screen. We are seeing a massive shift in value back toward physical execution, hardware, and the messy problems of the real world that do not have a clean training data set. Whether it is the logistics of a supply chain or the craftsmanship of a physical product, the ability to bridge the gap between a digital strategy and a functional physical result is becoming a rare superpower. When everyone can generate a perfect digital image, the person who can actually build the machine becomes the most important person in the room.</p>
-                  </>
-                )
-              }
-            ].map((block, i) => (
-              <div 
-                key={i} 
-                onMouseEnter={() => setHoveredPrediction(i)}
-                onMouseLeave={() => setHoveredPrediction(null)}
-                onClick={() => setHoveredPrediction(hoveredPrediction === i ? null : i)}
-                className={`p-8 border border-[#9b6b43]/20 rounded-sm transition-all duration-500 hover:-translate-y-2 relative ${
-                  hoveredPrediction !== null && hoveredPrediction !== i 
-                    ? 'opacity-50 scale-[0.98] bg-[#4a2c1d]/5 z-10 shadow-none' 
-                    : hoveredPrediction === i 
-                      ? 'z-[70] bg-[#f4e4bc] shadow-2xl scale-100' 
-                      : 'bg-[#4a2c1d]/5 z-10 shadow-sm scale-100 hover:shadow-lg hover:bg-[#4a2c1d]/10'
-                } ${i === 4 ? 'md:col-span-2' : ''}`}
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-80px" }}
+            variants={stagger}
+            style={{ display: "flex", flexDirection: "column", gap: 16 }}
+          >
+            {projects.map((p, i) => (
+              <motion.div
+                key={i}
+                variants={fadeUp}
+                className="glass-card"
+                style={{ padding: "40px 44px" }}
+                whileHover={{ scale: 1.005 }}
+                transition={{ duration: 0.25 }}
               >
-                <h3 className="text-xl font-bold text-[#4a2c1d] mb-4 border-b border-[#9b6b43]/20 pb-2">
-                  {block.title}
+                <p
+                  style={{
+                    fontSize: 12,
+                    fontWeight: 500,
+                    letterSpacing: "0.2em",
+                    textTransform: "uppercase",
+                    color: "rgba(255,255,255,0.58)",
+                    marginBottom: 14,
+                  }}
+                >
+                  {p.tag}
+                </p>
+                <h3
+                  style={{
+                    fontSize: "clamp(1.5rem, 3vw, 2.2rem)",
+                    fontWeight: 400,
+                    color: "#f5f5f7",
+                    letterSpacing: "-0.03em",
+                    marginBottom: 20,
+                    lineHeight: 1.1,
+                  }}
+                >
+                  {p.title}
                 </h3>
-                <div className="text-[#2c1810] leading-relaxed space-y-4">
-                  {block.content}
+                <div style={{ display: "flex", flexDirection: "column", gap: 12, marginBottom: 24 }}>
+                  {p.body.map((para, j) => (
+                    <p
+                      key={j}
+                      style={{
+                        fontSize: "1rem",
+                        color: "rgba(255,255,255,0.55)",
+                        lineHeight: 1.78,
+                      }}
+                    >
+                      {para}
+                    </p>
+                  ))}
                 </div>
-              </div>
+                <p
+                  style={{
+                    fontSize: 12,
+                    fontFamily: "ui-monospace, 'SF Mono', Menlo, monospace",
+                    color: "rgba(255,255,255,0.58)",
+                    paddingTop: 18,
+                    borderTop: "1px solid rgba(255,255,255,0.08)",
+                    letterSpacing: "0.02em",
+                  }}
+                >
+                  {p.meta}
+                </p>
+              </motion.div>
             ))}
-          </div>
-        </Section>
+          </motion.div>
+        </div>
+      </section>
 
-        <Divider />
+      {/* ── PREDICTIONS ────────────────────────────────────────────────────── */}
+      <section id="predictions" style={{ padding: "120px 48px", background: "#05090c" }}>
+        <div style={{ maxWidth: 1000, margin: "0 auto" }}>
+          <SectionHeader label="Predictions" title="Where things are going" />
 
-        {/* 6. Leisure */}
-        <Section id="leisure">
-          <div className="flex items-center gap-4 mb-8">
-            <Activity className="w-8 h-8 text-[#9b6b43]" />
-            <h2 className="text-4xl font-bold text-[#4a2c1d]">Leisure</h2>
-          </div>
-          <div className="space-y-4 max-w-4xl mx-auto">
-            {[
-              { 
-                icon: Activity, 
-                label: "Biohacking", 
-                bullets: [
-                  "Focus on whole foods and staying hydrated with a gallon of water a day",
-                  "Morning sunlight and daily workouts to stay active",
-                  "LED bulbs in my house change colors and I dim lights at night to mimic sunset"
-                ] 
-              },
-              { 
-                icon: Castle, 
-                label: "Chess", 
-                bullets: [
-                  "Peak rating of 1200 on Chess.com, lower now since I don’t play as much",
-                  "I enjoy chess in bursts, usually when playing friends or following pro tournaments",
-                  "There’s something satisfying about a game that’s entirely skill-based, no luck or bluffing"
-                ] 
-              },
-              { 
-                icon: Music, 
-                label: "Music", 
-                bullets: [
-                  "Played Spanish guitar for 3-4 years and recently started electric guitar",
-                  "Goal for 2026 is to get into music production and DJing on weekends as a side project",
-                  "Need to learn piano at some point in my life as well"
-                ] 
-              },
-              { 
-                icon: Trophy, 
-                label: "Sports", 
-                subsections: [
-                  {
-                    title: "Soccer",
-                    bullets: [
-                      "First love and probably still my favorite",
-                      "Started playing around 5 or 6 and loved all the FIFA video games growing up",
-                      "Only played competitively in senior year of high school, but had fun dreaming of going pro"
-                    ]
-                  },
-                  {
-                    title: "Tennis",
-                    bullets: [
-                      "Started playing around 7 or 8 and played varsity all four years of high school",
-                      "Team captain all four years",
-                      "Surprisingly better at tennis than soccer even though I loved soccer more"
-                    ]
-                  },
-                  {
-                    title: "Jiu-Jitsu",
-                    bullets: [
-                      "Started at the end of high school and continued in college",
-                      "Began as a novice and gradually improved to teaching classes by senior year",
-                      "Probably my most eye-opening sport. Through all the injuries, repaired shoulder labrum, dislocations, and setbacks, it has been the most gratifying sport I have done"
-                    ]
-                  }
-                ]
-              }
-            ].map((item, i) => {
-              const isExpanded = expandedLeisure === i;
-              return (
-                <div key={i} className="border border-[#9b6b43]/20 rounded-sm bg-[#4a2c1d]/5 overflow-hidden transition-all duration-300">
-                  <button 
-                    onClick={() => setExpandedLeisure(isExpanded ? null : i)}
-                    className="w-full flex items-center justify-between p-6 text-left hover:bg-[#4a2c1d]/10 transition-colors"
-                  >
-                    <div className="flex items-center gap-4">
-                      <item.icon className="w-8 h-8 text-[#9b6b43] opacity-80" />
-                      <h3 className="text-2xl font-bold text-[#4a2c1d]">{item.label}</h3>
-                    </div>
-                    <ChevronDown className={`w-6 h-6 text-[#9b6b43] transition-transform duration-300 ${isExpanded ? 'rotate-180' : ''}`} />
-                  </button>
-                  <AnimatePresence initial={false}>
-                    {isExpanded && (
-                      <motion.div
-                        initial={{ height: 0, opacity: 0 }}
-                        animate={{ height: "auto", opacity: 1 }}
-                        exit={{ height: 0, opacity: 0 }}
-                        transition={{ duration: 0.3, ease: "easeInOut" }}
-                      >
-                        <div className="p-6 pt-0 border-t border-[#9b6b43]/10 mt-2">
-                          {(item as any).bullets && (
-                            <ul className="list-disc pl-6 space-y-3 text-[#2c1810] opacity-90 marker:text-[#9b6b43]">
-                              {(item as any).bullets.map((bullet: string, idx: number) => (
-                                <li key={idx} className="leading-relaxed text-lg">{bullet}</li>
-                              ))}
-                            </ul>
-                          )}
-                          {(item as any).subsections && (
-                            <div className="space-y-6 text-[#2c1810] opacity-90 mt-2">
-                              {(item as any).subsections.map((sub: any, idx: number) => (
-                                <div key={idx}>
-                                  <h4 className="text-xl font-bold text-[#4a2c1d] mb-2">{sub.title}</h4>
-                                  <ul className="list-disc pl-6 space-y-3 marker:text-[#9b6b43]">
-                                    {sub.bullets.map((bullet: string, bIdx: number) => (
-                                      <li key={bIdx} className="leading-relaxed text-lg">{bullet}</li>
-                                    ))}
-                                  </ul>
-                                </div>
-                              ))}
-                            </div>
-                          )}
-                        </div>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-                </div>
-              );
-            })}
-          </div>
-        </Section>
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-80px" }}
+            variants={stagger}
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
+              gap: 14,
+            }}
+          >
+            {predictions.map((pred, i) => (
+              <motion.div
+                key={i}
+                variants={fadeUp}
+                className="glass-card"
+                style={{
+                  padding: "32px 36px",
+                  gridColumn: i === 4 ? "1 / -1" : undefined,
+                }}
+                whileHover={{ scale: 1.01 }}
+                transition={{ duration: 0.22 }}
+              >
+                <p
+                  style={{
+                    fontSize: 44,
+                    fontWeight: 400,
+                    color: "rgba(255,255,255,0.07)",
+                    fontFamily: "ui-monospace, 'SF Mono', Menlo, monospace",
+                    lineHeight: 1,
+                    marginBottom: 16,
+                  }}
+                >
+                  {pred.n}
+                </p>
+                <h3
+                  style={{
+                    fontSize: "1.2rem",
+                    fontWeight: 400,
+                    color: "#f5f5f7",
+                    letterSpacing: "-0.02em",
+                    marginBottom: 14,
+                  }}
+                >
+                  {pred.title}
+                </h3>
+                <p
+                  style={{
+                    fontSize: "1rem",
+                    color: "rgba(255,255,255,0.52)",
+                    lineHeight: 1.78,
+                    marginBottom: 18,
+                  }}
+                >
+                  {pred.body}
+                </p>
+                <ul style={{ listStyle: "none", margin: 0, padding: 0 }}>
+                  {pred.bullets.map((b, j) => (
+                    <li
+                      key={j}
+                      style={{
+                        display: "flex",
+                        gap: 8,
+                        fontSize: "0.8rem",
+                        color: "rgba(255,255,255,0.6)",
+                        lineHeight: 1.7,
+                        marginBottom: 4,
+                      }}
+                    >
+                      <span style={{ color: "rgba(255,255,255,0.5)", flexShrink: 0 }}>·</span>
+                      <span>{b}</span>
+                    </li>
+                  ))}
+                </ul>
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
+      </section>
 
-        <Divider />
-
-        {/* 7. Contact */}
-        <Section id="contact">
-          <div className="text-center py-20">
-            <Mail className="w-12 h-12 mx-auto mb-6 text-[#9b6b43]" />
-            <h2 className="text-5xl font-bold mb-6 text-[#4a2c1d]">Get in Touch</h2>
-            <p className="text-xl mb-10 text-[#7a5230]">
-              Whether you want to collaborate on a new project or just have a conversation about tech and product.
-            </p>
-            <a 
-              href="https://www.linkedin.com/in/williamteke"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-block px-10 py-4 bg-[#4a2c1d] text-[#f4e4bc] font-bold text-lg rounded-sm hover:bg-[#2c1810] transition-colors shadow-xl"
+      {/* ── CONTACT ────────────────────────────────────────────────────────── */}
+      <section id="contact" style={{ padding: "120px 48px", background: "#080d11" }}>
+        <div style={{ maxWidth: 600, margin: "0 auto", textAlign: "center" }}>
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-80px" }}
+            variants={stagger}
+          >
+            <motion.p variants={fadeUp} className="section-label" style={{ marginBottom: 14 }}>
+              Get in Touch
+            </motion.p>
+            <motion.h2
+              variants={fadeUp}
+              style={{
+                fontSize: "clamp(2.2rem, 5vw, 3.6rem)",
+                fontWeight: 400,
+                letterSpacing: "-0.03em",
+                color: "#f5f5f7",
+                lineHeight: 1.08,
+                marginBottom: 24,
+              }}
             >
-              Connect on LinkedIn
-            </a>
-          </div>
-        </Section>
+              Let's build something worth building
+            </motion.h2>
+            <motion.p
+              variants={fadeUp}
+              style={{
+                fontSize: "1rem",
+                color: "rgba(255,255,255,0.48)",
+                lineHeight: 1.82,
+                marginBottom: 48,
+              }}
+            >
+              I'm actively exploring PM and product strategy roles. Whether you want to collaborate, talk
+              product, or just have a conversation about what's coming. I'm here for it.
+            </motion.p>
+
+            <motion.div
+              variants={stagger}
+              style={{ display: "flex", flexDirection: "column", gap: 10, maxWidth: 440, margin: "0 auto" }}
+            >
+              {[
+                { label: "Connect on LinkedIn", sub: "linkedin.com/in/williamteke", href: "https://linkedin.com/in/williamteke" },
+                { label: "Send an Email",       sub: "your@email.com",             href: "mailto:your@email.com" },
+                { label: "Download Resume",     sub: "PDF",                        href: "#" },
+              ].map((link) => (
+                <motion.a
+                  key={link.label}
+                  variants={fadeUp}
+                  href={link.href}
+                  target={link.href.startsWith("http") ? "_blank" : undefined}
+                  rel="noreferrer"
+                  className="glass-card"
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                    padding: "16px 22px",
+                    borderRadius: 18,
+                    textDecoration: "none",
+                    cursor: "pointer",
+                  }}
+                  whileHover={{ scale: 1.02 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  <span style={{ fontSize: 14, fontWeight: 600, color: "#f5f5f7" }}>{link.label}</span>
+                  <span
+                    style={{
+                      fontSize: 12,
+                      fontFamily: "ui-monospace, 'SF Mono', Menlo, monospace",
+                      color: "rgba(255,255,255,0.32)",
+                    }}
+                  >
+                    ↗ {link.sub}
+                  </span>
+                </motion.a>
+              ))}
+            </motion.div>
+
+            <motion.div variants={fadeUp} style={{ marginTop: 52 }}>
+              <p
+                style={{
+                  fontSize: 12,
+                  letterSpacing: "0.25em",
+                  textTransform: "uppercase",
+                  color: "rgba(255,255,255,0.2)",
+                  marginBottom: 14,
+                }}
+              >
+                Outside of Work
+              </p>
+              <div style={{ display: "flex", gap: 8, justifyContent: "center", flexWrap: "wrap" }}>
+                {["Biohacking", "Chess", "Music", "Sports"].map((l) => (
+                  <span
+                    key={l}
+                    style={{
+                      fontSize: 12,
+                      padding: "7px 18px",
+                      borderRadius: 999,
+                      color: "rgba(255,255,255,0.42)",
+                      border: "1px solid rgba(255,255,255,0.12)",
+                    }}
+                  >
+                    {l}
+                  </span>
+                ))}
+              </div>
+            </motion.div>
+          </motion.div>
+        </div>
+      </section>
+
       </main>
+      {/* ── FOOTER ─────────────────────────────────────────────────────────── */}
+      <footer
+        style={{
+          padding: "28px 48px",
+          display: "flex",
+          flexWrap: "wrap",
+          justifyContent: "space-between",
+          alignItems: "center",
+          gap: 12,
+          borderTop: "1px solid rgba(255,255,255,0.06)",
+        }}
+      >
+        {[
+          { text: "© 2026 William Teke", href: undefined },
+          { text: "Fort Lauderdale, FL", href: undefined },
+          { text: "↑ Back to top",       href: "#home" },
+        ].map(({ text, href }) =>
+          href ? (
+            <a
+              key={text}
+              href={href}
+              style={{ fontSize: 12, color: "rgba(255,255,255,0.5)", letterSpacing: "0.03em" }}
+            >
+              {text}
+            </a>
+          ) : (
+            <span key={text} style={{ fontSize: 12, color: "rgba(255,255,255,0.5)", letterSpacing: "0.03em" }}>
+              {text}
+            </span>
+          )
+        )}
+      </footer>
+
+      {/* ── Global keyframes ────────────────────────────────────────────────── */}
+      <style>{`
+        @keyframes pulse {
+          0%, 100% { opacity: 1; transform: scale(1); }
+          50%       { opacity: 0.4; transform: scale(0.85); }
+        }
+
+        @media (max-width: 768px) {
+          .origins-grid {
+            grid-template-columns: 1fr !important;
+            gap: 48px !important;
+          }
+          section {
+            padding-left: 24px !important;
+            padding-right: 24px !important;
+          }
+          nav {
+            padding-left: 20px !important;
+            padding-right: 20px !important;
+          }
+          footer {
+            padding-left: 24px !important;
+            padding-right: 24px !important;
+            flex-direction: column;
+            text-align: center;
+          }
+        }
+      `}</style>
     </div>
   );
 }
