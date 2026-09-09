@@ -63,13 +63,13 @@ const projects: Project[] = [
     title: "Neptune Beach Parking Strategy",
     body: [
       "Pro bono consulting through the Association for Information Systems at UF, studying parking demand around the 160 available spaces at Beaches Town Center. My contribution focused on proposed parking-management solutions.",
-      "Using Replica mobility data and the team’s Flowbird parking analysis, recommended variable pricing around lunch (11am–2pm) and dinner (5–7pm), plus designated curbside spaces for delivery and rideshare. These were proposals to improve turnover and safety; implementation outcomes were not measured.",
+      "Using Replica mobility data and the team’s Flowbird parking analysis, recommended demand-based parking rates and designated curbside spaces for delivery and rideshare. These were proposals to improve turnover and safety; implementation outcomes were not measured.",
     ],
     meta: "Sources: 2022 Replica & Flowbird data · Team deliverables: Excel citation dashboard, R Shiny visitor dashboard, research white paper",
     findings: [
       { value: "160", label: "Available spaces at Beaches Town Center" },
       { value: "90%", label: "Car-centric trips across Neptune Beach" },
-      { value: "2", label: "Daily parking peaks: lunch & dinner" },
+      { value: "40%", label: "Cited individuals still unpaid as of Oct 2022" },
     ],
   },
   {
