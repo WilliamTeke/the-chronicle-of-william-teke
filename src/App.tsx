@@ -80,7 +80,7 @@ const projects: Project[] = [
     logo: productSpaceLogo,
     href: "https://www.instagram.com/ufproductspace/",
     body: [
-      "Co-founded the first product management club at the University of Florida. At the time, PM wasn't even a known career path for students locally.",
+      "Served as a founding director of Product Space at UF, the university’s first product management club. At the time, PM wasn't even a known career path for students locally.",
       "Built curriculum from scratch, created a community, and watched it grow into one of the most competitive organizations on campus to get into.",
     ],
     meta: "Impact: First PM club at UF · Now highly competitive to join",
@@ -477,7 +477,7 @@ export default function App() {
               <motion.div variants={stagger} style={{ marginBottom: 40 }}>
                 {[
                   "I grew up in Fort Lauderdale, Florida, with a Turkish dad and a Colombian mom. I followed my sister to the University of Florida, where she was studying medicine. A dorm mate introduced me to Information Systems, and the blend of business and technology felt hard to go wrong with. I finished my bachelor's on an accelerated path, then stayed to complete my master's.",
-                  "Product management wasn't a career people at UF really talked about. A friend happened to discover it, and our conversations got me curious enough to learn more. That led me and a group of friends to start Product Space at UF. These days, product management is the career I'm pursuing.",
+                  "Product management wasn't a career people at UF really talked about. A friend happened to discover it, and our conversations got me curious enough to learn more. That led me to become a founding director of Product Space at UF alongside a group of friends. These days, product management is the career I'm pursuing.",
                 ].map((text, i) => (
                   <motion.p
                     key={i}
