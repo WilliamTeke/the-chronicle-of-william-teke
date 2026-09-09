@@ -1,3 +1,6 @@
+import jiuJitsuVideo from "../assets/jiu-jitsu.mp4";
+import jiuJitsuPoster from "../assets/jiu-jitsu-poster.jpg";
+
 const languages = [
   { code: 'EN', name: 'English', level: 'Native or bilingual' },
   { code: 'ES', name: 'Spanish', level: 'Limited working proficiency' },
@@ -40,7 +43,7 @@ export default function ProfileHighlights() {
     </div>
     <div className="profile-personal">
       <div className="profile-languages"><p className="section-label">Across languages</p><div className="language-grid">{languages.map(language => <div key={language.code}><span className="language-code" aria-hidden="true">{language.code}</span><h4>{language.name}</h4><p>{language.level}</p></div>)}</div></div>
-      <article className="profile-instructor"><p className="section-label">Beyond the screen</p><h3>On the mat.<br />Sharing the practice.</h3><p>Jiu-Jitsu instructor<br /><span>Gator Club Jiu-Jitsu · University of Florida</span></p></article>
+      <article className="profile-instructor"><p className="section-label">Beyond the screen</p><h3>On the mat.<br />Sharing the practice.</h3><p>Jiu-Jitsu instructor<br /><span>Gator Club Jiu-Jitsu · University of Florida</span></p><video className="jiu-jitsu-video" controls muted playsInline loop preload="none" poster={jiuJitsuPoster} width="540" height="960" aria-label="Jiu-Jitsu training video, without audio"><source src={jiuJitsuVideo} type="video/mp4" />Your browser does not support video playback.</video></article>
     </div>
   </section>;
 }
