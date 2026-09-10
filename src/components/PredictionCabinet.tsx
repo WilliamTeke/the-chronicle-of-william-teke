@@ -20,15 +20,15 @@ export default function PredictionCabinet({ predictions }: { predictions: Predic
       if (index !== null) document.getElementById(`prediction-tab-${index}`)?.focus();
     }
   }}>
-    <div className="cabinet-top"><span><i aria-hidden="true" />My field notes / Possible futures</span><span>Click a folder to explore</span></div>
+    <div className="cabinet-top"><span><i aria-hidden="true" />My field notes / Possible futures</span><span>Select a file to read</span></div>
     <div className="cabinet-files">
       {predictions.map((prediction, index) => <article className={`prediction-folder ${open === index ? 'is-open' : ''}`} key={prediction.n}>
         <h3><button type="button" className="folder-tab" id={`prediction-tab-${index}`} aria-controls={`prediction-panel-${index}`} aria-expanded={open === index} onClick={() => { setOpen(current => current === index ? null : index); }}>
-          <span className="folder-number">{String(index + 1).padStart(2, '0')}</span><span className="folder-name">{prediction.title}</span><span className="folder-handle" aria-hidden="true" /><span className="folder-toggle" aria-hidden="true">{open === index ? '−' : '+'}</span>
+          <span className="folder-number">{String(index + 1).padStart(2, '0')}</span><span className="folder-name">{prediction.title}</span><span className="file-type" aria-hidden="true">FIELD NOTE</span><span className="folder-toggle" aria-hidden="true">{open === index ? '−' : '+'}</span>
         </button></h3>
         <div id={`prediction-panel-${index}`} role="region" aria-labelledby={`prediction-tab-${index}`} hidden={open !== index}>
           <div className={`folder-paper ${prediction.n === "builders" || prediction.n === "energy" ? "with-visual" : ""} ${prediction.n === "energy" ? "energy-folder" : ""}`}>
-            <div className="folder-writing"><p>{prediction.body}</p><ul>{prediction.bullets.map(bullet => <li key={bullet}>{bullet}</li>)}</ul><div className="prediction-watch"><span>What I’d watch</span><p>{notes[prediction.n].watch}</p><span>The open question</span><p>{notes[prediction.n].question}</p></div></div>
+            <div className="folder-writing"><div className="file-document-header"><span>WILLIAM TEKE / PERSONAL PREDICTIONS</span><span>NOTE {String(index + 1).padStart(2, "0")}</span></div><p>{prediction.body}</p><ul>{prediction.bullets.map(bullet => <li key={bullet}>{bullet}</li>)}</ul><div className="prediction-watch"><span>What I’d watch</span><p>{notes[prediction.n].watch}</p><span>The open question</span><p>{notes[prediction.n].question}</p></div></div>
             {(prediction.n === "builders" || prediction.n === "energy") && <div className="folder-visual-column"><span className="prediction-status">Personal hypothesis · Open to revision</span>{prediction.n === 'builders' && <BuilderLab />}{prediction.n === 'energy' && open === index && <Suspense fallback={<p>Loading energy chart…</p>}><EnergyChart /></Suspense>}</div>}
           </div>
         </div>
