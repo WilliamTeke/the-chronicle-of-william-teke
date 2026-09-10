@@ -353,3 +353,6 @@ body:has(.roots-dialog[open]) { overflow:hidden; }
 .atlas-facts dd a { color:#9ed3f0; }
 .atlas-map-link { display:inline-block; margin-top:20px; font-size:12px; color:#b4e0f7; text-decoration:underline; text-underline-offset:4px; }
 @media(max-width:600px) { .roots-dialog { padding:18px; } .roots-dialog .atlas-grid { grid-template-columns:1fr; } .atlas-expandable summary { min-height:165px; } }
+
+#origins .origins-grid p:last-child { margin-bottom: 0 !important; }
+@media(max-width:767px) { #origins, #experience, #projects, #predictions, #contact { padding-top: 48px !important; padding-bottom: 48px !important; } }

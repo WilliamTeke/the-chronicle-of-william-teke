@@ -225,7 +225,7 @@ function SectionHeader({ label, title }: { label: string; title: string }) {
       whileInView="visible"
       viewport={{ once: true, margin: "-80px" }}
       variants={stagger}
-      style={{ marginBottom: 64 }}
+      style={{ marginBottom: 40 }}
     >
       <motion.p variants={fadeUp} className="section-label" style={{ marginBottom: 14 }}>
         {label}
@@ -432,7 +432,7 @@ export default function App() {
       <ProfileHighlights />
 
       {/* ── ORIGINS ────────────────────────────────────────────────────────── */}
-      <section id="origins" style={{ padding: "120px 48px", background: "#080d11" }}>
+      <section id="origins" style={{ padding: "64px 48px", background: "#080d11" }}>
         <div style={{ maxWidth: 1100, margin: "0 auto" }}>
           <SectionHeader label="A Chronicle of Origins" title="The Roots" />
 
@@ -475,7 +475,7 @@ export default function App() {
               viewport={{ once: true, margin: "-80px" }}
               variants={stagger}
             >
-              <motion.div variants={stagger} style={{ marginBottom: 40 }}>
+              <motion.div variants={stagger}>
                 {[
                   "I grew up in Fort Lauderdale, Florida, with a Turkish dad and a Colombian mom. I followed my sister to the University of Florida, where she was studying medicine. A dorm mate introduced me to Information Systems, and the blend of business and technology felt hard to go wrong with. I finished my bachelor's on an accelerated path, then stayed to complete my master's.",
                   "Product management wasn't a career people at UF really talked about. A friend happened to discover it, and our conversations got me curious enough to learn more. That led me to become a founding director of Product Space at UF alongside a group of friends. These days, product management is the career I'm pursuing.",
@@ -503,7 +503,7 @@ export default function App() {
       </section>
 
       {/* ── EXPERIENCE ─────────────────────────────────────────────────────── */}
-      <section id="experience" style={{ padding: "120px 48px", background: "#05090c" }}>
+      <section id="experience" style={{ padding: "64px 48px", background: "#05090c" }}>
         <div style={{ maxWidth: 720, margin: "0 auto" }}>
           <SectionHeader label="The Craft" title="How I got here" />
 
@@ -523,7 +523,7 @@ export default function App() {
       </section>
 
       {/* ── PROJECTS ───────────────────────────────────────────────────────── */}
-      <section id="projects" style={{ padding: "120px 48px", background: "#080d11" }}>
+      <section id="projects" style={{ padding: "64px 48px", background: "#080d11" }}>
         <div style={{ maxWidth: 900, margin: "0 auto" }}>
           <SectionHeader label="Creations" title="Things I've built" />
 
@@ -605,7 +605,7 @@ export default function App() {
       </section>
 
       {/* ── PREDICTIONS ────────────────────────────────────────────────────── */}
-      <section id="predictions" style={{ padding: "120px 48px", background: "#05090c" }}>
+      <section id="predictions" style={{ padding: "64px 48px", background: "#05090c" }}>
         <div style={{ maxWidth: 1000, margin: "0 auto" }}>
           <SectionHeader label="Ideas I’m exploring" title="My predictions" />
           <p className="predictions-intro">My personal guesses about where technology and work could go. These are ideas I’m exploring, not certainties, and I expect them to change as I learn more. Most visuals illustrate my thinking. The energy chart includes sourced estimates and projections.</p>
@@ -616,7 +616,7 @@ export default function App() {
       </section>
 
       {/* ── CONTACT ────────────────────────────────────────────────────────── */}
-      <section id="contact" style={{ padding: "120px 48px", background: "#080d11" }}>
+      <section id="contact" style={{ padding: "64px 48px", background: "#080d11" }}>
         <div style={{ maxWidth: 600, margin: "0 auto", textAlign: "center" }}>
           <motion.div
             initial="hidden"
