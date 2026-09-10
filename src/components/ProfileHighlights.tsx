@@ -37,7 +37,7 @@ export default function ProfileHighlights() {
           <img src="https://www.kellogg.northwestern.edu/-/media/images/web2022/the-experience/locations/evanston/evanston-updated-slideshow/05-evanston-984x728.jpg?hash=6434FB54D705978907484D31A67F7012&rev=8f3a76007327443f8d5d3c040fefa792&sc_lang=en" alt="Kellogg Global Hub beside Lake Michigan at Northwestern University" loading="lazy" width="984" height="728" />
           <span className="certificate-badge">Executive certificate</span>
         </div>
-        <div className="northwestern-detail"><p className="education-school">Northwestern University</p><p className="education-provider">Kellogg Executive Education</p><h4>AI &amp; Product Strategy</h4><p className="education-certificate-name">Advanced Certificate · September 2026</p></div>
+        <div className="northwestern-detail"><p className="education-school">Northwestern University</p><p className="education-provider">Kellogg Executive Education</p><h4><a className="academic-link" href="https://execedcertificate.kellogg.northwestern.edu/19288249-6c58-4e15-b3ff-927cc2716cba#acc.a9eVtizg" target="_blank" rel="noopener noreferrer" aria-label="View Kellogg AI and Product Strategy certificate (opens in a new tab)">AI &amp; Product Strategy <span aria-hidden="true">↗</span></a></h4><p className="education-certificate-name">Advanced Certificate · September 2026</p></div>
         <a className="campus-credit" href="https://www.kellogg.northwestern.edu/the-experience/campuses/evanston/" target="_blank" rel="noreferrer">Campus photo · Kellogg ↗</a>
       </article>
     </div>
