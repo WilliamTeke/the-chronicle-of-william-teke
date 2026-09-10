@@ -3,7 +3,7 @@ import { lazy, useEffect, useState } from "react";
 import Deferred from "./components/Deferred";
 import LiveClock from "./components/LiveClock";
 const Globe = lazy(() => import("./components/Globe"));
-const HeritageAtlas = lazy(() => import("./components/HeritageAtlas"));
+import RootsExplorer from "./components/RootsExplorer";
 import StarField from "./components/StarField";
 import ProfileHighlights from "./components/ProfileHighlights";
 import ParkingDiagram from "./components/ParkingDiagram";
@@ -465,6 +465,7 @@ export default function App() {
               >
                 Rotating globe · heritage regions highlighted
               </p>
+              <RootsExplorer />
             </motion.div>
 
             {/* Story + Heritage cards */}
@@ -497,7 +498,7 @@ export default function App() {
 
             </motion.div>
           </div>
-          <Deferred className="deferred-atlas"><HeritageAtlas /></Deferred>
+
         </div>
       </section>
 
