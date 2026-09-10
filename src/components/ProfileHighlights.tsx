@@ -8,16 +8,7 @@ const languages = [
 ];
 
 export default function ProfileHighlights() {
-  return <section className="profile-highlights" aria-labelledby="profile-title">
-    <div className="profile-heading"><p className="section-label">The next chapter</p><h2 id="profile-title">Where AI meets product.</h2></div>
-    <div className="profile-feature">
-      <div className="profile-practice">
-        <p className="profile-kicker">In practice · PwC</p>
-        <h3>Client intelligence.<br /><span>Built for people.</span></h3>
-        <p>I build products that make it easier for client-facing teams to find and use client intelligence. The goal is simple: solve real problems with products people actually want to use.</p>
-        <a href="#experience" className="profile-text-link">Follow my career <span aria-hidden="true">↗</span></a>
-      </div>
-    </div>
+  return <section className="profile-highlights" aria-label="Education and personal interests">
     <div className="education-heading"><p className="section-label">Education &amp; continued learning</p><span>Rooted in Florida. Still learning.</span></div>
     <div className="education-grid">
       <article className="education-uf">
