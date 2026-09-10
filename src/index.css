@@ -366,3 +366,27 @@ body:has(.roots-dialog[open]) { overflow:hidden; }
 .project-engagements > div { border:1px solid #ffffff25; border-radius:5px; padding:14px 6px; text-align:center; }
 .project-engagements strong { font-size:12px; color:#e2edf3; font-weight:500; }
 .project-engagements span { display:block; margin-top:10px; font-size:11px; line-height:1.8; color:#a9c1cf; }
+
+.prediction-lab { --accent:#bf9aff; padding:24px; margin:0; border:1px solid #a07ae85c; border-radius:16px; background:radial-gradient(ellipse at top right,#643c893d,transparent 70%),#151224; }
+.prediction-lab figcaption { display:flex; align-items:center; gap:12px; color:#f0e9ff; font-size:18px; line-height:1.35; }
+.prediction-lab figcaption > svg { color:var(--accent); flex-shrink:0; }
+.prediction-lab figcaption span { display:block; margin-top:6px; font-size:11px; color:#c1b9d2; }
+.lab-control { display:flex; flex-wrap:wrap; gap:12px; justify-content:space-between; margin:26px 0 18px; font-size:12px; color:#e2d7f5; }
+.lab-control input { width:100%; accent-color:var(--accent); cursor:pointer; }
+.lab-legend { display:flex; gap:16px; font-size:11px; color:#d4cbe1; }
+.delivery-row { margin-top:20px; }
+.delivery-row > div:first-child { display:flex; justify-content:space-between; gap:12px; font-size:12px; color:#e1d6ed; margin-bottom:9px; }
+.delivery-track { display:flex; height:30px; border-radius:5px; overflow:hidden; background:#ffffff08; }
+.delivery-track > div { display:flex; align-items:center; justify-content:center; overflow:hidden; white-space:nowrap; font-size:11px; color:#160e26; font-weight:600; }
+.delivery-work { background:#b59aff; }.delivery-wait { background:#ffbd79; }
+.lab-result { display:flex; align-items:center; gap:16px; margin:24px 0; }.lab-result strong { font-size:40px; color:#c9aaff; font-weight:450; }.lab-result span { font-size:12px; color:#d3c3e4; max-width:150px; }
+.lab-insight { font-size:13px; line-height:1.75; color:#eee6f6; border-top:1px solid #ffffff20; padding-top:16px; margin:20px 0 0; }
+.prediction-lab details,.lab-note { font-size:11px; line-height:1.7; color:#bfb6cb; margin-top:16px; }.prediction-lab summary { cursor:pointer; }
+.expertise-lab { --accent:#6de0fb; background:radial-gradient(ellipse at top left,#154fae55,transparent 70%),#0c1b2b; border-color:#449cd66b; }
+.project-selector { display:flex; flex-wrap:wrap; gap:6px; margin:24px 0 18px; }.project-selector button { border:1px solid #7dc4e348; border-radius:16px; padding:8px 10px; background:#ffffff05; color:#b9d8e7; font-size:11px; cursor:pointer; }.project-selector button[aria-pressed=true] { background:#73dafa; color:#082238; }
+.expertise-stage { border:1px solid #68bddd5c; padding:20px; border-radius:12px; background:#15354b; }.expertise-stage > svg { color:#76e5ff; }.expertise-stage > span { display:block; margin-top:14px; font:9px ui-monospace,monospace; letter-spacing:.1em; color:#a9d7eb; }.expertise-stage h4 { font-size:21px; color:#e0f7ff; margin:9px 0; }.expertise-stage p,.expertise-stage blockquote { font-size:12px; line-height:1.7; color:#bed9e5; }.expertise-stage blockquote { margin:16px 0 0; padding-left:12px; border-left:2px solid #6cd8f4; color:#e0f7ff; }
+.shared-tools { padding:15px; margin-top:12px; border:1px dashed #7ad5ec55; border-radius:8px; text-align:center; }.shared-tools span { font:9px ui-monospace,monospace; color:#99c9d8; }.shared-tools p { font-size:12px; color:#bddbe6; margin:8px 0 0; }
+.physical-lab { --accent:#ffb67d; background:radial-gradient(ellipse at top right,#a947344d,transparent 70%),#241719; border-color:#dc927b66; }
+.task-matrix { display:grid; grid-template-columns:1fr 1fr; grid-template-rows:1fr 1fr; gap:8px; margin-top:24px; }.task-matrix button { padding:15px 10px; min-height:105px; border:1px solid #efaf8655; background:#472931; color:#ffe4d5; border-radius:8px; font-size:12px; text-align:left; cursor:pointer; }.task-matrix button span { display:block; font-size:9px; color:#d9b3a4; margin-bottom:10px; }.task-matrix button[aria-pressed=true] { background:#844b33; border-color:#ffc092; box-shadow:inset 0 0 0 1px #ffc092; }.matrix-axis { display:flex; justify-content:space-between; gap:12px; font-size:10px; color:#e4bba6; margin-top:10px; }.task-reading { min-height:85px; font-size:12px; line-height:1.7; color:#eed2c4; margin-top:20px; }
+.energy-research { background:radial-gradient(ellipse at top right,#14795e33,transparent 65%),#091b1c; border-color:#4cba9466; }.energy-metrics strong { color:#68efc1; }.energy-legend i { background:#4ee5b4; }.energy-legend .ai-key { background:#ffd36e; }.energy-chart-canvas { min-width:0; margin-top:24px; }.energy-axis-label { font-size:12px; color:#b6d3cb; }.energy-research .recharts-surface { margin:0; }.folder-visual-column { min-width:0; }
+@media(max-width:540px) { .prediction-lab { padding:18px; }.task-matrix button { padding:12px 8px; }.energy-chart-canvas { margin-left:-10px; margin-right:-10px; } }
