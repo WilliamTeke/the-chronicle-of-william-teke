@@ -1,4 +1,4 @@
-import { BuilderLab, ExpertiseLab, PhysicalLab } from './PredictionLabs';
+import { BuilderLab } from './PredictionLabs';
 const EnergyChart = lazy(() => import('./EnergyChart'));
 import { lazy, Suspense, useState } from 'react';
 
@@ -27,9 +27,9 @@ export default function PredictionCabinet({ predictions }: { predictions: Predic
           <span className="folder-number">{String(index + 1).padStart(2, '0')}</span><span className="folder-name">{prediction.title}</span><span className="folder-handle" aria-hidden="true" /><span className="folder-toggle" aria-hidden="true">{open === index ? '−' : '+'}</span>
         </button></h3>
         <div id={`prediction-panel-${index}`} role="region" aria-labelledby={`prediction-tab-${index}`} hidden={open !== index}>
-          <div className={`folder-paper with-visual ${prediction.n === "energy" ? "energy-folder" : ""}`}>
+          <div className={`folder-paper ${prediction.n === "builders" || prediction.n === "energy" ? "with-visual" : ""} ${prediction.n === "energy" ? "energy-folder" : ""}`}>
             <div className="folder-writing"><p>{prediction.body}</p><ul>{prediction.bullets.map(bullet => <li key={bullet}>{bullet}</li>)}</ul><div className="prediction-watch"><span>What I’d watch</span><p>{notes[prediction.n].watch}</p><span>The open question</span><p>{notes[prediction.n].question}</p></div></div>
-            <div className="folder-visual-column"><span className="prediction-status">Personal hypothesis · Open to revision</span>{prediction.n === 'builders' && <BuilderLab />}{prediction.n === 'energy' && open === index && <Suspense fallback={<p>Loading energy chart…</p>}><EnergyChart /></Suspense>}{prediction.n === 'expertise' && <ExpertiseLab />}{prediction.n === 'physical' && <PhysicalLab />}</div>
+            {(prediction.n === "builders" || prediction.n === "energy") && <div className="folder-visual-column"><span className="prediction-status">Personal hypothesis · Open to revision</span>{prediction.n === 'builders' && <BuilderLab />}{prediction.n === 'energy' && open === index && <Suspense fallback={<p>Loading energy chart…</p>}><EnergyChart /></Suspense>}</div>}
           </div>
         </div>
       </article>)}
