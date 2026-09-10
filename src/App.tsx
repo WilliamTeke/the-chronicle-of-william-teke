@@ -99,16 +99,6 @@ const predictions: Prediction[] = [
     ]
   },
   {
-    "n": "energy",
-    "title": "The Next AI Race Is for Power",
-    "body": "I think energy becomes the next defining opportunity in tech. Even if model breakthroughs slow down, the capability we already have becomes a baseline people keep building on, like computing or a mathematical discovery. My bet is that AI use keeps expanding, and the race shifts toward powering what we can already do.",
-    "bullets": [
-      "The next wave could belong to the people who make reliable energy abundant, affordable, and fast to connect.",
-      "Better efficiency may lower the energy cost of a task while making many more tasks worth doing. I expect adoption to keep pushing demand upward.",
-      "Abundant power would expand what we can attempt with AI. It would not remove every constraint, but it could unlock far more room to build."
-    ]
-  },
-  {
     "n": "expertise",
     "title": "The Company Becomes a Project",
     "body": "My bet: more careers start to resemble a portfolio of projects rather than a permanent seat at one company. If AI covers more of the build phase, the person worth bringing in is the one who deeply understands the specific problem. Niche expertise becomes more valuable than being a generalist who can operate the tools.",
@@ -599,8 +589,8 @@ export default function App() {
       {/* ── PREDICTIONS ────────────────────────────────────────────────────── */}
       <section id="predictions" style={{ padding: "64px 48px", background: "#05090c" }}>
         <div style={{ maxWidth: 1000, margin: "0 auto" }}>
-          <SectionHeader label="Ideas I’m exploring" title="My predictions" />
-          <p className="predictions-intro">My personal guesses about where technology and work could go. These are ideas I’m exploring, not certainties, and I expect them to change as I learn more. Most visuals illustrate my thinking. The energy chart includes sourced estimates and projections.</p>
+          <SectionHeader label="Ideas I’m exploring" title="My top three predictions right now" />
+          <p className="predictions-intro">My personal guesses about where technology and work could go. These are ideas I’m exploring, not certainties, and I expect them to change as I learn more.</p>
 
           <PredictionCabinet predictions={predictions} />
 
