@@ -449,3 +449,17 @@ body:has(.roots-dialog[open]) { overflow:hidden; }
 @keyframes pull-document { from { opacity:0; transform:translateY(45px) scale(.95) rotate(-1deg); } to { opacity:1; transform:none; } }
 @media(max-width:640px) { .drawer-scene { margin:22px 0 0; height:410px; }.hanging-files { inset:38px 7% 80px; }.hanging-file { top:calc(var(--file-index) * 74px); }.hanging-tab { left:8px; max-width:calc(100% - 16px); gap:7px; padding:9px; font-size:12px; }.hanging-tab > span { font-size:9px; }.drawer-front { height:96px; bottom:0; }.drawer-back { height:310px; }.drawer-handle { margin-top:9px; }.reader-with-visual { grid-template-columns:1fr; }.prediction-reader { padding:20px; }.reader-toolbar { flex-wrap:wrap; } }
 @media(prefers-reduced-motion:reduce) { .prediction-reader[open] { animation:none; }.hanging-file { transition:none; } }
+
+/* Minimal manila files: only the title tabs are interactive. */
+.hanging-file { cursor:default; box-shadow:0 4px 10px #0003; border-color:#c5af87; border-top-color:#baa989; }
+.hanging-file:hover { filter:none; }
+.hanging-tab { color:#443a2a; cursor:pointer; font-weight:400; border-color:#c5af87; box-shadow:none; transition:background .15s; }
+.hanging-tab:hover { background:#e7d2aa; }
+.hanging-tab:focus-visible { outline:2px solid #f1e6cf; outline-offset:4px; }
+.hanging-sheet { background:#efe9dc; box-shadow:0 -3px #dfd7c9; border:0; }
+.drawer-back { background:#18232a; box-shadow:inset 0 0 20px #0003; border:1px solid #506069; }
+.drawer-front { background:#34444e; border-color:#647680; box-shadow:0 12px 25px #0003; justify-content:center; padding-top:0; height:85px; }
+.drawer-handle { width:85px; height:17px; border-width:3px; margin-top:0; box-shadow:none; }
+.drawer-rail { opacity:.55; }
+.drawer-caption { color:#91a1aa; }
+@media(prefers-reduced-motion:reduce) { .hanging-tab { transition:none; } }

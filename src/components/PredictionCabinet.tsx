@@ -14,22 +14,23 @@ export default function PredictionCabinet({ predictions }: { predictions: Predic
   const reader = useRef<HTMLDialogElement>(null);
   const buttons = useRef<(HTMLButtonElement | null)[]>([]);
   const selected = open === null ? null : predictions[open];
-  const colors = ['#9a91c8', '#7dacaa', '#d2a078'];
   return <div className="hanging-cabinet">
-    <div className="drawer-caption"><span>FIELD NOTES / {String(predictions.length).padStart(2,'0')} FILES</span><span>Select a title to pull out a file ↗</span></div>
+    <div className="drawer-caption"><span>FIELD NOTES / {String(predictions.length).padStart(2,'0')} FILES</span><span>Select a title to read</span></div>
     <div className="drawer-scene">
       <div className="drawer-back" aria-hidden="true" />
       <div className="drawer-rail rail-left" aria-hidden="true"/><div className="drawer-rail rail-right" aria-hidden="true"/>
       <div className="hanging-files">
-        {predictions.map((prediction,index) => <button key={prediction.n} ref={element => { buttons.current[index] = element; }}
-          className={`hanging-file ${open === index ? 'file-pulled' : ''}`} style={{'--file-color':colors[index % colors.length], '--file-index':index} as CSSProperties}
-          aria-haspopup="dialog" aria-label={`Read prediction ${index+1}: ${prediction.title}`}
-          onClick={() => { setOpen(index); reader.current?.showModal(); }}>
-          <span className="hanging-tab"><span>{String(index+1).padStart(2,'0')}</span>{prediction.title}<span aria-hidden="true">↗</span></span>
-          <span className="hanging-sheet" aria-hidden="true"><span>WILLIAM TEKE</span><span>PERSONAL PREDICTION / {String(index+1).padStart(2,'0')}</span><i/><i/><i/></span>
-        </button>)}
+        {predictions.map((prediction,index) => <div key={prediction.n}
+          className={`hanging-file ${open === index ? 'file-pulled' : ''}`} style={{'--file-color':'#d6bd8e', '--file-index':index} as CSSProperties}>
+          <button className="hanging-tab" ref={element => { buttons.current[index] = element; }}
+            aria-haspopup="dialog" aria-label={`Read prediction ${index+1}: ${prediction.title}`}
+            onClick={() => { setOpen(index); reader.current?.showModal(); }}>
+            {prediction.title}
+          </button>
+          <span className="hanging-sheet" aria-hidden="true" />
+        </div>)}
       </div>
-      <div className="drawer-front" aria-hidden="true"><span className="drawer-label">POSSIBLE FUTURES</span><span className="drawer-handle"/><span className="drawer-rivet rivet-left"/><span className="drawer-rivet rivet-right"/></div>
+      <div className="drawer-front" aria-hidden="true"><span className="drawer-handle"/></div>
     </div>
     <dialog ref={reader} className="prediction-reader" aria-labelledby="prediction-reader-title" onClose={() => { if (open !== null) buttons.current[open]?.focus(); setOpen(null); }}>
       {selected && <article>
