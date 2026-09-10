@@ -630,7 +630,7 @@ export default function App() {
                 marginBottom: 24,
               }}
             >
-              Let's build something worth building
+              You made it this far. Let’s chat.
             </motion.h2>
             <motion.p
               variants={fadeUp}
@@ -641,8 +641,8 @@ export default function App() {
                 marginBottom: 48,
               }}
             >
-              Always happy to connect with people building in enterprise AI. Whether you want to collaborate, talk
-              product, or share something you’re learning, I’m here for it.
+              If you’ve made it this far, I’d love to connect. Send me a message on LinkedIn or an email.
+              I’m always happy to chat.
             </motion.p>
 
             <motion.div
