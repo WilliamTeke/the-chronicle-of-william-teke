@@ -1,5 +1,5 @@
 import { BuilderLab } from './PredictionLabs';
-import { useState } from 'react';
+import { useRef, useState, type CSSProperties } from 'react';
 
 interface Prediction { n: string; title: string; body: string; bullets: string[] }
 
@@ -11,27 +11,36 @@ const notes: Record<string, { watch: string; question: string }> = {
 
 export default function PredictionCabinet({ predictions }: { predictions: Prediction[] }) {
   const [open, setOpen] = useState<number | null>(null);
-  return <div className="prediction-cabinet" onKeyDown={event => {
-    if (event.key === 'Escape') {
-      const index = open;
-      setOpen(null);
-      if (index !== null) document.getElementById(`prediction-tab-${index}`)?.focus();
-    }
-  }}>
-    <div className="cabinet-top"><span><i aria-hidden="true" />My field notes / Possible futures</span><span>Select a file to read</span></div>
-    <div className="cabinet-files">
-      {predictions.map((prediction, index) => <article className={`prediction-folder ${open === index ? 'is-open' : ''}`} key={prediction.n}>
-        <h3><button type="button" className="folder-tab" id={`prediction-tab-${index}`} aria-controls={`prediction-panel-${index}`} aria-expanded={open === index} onClick={() => { setOpen(current => current === index ? null : index); }}>
-          <span className="folder-number">{String(index + 1).padStart(2, '0')}</span><span className="folder-name">{prediction.title}</span><span className="file-type" aria-hidden="true">FIELD NOTE</span><span className="folder-toggle" aria-hidden="true">{open === index ? '−' : '+'}</span>
-        </button></h3>
-        <div id={`prediction-panel-${index}`} role="region" aria-labelledby={`prediction-tab-${index}`} hidden={open !== index}>
-          <div className={`folder-paper ${prediction.n === "builders" ? "with-visual" : ""}`}>
-            <div className="folder-writing"><div className="file-document-header"><span>WILLIAM TEKE / PERSONAL PREDICTIONS</span><span>NOTE {String(index + 1).padStart(2, "0")}</span></div><p>{prediction.body}</p><ul>{prediction.bullets.map(bullet => <li key={bullet}>{bullet}</li>)}</ul><div className="prediction-watch"><span>What I’d watch</span><p>{notes[prediction.n].watch}</p><span>The open question</span><p>{notes[prediction.n].question}</p></div></div>
-            {(prediction.n === "builders") && <div className="folder-visual-column"><span className="prediction-status">Personal hypothesis · Open to revision</span>{prediction.n === 'builders' && <BuilderLab />}</div>}
-          </div>
-        </div>
-      </article>)}
+  const reader = useRef<HTMLDialogElement>(null);
+  const buttons = useRef<(HTMLButtonElement | null)[]>([]);
+  const selected = open === null ? null : predictions[open];
+  const colors = ['#9a91c8', '#7dacaa', '#d2a078'];
+  return <div className="hanging-cabinet">
+    <div className="drawer-caption"><span>FIELD NOTES / {String(predictions.length).padStart(2,'0')} FILES</span><span>Select a title to pull out a file ↗</span></div>
+    <div className="drawer-scene">
+      <div className="drawer-back" aria-hidden="true" />
+      <div className="drawer-rail rail-left" aria-hidden="true"/><div className="drawer-rail rail-right" aria-hidden="true"/>
+      <div className="hanging-files">
+        {predictions.map((prediction,index) => <button key={prediction.n} ref={element => { buttons.current[index] = element; }}
+          className={`hanging-file ${open === index ? 'file-pulled' : ''}`} style={{'--file-color':colors[index % colors.length], '--file-index':index} as CSSProperties}
+          aria-haspopup="dialog" aria-label={`Read prediction ${index+1}: ${prediction.title}`}
+          onClick={() => { setOpen(index); reader.current?.showModal(); }}>
+          <span className="hanging-tab"><span>{String(index+1).padStart(2,'0')}</span>{prediction.title}<span aria-hidden="true">↗</span></span>
+          <span className="hanging-sheet" aria-hidden="true"><span>WILLIAM TEKE</span><span>PERSONAL PREDICTION / {String(index+1).padStart(2,'0')}</span><i/><i/><i/></span>
+        </button>)}
+      </div>
+      <div className="drawer-front" aria-hidden="true"><span className="drawer-label">POSSIBLE FUTURES</span><span className="drawer-handle"/><span className="drawer-rivet rivet-left"/><span className="drawer-rivet rivet-right"/></div>
     </div>
-    <div className="cabinet-bottom"><span>PERSONAL PREDICTIONS</span><span>{String(predictions.length).padStart(2, '0')} files</span></div>
+    <dialog ref={reader} className="prediction-reader" aria-labelledby="prediction-reader-title" onClose={() => { if (open !== null) buttons.current[open]?.focus(); setOpen(null); }}>
+      {selected && <article>
+        <header className="reader-toolbar"><span>FILE {String(open!+1).padStart(2,'0')} / PERSONAL PREDICTION</span><button autoFocus onClick={() => reader.current?.close()}>Return file ×</button></header>
+        <h3 id="prediction-reader-title">{selected.title}</h3>
+        <div className={`reader-content ${selected.n === 'builders' ? 'reader-with-visual' : ''}`}>
+          <div><p>{selected.body}</p><ul>{selected.bullets.map(bullet => <li key={bullet}>{bullet}</li>)}</ul>
+          <div className="reader-notes"><h4>What I’d watch</h4><p>{notes[selected.n].watch}</p><h4>The open question</h4><p>{notes[selected.n].question}</p></div></div>
+          {selected.n === 'builders' && <BuilderLab />}
+        </div>
+      </article>}
+    </dialog>
   </div>;
 }
