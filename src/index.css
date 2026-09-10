@@ -356,3 +356,13 @@ body:has(.roots-dialog[open]) { overflow:hidden; }
 
 #origins .origins-grid p:last-child { margin-bottom: 0 !important; }
 @media(max-width:767px) { #origins, #experience, #projects, #predictions, #contact { padding-top: 48px !important; padding-bottom: 48px !important; } }
+
+.builder-levels { display:flex; gap:8px; margin:16px 0; }
+.builder-levels span { flex:1; text-align:center; padding:10px 5px; border:1px solid #87acbd55; border-radius:5px; color:#c0d5df; font-size:12px; }
+.expertise-core { margin-top:24px; border:1px solid #a5c4d1; border-radius:8px; padding:20px 12px; text-align:center; background:#263d49; }
+.expertise-core strong { display:block; font-size:16px; font-weight:500; color:#e3eff5; }
+.expertise-core span { display:block; margin-top:10px; font-size:11px; color:#bad0dc; }
+.project-engagements { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; }
+.project-engagements > div { border:1px solid #ffffff25; border-radius:5px; padding:14px 6px; text-align:center; }
+.project-engagements strong { font-size:12px; color:#e2edf3; font-weight:500; }
+.project-engagements span { display:block; margin-top:10px; font-size:11px; line-height:1.8; color:#a9c1cf; }

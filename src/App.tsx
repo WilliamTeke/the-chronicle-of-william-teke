@@ -89,53 +89,45 @@ const projects: Project[] = [
 
 const predictions: Prediction[] = [
   {
-    n: "I",
-    title: "End-to-End Doers",
-    body: "The traditional corporate assembly line is breaking. The cost of execution has dropped so significantly that time spent syncing between departments is now more expensive than the work itself.",
-    bullets: [
-      "Traditional: Idea → PM → Designer → Engineer → QA → Deploy",
-      "Future: Concept ↔ Execution (the End-to-End Doer)",
-      "Success belongs to those who own the entire road",
-    ],
+    "n": "builders",
+    "title": "The Job Title Disappears",
+    "body": "My bet: product manager, designer, and software engineer eventually collapse into one role: builder. As AI makes implementation more accessible, the distinction between who defines, designs, and builds the product starts to matter less than who delivers it.",
+    "bullets": [
+      "A simpler ladder: entry, mid, senior. Advancement reflects the scope of problems you can own, not a growing collection of titles.",
+      "Everyone owns the full loop: find the right problem, talk to stakeholders, build, ship, and learn from the result.",
+      "The skills still matter. I think the permanent boundaries between the jobs will matter much less."
+    ]
   },
   {
-    n: "II",
-    title: "Clarity of Thought",
-    body: "In a world where AI generates infinite content and code, the 'how' is becoming a commodity. We are shifting from an economy of labor to an economy of intent.",
-    bullets: [
-      "Precision as a filter: inability to define a problem = high-speed garbage",
-      "The Editor Mindset: future professionals look more like high-stakes editors",
-      "Your most valuable asset is your ability to think, not to work",
-    ],
+    "n": "energy",
+    "title": "The Next AI Race Is for Power",
+    "body": "I think energy becomes the next defining opportunity in tech. Even if model breakthroughs slow down, the capability we already have becomes a baseline people keep building on, like computing or a mathematical discovery. My bet is that AI use keeps expanding, and the race shifts toward powering what we can already do.",
+    "bullets": [
+      "The next wave could belong to the people who make reliable energy abundant, affordable, and fast to connect.",
+      "Better efficiency may lower the energy cost of a task while making many more tasks worth doing. I expect adoption to keep pushing demand upward.",
+      "Abundant power would expand what we can attempt with AI. It would not remove every constraint, but it could unlock far more room to build."
+    ]
   },
   {
-    n: "III",
-    title: "The Energy Bottleneck",
-    body: "While everyone is fixated on AGI, we are quietly hitting a physical wall. Every generative model requires staggering power. Energy is no longer a background utility; it is the primary constraint.",
-    bullets: [
-      "Shifting from a compute-first to an energy-first era",
-      "Sustainable energy becoming the highest-stakes tech sector",
-    ],
+    "n": "expertise",
+    "title": "The Company Becomes a Project",
+    "body": "My bet: more careers start to resemble a portfolio of projects rather than a permanent seat at one company. If AI covers more of the build phase, the person worth bringing in is the one who deeply understands the specific problem. Niche expertise becomes more valuable than being a generalist who can operate the tools.",
+    "bullets": [
+      "Teams assemble around a problem, deliver, and re-form. Even employees may work more like contractors.",
+      "What you study matters differently: domain knowledge shapes the questions you ask, the tradeoffs you notice, and how clearly you explain them.",
+      "Retention becomes a harder question. Companies may have to win people back with each project through meaningful work, trust, and ownership."
+    ]
   },
   {
-    n: "IV",
-    title: "A Dynamic Workforce",
-    body: "The career ladder is being replaced by a jungle gym. Stability is no longer found in a job title. It is found in your pivot speed.",
-    bullets: [
-      "Pivot Speed: your value = how fast you can unlearn and relearn",
-      "Modular Skillsets: generalist during disruption, specialist during boom",
-      "Flash Organizations: teams assemble, execute, dissolve",
-    ],
-  },
-  {
-    n: "V",
-    title: "Resurgence of the Physical",
-    body: "We used machines to automate physical labor so we could focus on thinking jobs. Now AI is automating thinking jobs, driving value back into the physical world.",
-    bullets: [
-      "There is a ceiling to what can be solved behind a screen",
-      "The person who can build the machine becomes the most important person in the room",
-    ],
-  },
+    "n": "physical",
+    "title": "Prestige Changes Collars",
+    "body": "I think the status gap between white-collar and blue-collar work could reverse. As more desk work is automated or compressed, skilled physical work may become the harder capability to replace. The person who can diagnose and fix something in the real world could command more prestige than the person with the impressive office title.",
+    "bullets": [
+      "Some knowledge workers may spread their time across several jobs or clients as AI reduces the effort each requires.",
+      "An electrician, technician, or craftsperson still has to show up. Physical presence limits how many jobs can be done at once.",
+      "My bet depends on timing: reliable robotics for varied, complex environments takes longer than automating digital workflows."
+    ]
+  }
 ];
 
 // ── Animation variants ───────────────────────────────────────────────────────
