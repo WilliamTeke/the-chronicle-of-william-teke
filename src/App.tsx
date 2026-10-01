@@ -1,4 +1,5 @@
-import { motion, useScroll, useSpring } from "framer-motion";
+import "./modern.css";
+import { motion, MotionConfig, useScroll, useSpring } from "framer-motion";
 import { lazy, useEffect, useState } from "react";
 import Deferred from "./components/Deferred";
 import LiveClock from "./components/LiveClock";
@@ -124,13 +125,13 @@ const predictions: Prediction[] = [
 const easeApple = [0.25, 0.4, 0.25, 1] as const;
 
 const fadeUp = {
-  hidden:  { opacity: 0, y: 36 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.9, ease: easeApple } },
+  hidden:  { opacity: 0, y: 16 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.45, ease: easeApple } },
 };
 
 const fadeIn = {
   hidden:  { opacity: 0 },
-  visible: { opacity: 1, transition: { duration: 0.8, ease: easeApple } },
+  visible: { opacity: 1, transition: { duration: 0.4, ease: easeApple } },
 };
 
 const stagger = {
@@ -235,6 +236,15 @@ export default function App() {
   const { scrollYProgress }           = useScroll();
   const scaleX                        = useSpring(scrollYProgress, { stiffness: 100, damping: 30 });
 
+  useEffect(() => {
+    const closeOnEscape = (event: KeyboardEvent) => { if (event.key === 'Escape') setMenuOpen(false); };
+    const desktop = window.matchMedia('(min-width: 768px)');
+    const closeOnDesktop = () => { if (desktop.matches) setMenuOpen(false); };
+    document.addEventListener('keydown', closeOnEscape);
+    desktop.addEventListener('change', closeOnDesktop);
+    return () => { document.removeEventListener('keydown', closeOnEscape); desktop.removeEventListener('change', closeOnDesktop); };
+  }, []);
+
   // Active section tracking
   useEffect(() => {
     const sections = ["contact", "predictions", "projects", "experience", "origins"];
@@ -265,7 +275,7 @@ export default function App() {
   ];
 
   return (
-    <div className="chronicle" style={{ background: "#05090c", color: "#f5f5f7", minHeight: "100vh" }}>
+    <MotionConfig reducedMotion="user"><div className="chronicle" style={{ background: "#05090c", color: "#f5f5f7", minHeight: "100vh" }}>
       <a className="skip-link" href="#origins">Skip to content</a>
       {/* Scroll progress bar */}
       <motion.div
@@ -283,7 +293,7 @@ export default function App() {
       />
 
       {/* ── NAV ────────────────────────────────────────────────────────────── */}
-      <nav aria-label="Main navigation"
+      <nav className="site-navigation" aria-label="Main navigation"
         style={{
           position: "fixed",
           top: 0,
@@ -328,6 +338,7 @@ export default function App() {
               <a
                 key={href}
                 href={href}
+                aria-current={active ? "location" : undefined}
                 style={{
                   fontSize: 13,
                   fontWeight: 500,
@@ -396,11 +407,14 @@ export default function App() {
       <main>
       <section id="home" className="astra-hero">
         <StarField />
-        <h1 className="hero-name"><span>William</span><span>Teke</span></h1>
+        <div className="hero-focus"><span className="hero-status"><i aria-hidden="true" />Product · Technology · Curiosity</span>
+        <h1 className="hero-name">William Teke</h1>
+        <p className="hero-summary">Building useful products.<br />Always finding something new to learn.</p>
+        <div className="hero-actions"><a href="#projects" className="pill primary">Explore my work <span aria-hidden="true">↗</span></a><a href="#contact" className="pill">Say hello <span aria-hidden="true">↗</span></a></div></div>
         <div className="hero-bottom">
           <div><p className="hero-role">Product Manager &amp; Strategist</p>
           <p className="hero-location">Fort Lauderdale, FL <LiveClock /></p></div>
-          <a href="#origins" className="explore-link">Explore the chronicle <span aria-hidden="true">↓</span></a>
+          <a href="#origins" className="explore-link">Meet William <span aria-hidden="true">↓</span></a>
         </div>
       </section>
       <section className="introduction" aria-label="Introduction">
@@ -520,9 +534,9 @@ export default function App() {
               <motion.div
                 key={i}
                 variants={fadeUp}
-                className="glass-card"
+                className="glass-card project-surface"
                 style={{ padding: "40px 44px" }}
-                whileHover={{ scale: 1.005 }}
+                whileHover={{ y: -2 }}
                 transition={{ duration: 0.25 }}
               >
                 {p.findings && <figure className="project-corner-photo"><img src={neptuneBeachPhoto} alt="Palm-lined street and shops in Neptune Beach" width="480" height="318" loading="lazy" decoding="async" /><figcaption>Neptune Beach, FL</figcaption></figure>}
@@ -743,6 +757,6 @@ export default function App() {
           }
         }
       `}</style>
-    </div>
+    </div></MotionConfig>
   );
 }

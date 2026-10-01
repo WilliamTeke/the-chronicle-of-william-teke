@@ -1,0 +1,35 @@
+/* Editorial surfaces and focused navigation inspired by the dots launch page. */
+.chronicle { --surface:#101619; --muted:#aab6bd; }
+.chronicle .site-navigation { height:64px !important; background:rgba(5,9,12,.88) !important; backdrop-filter:blur(14px) !important; }
+.chronicle .desktop-nav { gap:6px !important; }
+.chronicle .desktop-nav a { border-radius:20px; padding:9px 15px; transition:background .18s,color .18s; }
+.chronicle .desktop-nav a[aria-current=location] { background:#ffffff12; color:#f5f5f7 !important; }
+.chronicle .desktop-nav a:hover { background:#ffffff0b; }
+.chronicle #mobile-navigation { top:64px !important; border-radius:0 0 20px 20px; }
+.chronicle .astra-hero { margin:80px 16px 0; height:calc(90svh - 80px); min-height:580px; max-height:850px; border:1px solid #ffffff0c; border-radius:24px; background:radial-gradient(ellipse at 50% 45%,#182632,#080e13 66%); }
+.chronicle .star-field { opacity:.48; mask-image:linear-gradient(black 65%,transparent); }
+.hero-focus { position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:30px 24px 100px; text-align:center; }
+.hero-status { display:inline-flex; align-items:center; gap:9px; color:#afbdc7; font-size:12px; margin-bottom:26px; letter-spacing:.025em; }
+.hero-status i { width:6px; height:6px; background:#b6d5cc; border-radius:50%; }
+.chronicle .hero-name { position:static; display:block; width:auto; padding:0; margin:0; font-size:clamp(56px,8.6vw,112px); line-height:1.02; letter-spacing:-.065em; font-weight:400; }
+.hero-summary { font-size:clamp(17px,2vw,22px); line-height:1.6; color:#bac5cc; margin:26px 0 0; }
+.hero-actions { display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin-top:28px; }
+.chronicle .pill { padding:12px 21px; border-color:#ffffff12; background:#ffffff0c; font-size:13px; transition:background .2s,transform .2s; }
+.chronicle .pill.primary { background:#f3f2ed; color:#13191c; }
+.chronicle .pill:hover { transform:translateY(-2px); background:#ffffff18; }.chronicle .pill.primary:hover { background:#fff; }
+.chronicle .hero-bottom { bottom:28px; left:32px; right:32px; }.chronicle .hero-role { font-size:12px; margin-bottom:6px; color:#b8c5cc; }.chronicle .hero-location { font-size:11px; }.chronicle .explore-link { font-size:12px; gap:12px; margin-right:45px; }.chronicle .motion-toggle { bottom:25px; right:25px; width:30px; height:30px; font-size:12px; }
+.chronicle .introduction { padding:76px 24px 64px; max-width:800px; }.chronicle .introduction h2 { font-size:clamp(32px,4vw,46px); }.chronicle .introduction > p:not(.section-label) { font-size:17px; }.chronicle .intro-actions { margin-top:24px; }
+.chronicle main > section:not(.astra-hero) { background:transparent !important; }
+.chronicle #origins,.chronicle #experience,.chronicle #projects,.chronicle #predictions,.chronicle #contact { border-top:1px solid #ffffff0b; }
+.chronicle #projects .project-surface { background:#10171b; border:1px solid #ffffff0b; border-radius:18px; padding:32px !important; transition:background .2s,border-color .2s; }.chronicle #projects .project-surface:hover { border-color:#ffffff24; background:#121b20; }
+.chronicle .education-uf,.chronicle .education-northwestern { border-radius:16px; overflow:hidden; border-color:#ffffff12; }
+.chronicle #contact .glass-card { border:1px solid #ffffff15; border-radius:14px !important; background:#10171b; }.chronicle #contact .glass-card:hover { background:#192329; }
+.chronicle .roots-trigger { background:#152028; border-color:#ffffff20; }
+.chronicle .section-label { color:#a9b7c0; }
+@media(max-width:767px) {
+ .chronicle .astra-hero { margin:74px 10px 0; border-radius:18px; min-height:570px; height:calc(90svh - 74px); }
+ .hero-focus { padding-bottom:110px; }.hero-status { font-size:10px; margin-bottom:22px; }.chronicle .hero-name { font-size:clamp(48px,12vw,76px); }
+ .chronicle .hero-bottom { left:20px; right:20px; bottom:24px; gap:15px; }.chronicle .explore-link { margin:0; }.chronicle .hero-summary { font-size:17px; }
+ .chronicle #projects .project-surface { padding:22px !important; }.chronicle .introduction { padding-top:52px; padding-bottom:48px; }
+}
+@media(prefers-reduced-motion:reduce) { html { scroll-behavior:auto !important; }.chronicle *, .chronicle *::before,.chronicle *::after { animation-duration:.01ms !important; transition-duration:.01ms !important; } }
