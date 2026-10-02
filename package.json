@@ -9,7 +9,7 @@
     "preview": "vite preview",
     "clean": "rm -rf dist",
     "lint": "tsc --noEmit",
-    "test": "node --import tsx --test src/data/geography.test.ts",
+    "test": "node --import tsx --test src/data/*.test.ts",
     "test:browser": "playwright test",
     "map:build": "node --import tsx scripts/build-map.mts"
   },

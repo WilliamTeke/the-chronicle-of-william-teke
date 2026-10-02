@@ -12,9 +12,8 @@ const Globe = lazy(() => import("./components/Globe"));
 import RootsExplorer from "./components/RootsExplorer";
 import StarField from "./components/StarField";
 import ProfileHighlights from "./components/ProfileHighlights";
-import ParkingDiagram from "./components/ParkingDiagram";
+import NeptuneProject from "./components/NeptuneProject";
 import PredictionCabinet from "./components/PredictionCabinet";
-import neptuneBeachPhoto from "./assets/neptune-beach.jpg";
 
 // ── App ──────────────────────────────────────────────────────────────────────
 export default function App() {
@@ -328,7 +327,7 @@ export default function App() {
             variants={stagger}
             style={{ display: "flex", flexDirection: "column", gap: 16 }}
           >
-            {projects.map((p, i) => (
+            {projects.map((p, i) => p.findings ? <NeptuneProject key={p.title} /> : (
               <motion.div
                 key={i}
                 variants={fadeUp}
@@ -337,7 +336,6 @@ export default function App() {
                 whileHover={{ y: -2 }}
                 transition={{ duration: 0.25 }}
               >
-                {p.findings && <figure className="project-corner-photo"><img src={neptuneBeachPhoto} alt="Palm-lined street and shops in Neptune Beach" width="480" height="318" loading="lazy" decoding="async" /><figcaption>Neptune Beach, FL</figcaption></figure>}
                 <p
                   style={{
                     fontSize: 12,
@@ -363,7 +361,6 @@ export default function App() {
                   {p.href ? <a className="project-brand" href={p.href} target="_blank" rel="noreferrer">{p.logo && <img src={p.logo} alt="" width="56" height="56" loading="lazy" />}<span>{p.title}</span><span className="project-brand-arrow" aria-hidden="true">↗</span></a> : p.title}
                 </h3>
                 {p.exampleImage && <figure className="tweet-example"><img src={p.exampleImage} alt="Screenshot of Elon Musk’s tweets considering taking Tesla private at $420, stating funding secured, and discussing shareholder participation." width="1200" height="630" loading="lazy" /><figcaption>An example of the kind of tweet that motivated this project. This is not an output from the tracker.</figcaption></figure>}
-                {p.findings && <ParkingDiagram />}
                 {p.findings && <div className="project-findings" aria-label="Findings from the 2022 parking study">{p.findings.map(finding => <div key={finding.value}><span>{finding.value}</span><p>{finding.label}</p></div>)}</div>}
                 <div style={{ display: "flex", flexDirection: "column", gap: 12, marginBottom: 24 }}>
                   {p.body.map((para, j) => (

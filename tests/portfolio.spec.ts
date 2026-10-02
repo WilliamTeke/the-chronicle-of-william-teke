@@ -59,3 +59,23 @@ test('reduced-motion users can still read and dismiss content', async ({ page })
   await page.getByRole('button', { name: 'Close family atlas' }).click();
   await expect(page.getByRole('dialog')).not.toBeVisible();
 });
+
+test('Neptune case study supports direct links and transparent scenario controls', async ({ page }) => {
+  await page.goto('/#neptune-beach');
+  await expect(page.getByRole('button', { name: 'Close case study' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Same spaces. Different possibilities.' })).toBeVisible();
+  await expect(page.getByText('Equal assumptions produce equal results.', { exact: false })).toBeVisible();
+  await page.getByRole('button', { name: 'Try shorter stays + 2 loading bays' }).click();
+  await expect(page.getByRole('slider', { name: 'Proposed average stay' })).toHaveValue('110');
+  await expect(page.getByRole('slider', { name: 'Reserved loading bays' })).toHaveValue('2');
+  await expect(page.getByText('This is a model result, not a forecast.', { exact: false })).toBeVisible();
+  await page.getByRole('button', { name: 'Play parking simulation' }).click();
+  await expect(page.getByRole('button', { name: 'Pause parking simulation' })).toBeVisible();
+  await page.getByRole('button', { name: 'Pause parking simulation' }).click();
+  await page.getByRole('button', { name: 'Reset to equal conditions' }).click();
+  await expect(page.getByRole('slider', { name: 'Proposed average stay' })).toHaveValue('140');
+  await expect(page.getByRole('slider', { name: 'Reserved loading bays' })).toHaveValue('0');
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+  await page.getByRole('button', { name: 'Close case study' }).click();
+  await expect(page.getByRole('heading', { name: 'Same spaces. Different possibilities.' })).not.toBeVisible();
+});
