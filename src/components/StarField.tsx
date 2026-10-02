@@ -24,6 +24,17 @@ export default function StarField() {
       const angle = radius * 7 + (i % 3) * Math.PI * 2 / 3 + (random() - 0.5) * 1.7;
       return { radius, angle, z: (random() - 0.5) * 0.36, size: random(), flicker: random() * Math.PI * 2, warm: random() > 0.8 };
     });
+    // Rasterize the two glow colors once, then reuse them for every frame.
+    const glows = [false, true].map(warm => {
+      const sprite = document.createElement('canvas');
+      sprite.width = sprite.height = 64;
+      const paint = sprite.getContext('2d')!;
+      const glow = paint.createRadialGradient(32, 32, 0, 32, 32, 32);
+      glow.addColorStop(0, `rgba(${warm ? '247,204,172' : '191,222,243'},0.45)`);
+      glow.addColorStop(1, 'rgba(160,200,240,0)');
+      paint.fillStyle = glow; paint.fillRect(0, 0, 64, 64);
+      return sprite;
+    });
     const draw = () => {
       ctx.clearRect(0, 0, width, height);
       const scale = Math.min(width * 0.52, height * 0.8);
@@ -37,11 +48,9 @@ export default function StarField() {
         const size = star.size > 0.976 ? 2.1 : star.size > 0.89 ? 1.15 : 0.45;
         const alpha = 0.22 + star.size * 0.64 + Math.sin(phase * 12 + star.flicker) * 0.08;
         if (size > 1) {
-          const glow = ctx.createRadialGradient(x, y, 0, x, y, size * 7);
-          glow.addColorStop(0, `rgba(${star.warm ? "247,204,172" : "191,222,243"},${alpha * 0.45})`);
-          glow.addColorStop(1, "rgba(160,200,240,0)");
-          ctx.fillStyle = glow;
-          ctx.fillRect(x - size * 7, y - size * 7, size * 14, size * 14);
+          ctx.globalAlpha = alpha;
+          ctx.drawImage(glows[star.warm ? 1 : 0], x - size * 7, y - size * 7, size * 14, size * 14);
+          ctx.globalAlpha = 1;
         }
         ctx.fillStyle = `rgba(${star.warm ? "255,219,188" : "229,243,255"},${alpha})`;
         ctx.beginPath(); ctx.arc(x, y, size, 0, Math.PI * 2); ctx.fill();

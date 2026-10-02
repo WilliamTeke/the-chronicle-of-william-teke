@@ -247,23 +247,34 @@ export default function App() {
 
   // Active section tracking
   useEffect(() => {
-    const sections = ["contact", "predictions", "projects", "experience", "origins"];
+    const sections = ['contact', 'predictions', 'projects', 'experience', 'origins']
+      .map(id => ({ id, element: document.getElementById(id), top: 0 }));
     let frame = 0;
     const update = () => {
       frame = 0;
-      for (const s of sections) {
-        const el = document.getElementById(s);
-        if (el && window.scrollY >= el.offsetTop - 150) {
-          setActiveSection(s);
-          return;
-        }
+      const position = window.scrollY + 150;
+      setActiveSection(sections.find(section => section.element && position >= section.top)?.id ?? '');
+    };
+    const measure = () => {
+      cancelAnimationFrame(frame);
+      for (const section of sections) {
+        if (section.element) section.top = section.element.getBoundingClientRect().top + window.scrollY;
       }
-      setActiveSection("");
+      update();
     };
     const handler = () => { if (!frame) frame = requestAnimationFrame(update); };
-    update();
-    window.addEventListener("scroll", handler, { passive: true });
-    return () => { window.removeEventListener("scroll", handler); cancelAnimationFrame(frame); };
+    // Remeasure when lazy content, fonts, or accordion panels change page geometry.
+    const observer = new ResizeObserver(measure);
+    document.querySelectorAll('main > section').forEach(section => observer.observe(section));
+    measure();
+    window.addEventListener('scroll', handler, { passive: true });
+    window.addEventListener('resize', measure);
+    return () => {
+      observer.disconnect();
+      window.removeEventListener('scroll', handler);
+      window.removeEventListener('resize', measure);
+      cancelAnimationFrame(frame);
+    };
   }, []);
 
   const navItems = [
