@@ -4,7 +4,7 @@ test('navigation, prediction folders, and contact links work', async ({ page }, 
   await page.goto('/');
   await expect(page.getByRole('heading', { name: 'William Teke', exact: true })).toBeVisible();
   if (testInfo.project.name === 'mobile') await page.getByRole('button', { name: 'Open menu' }).click();
-  await page.getByRole('navigation').getByRole('link', { name: 'Predictions', exact: true }).click();
+  await page.getByRole('link', { name: 'Predictions', exact: true }).click();
   const first = page.getByRole('button', { name: '01 The Job Title Disappears' });
   await first.hover();
   await expect(first).toHaveAttribute('aria-expanded', 'false');
@@ -45,6 +45,7 @@ test('atlas opens, exposes maps, traps focus, and restores focus on Escape', asy
 test('a failed globe download leaves the portfolio usable', async ({ page }) => {
   await page.route('**/Globe-*.js', route => route.abort());
   await page.goto('/#origins');
+  await page.getByRole('button', { name: 'Explore my roots' }).scrollIntoViewIfNeeded();
   await expect(page.getByText('The globe couldn’t load.')).toBeVisible();
   await expect(page.getByRole('button', { name: 'Explore my roots' })).toBeVisible();
   await expect(page.getByRole('link', { name: /Send an Email/ })).toHaveAttribute('href', 'mailto:willteke@yahoo.com');
