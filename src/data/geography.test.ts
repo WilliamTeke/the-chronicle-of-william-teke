@@ -6,7 +6,7 @@ import { feature } from 'topojson-client';
 import type { Topology, GeometryCollection } from 'topojson-specification';
 import { HERITAGE_LOCATIONS, isVisible } from './geography';
 
-const world: Topology<{ countries: GeometryCollection }> = JSON.parse(readFileSync(new URL('../../node_modules/world-atlas/countries-50m.json', import.meta.url), 'utf8'));
+const world: Topology<{ countries: GeometryCollection }> = JSON.parse(readFileSync(new URL('./world.compact.json', import.meta.url), 'utf8'));
 const countries = feature(world, world.objects.countries);
 
 test('heritage coordinates fall within their expected country boundaries', () => {

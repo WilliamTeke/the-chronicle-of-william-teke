@@ -1,0 +1,15 @@
+import assert from 'node:assert/strict';
+import { readFileSync, readdirSync, statSync } from 'node:fs';
+import { gzipSync } from 'node:zlib';
+const files = readdirSync('dist/assets');
+const size = prefix => gzipSync(readFileSync(`dist/assets/${files.find(f => f.startsWith(prefix) && f.endsWith('.js'))}`)).length;
+const main = size('index-'), map = size('geography-');
+assert.ok(main < 140000, `Main JS exceeds 140 KB gzip: ${main}`);
+assert.ok(map < 115000, `Map exceeds 115 KB gzip: ${map}`);
+const html = readFileSync('dist/index.html','utf8');
+assert.ok(html.includes('rel="canonical"'));
+assert.ok(html.includes('https://the-chronicle-of-william-teke.vercel.app/og-image.png'));
+assert.ok(!html.includes('fonts.googleapis.com'));
+assert.ok(statSync('dist/og-image.png').size > 1000);
+assert.ok(statSync('dist/favicon.svg').size > 0);
+console.log(JSON.stringify({mainGzipBytes:main,mapGzipBytes:map},null,2));

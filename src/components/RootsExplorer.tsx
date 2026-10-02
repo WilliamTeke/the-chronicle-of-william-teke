@@ -1,3 +1,4 @@
+import FeatureBoundary from "./FeatureBoundary";
 import { lazy, Suspense, useEffect, useRef, useState } from 'react';
 import { AnimatePresence, motion, useDragControls, useReducedMotion } from 'framer-motion';
 const HeritageAtlas = lazy(() => import('./HeritageAtlas'));
@@ -33,7 +34,7 @@ export default function RootsExplorer() {
           <div className="roots-drag-handle" aria-hidden="true" onPointerDown={event => dragControls.start(event)}><span /></div>
           <div className="roots-toolbar"><span>FAMILY / PLACES</span><button ref={closeButton} onClick={close} aria-label="Close family atlas">Close ×</button></div>
           <div className="roots-drawer-content">
-            <Suspense fallback={<p role="status" className="atlas-loading">Loading the atlas…</p>}><HeritageAtlas /></Suspense>
+            <FeatureBoundary name="The family atlas"><Suspense fallback={<p role="status" className="atlas-loading">Loading the atlas…</p>}><HeritageAtlas /></Suspense></FeatureBoundary>
           </div>
         </motion.div>}
       </AnimatePresence>

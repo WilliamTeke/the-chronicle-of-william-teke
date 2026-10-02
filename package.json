@@ -5,18 +5,19 @@
   "type": "module",
   "scripts": {
     "dev": "vite --port=3000 --host=0.0.0.0",
-    "build": "vite build",
+    "build": "npm run lint && npm run test && vite build && node scripts/check-build.mjs",
     "preview": "vite preview",
     "clean": "rm -rf dist",
-    "lint": "tsc --noEmit"
+    "lint": "tsc --noEmit",
+    "test": "node --import tsx --test src/data/geography.test.ts",
+    "test:browser": "playwright test",
+    "map:build": "node --import tsx scripts/build-map.mts"
   },
   "dependencies": {
-    "@google/genai": "^1.29.0",
+    "@fontsource-variable/inter": "^5.3.0",
     "@tailwindcss/vite": "^4.1.14",
     "@vitejs/plugin-react": "^5.0.4",
     "d3-geo": "^3.1.1",
-    "dotenv": "^17.2.3",
-    "express": "^4.21.2",
     "framer-motion": "^12.38.0",
     "lucide-react": "^0.546.0",
     "motion": "^12.23.24",
@@ -28,15 +29,18 @@
     "world-atlas": "^2.0.2"
   },
   "devDependencies": {
+    "@playwright/test": "^1.63.0",
     "@types/d3-geo": "^3.1.1",
-    "@types/express": "^4.17.21",
     "@types/geojson": "^7946.0.16",
     "@types/node": "^22.14.0",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
     "@types/topojson-client": "^3.1.5",
     "autoprefixer": "^10.4.21",
+    "lighthouse": "^13.5.0",
+    "sharp": "^0.35.5",
     "tailwindcss": "^4.1.14",
+    "topojson-simplify": "^3.0.3",
     "tsx": "^4.21.0",
     "typescript": "~5.8.2",
     "vite": "^6.2.0"

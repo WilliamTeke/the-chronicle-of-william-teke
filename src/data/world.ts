@@ -1,6 +1,6 @@
 import { feature, mesh } from 'topojson-client';
 import type { Topology, GeometryCollection } from 'topojson-specification';
-import worldData from 'world-atlas/countries-50m.json';
+import worldData from './world.compact.json';
 
 // Share one decoding of the accurate boundaries between both map views.
 const world = worldData as unknown as Topology<{ countries: GeometryCollection; land: GeometryCollection }>;

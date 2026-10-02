@@ -1,3 +1,5 @@
+import ufCampus from "../assets/uf-campus.webp";
+import kelloggCampus from "../assets/kellogg-campus.webp";
 import jiuJitsuVideo from "../assets/jiu-jitsu.mp4";
 import jiuJitsuPoster from "../assets/jiu-jitsu-poster.jpg";
 
@@ -13,7 +15,7 @@ export default function ProfileHighlights() {
     <div className="education-grid">
       <article className="education-uf">
         <div className="campus-photo uf-photo">
-          <img src="https://dermatology.med.ufl.edu/wordpress/files/2023/02/tower-600x400.jpg" alt="Century Tower and trees on the University of Florida campus" loading="lazy" width="600" height="400" />
+          <img src={ufCampus} alt="Century Tower and trees on the University of Florida campus" loading="lazy" decoding="async" onError={event => { event.currentTarget.style.visibility = "hidden"; }} width="600" height="400" />
           <div className="campus-title"><span className="campus-eyebrow">Gainesville, Florida</span><h3>University of Florida</h3></div>
           <span className="school-monogram" aria-hidden="true">UF</span>
         </div>
@@ -25,7 +27,7 @@ export default function ProfileHighlights() {
       </article>
       <article className="education-northwestern">
         <div className="campus-photo northwestern-photo">
-          <img src="https://www.kellogg.northwestern.edu/-/media/images/web2022/the-experience/locations/evanston/evanston-updated-slideshow/05-evanston-984x728.jpg?hash=6434FB54D705978907484D31A67F7012&rev=8f3a76007327443f8d5d3c040fefa792&sc_lang=en" alt="Kellogg Global Hub beside Lake Michigan at Northwestern University" loading="lazy" width="984" height="728" />
+          <img src={kelloggCampus} alt="Kellogg Global Hub beside Lake Michigan at Northwestern University" loading="lazy" decoding="async" onError={event => { event.currentTarget.style.visibility = "hidden"; }} width="984" height="728" />
           <span className="certificate-badge">Executive certificate</span>
         </div>
         <div className="northwestern-detail"><p className="education-school">Northwestern University</p><p className="education-provider">Kellogg Executive Education</p><h4><a className="academic-link" href="https://execedcertificate.kellogg.northwestern.edu/19288249-6c58-4e15-b3ff-927cc2716cba#acc.a9eVtizg" target="_blank" rel="noopener noreferrer" aria-label="View Kellogg AI and Product Strategy certificate (opens in a new tab)">AI &amp; Product Strategy <span aria-hidden="true">↗</span></a></h4><p className="education-certificate-name">Advanced Certificate · September 2026</p></div>
