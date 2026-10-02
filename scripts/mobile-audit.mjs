@@ -9,5 +9,6 @@ try {
   await mkdir('audit-results',{recursive:true});
   await writeFile('audit-results/mobile.html',result.report[0]);
   await writeFile('audit-results/mobile.json',result.report[1]);
+  console.log('::notice title=Mobile Lighthouse scores::'+JSON.stringify(Object.fromEntries(Object.entries(result.lhr.categories).map(([key,value])=>[key,value.score]))));
   console.log(JSON.stringify(Object.fromEntries(Object.entries(result.lhr.categories).map(([key,value])=>[key,value.score])),null,2));
 } finally { await chrome.kill(); }
