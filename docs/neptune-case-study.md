@@ -20,3 +20,7 @@ The model's unit tests check conservation of arrivals, capacity limits, identica
 ## Data needed to calibrate a future version
 
 Use de-identified, aggregated data only: arrivals by time interval and location, actual occupancy counts, observed dwell-time distribution, rates by time/date, and capacity mapped to the same parking footprint. Before/after pilot data and dates are needed for a measured comparison. Do not share plate numbers, payment details, or other individual identifiers. Paid-duration records alone do not establish demand response or actual occupancy.
+
+## Recruiter-facing quantitative update
+
+The fall presentation (slides 4 and 8) identifies January–October 2022 citation trends and May–September 2022 parking arrivals. Slide 13 proposes 1–2 delivery spaces. The site explicitly uses that presentation scope rather than the paper’s 2–3-space alternative. Derived capacity arithmetic: 1/160 = 0.625%, 2/160 = 1.25%, rounded to about 0.6–1.3%; 158–159 general spaces remain while designated. These are proposal dimensions, not observed outcomes. Earlier spring counts and paid durations are omitted.

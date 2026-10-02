@@ -63,10 +63,10 @@ test('reduced-motion users can still read and dismiss content', async ({ page })
 test('Neptune case study keeps contribution and decisions without the simulator', async ({ page }) => {
   await page.goto('/#neptune-beach');
   await expect(page.getByRole('button', { name: 'Close case study' })).toBeVisible();
-  await expect(page.getByRole('heading', { name: 'Turn analysis into a decision.' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Pricing and curbside recommendations.' })).toBeVisible();
   await expect(page.getByText('Interactive scenario / 160 spaces')).toHaveCount(0);
   await expect(page.getByText('What this case study is based on')).toHaveCount(0);
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
   await page.getByRole('button', { name: 'Close case study' }).click();
-  await expect(page.getByRole('heading', { name: 'Turn analysis into a decision.' })).not.toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Pricing and curbside recommendations.' })).not.toBeVisible();
 });
