@@ -20,11 +20,14 @@ interface Project {
   href?: string;
 }
 
-interface Prediction {
+export interface Prediction {
   n: string;
   title: string;
   body: string;
-  bullets: string[];
+  evidence: string;
+  caveat: string;
+  watch: string;
+  sources: { label: string; href: string }[];
 }
 
 // ── Data ────────────────────────────────────────────────────────────────────
@@ -78,34 +81,30 @@ export const projects: Project[] = [
 
 export const predictions: Prediction[] = [
   {
-    "n": "builders",
-    "title": "The Job Title Disappears",
-    "body": "My bet: product manager, designer, and software engineer eventually collapse into one role: builder. As AI makes implementation more accessible, the distinction between who defines, designs, and builds the product starts to matter less than who delivers it.",
-    "bullets": [
-      "A simpler ladder: entry, mid, senior. Advancement reflects the scope of problems you can own, not a growing collection of titles.",
-      "Everyone owns the full loop: find the right problem, talk to stakeholders, build, ship, and learn from the result.",
-      "The skills still matter. I think the permanent boundaries between the jobs will matter much less."
-    ]
+    n: "builders",
+    title: "The Job Title Matters Less",
+    body: "My bet: more tech roles converge around a builder who can frame a problem, prototype a solution, and own delivery. AI makes crossing disciplines easier; judgment, stakeholder trust, and accountability become the differentiators.",
+    evidence: "In a 2025 P&G experiment, individuals using AI matched two-person teams without it on product-innovation tasks. AI also helped commercial and technical specialists produce more balanced ideas.",
+    caveat: "That tested ideation, not running a product end to end. It supports broader roles, not the disappearance of specialist expertise or job titles.",
+    watch: "More hiring for end-to-end ownership, with specialist review where reliability and risk demand it.",
+    sources: [{ label: "HBS / P&G field experiment · 2025", href: "https://aiinstitute.hbs.edu/the-cybernetic-teammate-how-ai-is-reshaping-collaboration-and-expertise-in-the-workplace/" }, { label: "ILO / Task transformation · 2025", href: "https://www.ilo.org/publications/generative-ai-and-jobs-refined-global-index-occupational-exposure" }]
   },
   {
-    "n": "expertise",
-    "title": "The Company Becomes a Project",
-    "body": "My bet: more careers start to resemble a portfolio of projects rather than a permanent seat at one company. If AI covers more of the build phase, the person worth bringing in is the one who deeply understands the specific problem. Niche expertise becomes more valuable than being a generalist who can operate the tools.",
-    "bullets": [
-      "Teams assemble around a problem, deliver, and re-form. Even employees may work more like contractors.",
-      "What you study matters differently: domain knowledge shapes the questions you ask, the tradeoffs you notice, and how clearly you explain them.",
-      "Retention becomes a harder question. Companies may have to win people back with each project through meaningful work, trust, and ownership."
-    ]
+    n: "expertise",
+    title: "The Team Becomes a Project",
+    body: "My bet: companies retain a core team but assemble more specialists around specific outcomes. As building gets easier, knowing which problem matters becomes more valuable. Deep domain knowledge, clear communication, and a record of delivery could become a stronger career asset than a permanent place in an org chart.",
+    evidence: "Microsoft’s 2025 Work Trend Index proposes a similar model: teams forming around goals rather than functions, supported by AI agents.",
+    caveat: "This is a vendor’s organizational hypothesis, not proof of a contractor economy. BLS counted independent contractors at 7.4% of US main jobs in July 2023; project-based work can also happen inside permanent employment.",
+    watch: "Internal project staffing and repeat specialist engagements. Retention may depend more on the next meaningful problem than the next title.",
+    sources: [{ label: "Microsoft / Work Trend Index · 2025", href: "https://www.microsoft.com/en-us/worklab/work-trend-index/2025-the-year-the-frontier-firm-is-born" }, { label: "BLS / Employment arrangements · July 2023", href: "https://www.bls.gov/news.release/conemp.nr0.htm" }]
   },
   {
-    "n": "physical",
-    "title": "Prestige Changes Collars",
-    "body": "I think the status gap between white-collar and blue-collar work could reverse. As more desk work is automated or compressed, skilled physical work may become the harder capability to replace. The person who can diagnose and fix something in the real world could command more prestige than the person with the impressive office title.",
-    "bullets": [
-      "Some knowledge workers may spread their time across several jobs or clients as AI reduces the effort each requires.",
-      "An electrician, technician, or craftsperson still has to show up. Physical presence limits how many jobs can be done at once.",
-      "My bet depends on timing: reliable robotics for varied, complex environments takes longer than automating digital workflows."
-    ]
+    n: "physical",
+    title: "Prestige Changes Collars",
+    body: "My bet: skilled trades gain status and bargaining power as digital output becomes cheaper. There is an irony here: AI may make some desk tasks easier while increasing demand for the people who build and maintain its physical infrastructure.",
+    evidence: "BLS projects 9% US electrician employment growth from 2025 to 2035, versus 3% across all occupations. It explicitly identifies AI-related electricity demand, data centers, and grid upgrades as sources of opportunity.",
+    caveat: "Employment growth does not prove a prestige reversal. ILO research points to transformation, not wholesale replacement, of exposed jobs. Trade wages still depend on local demand, training, and bargaining power.",
+    watch: "Apprenticeship demand, wage premiums, and hiring difficulty in electrical and infrastructure work relative to desk roles.",
+    sources: [{ label: "BLS / Electricians outlook · 2025–2035", href: "https://www.bls.gov/ooh/construction-and-extraction/electricians.htm" }, { label: "ILO / Occupational exposure · 2025", href: "https://www.ilo.org/publications/generative-ai-and-jobs-refined-global-index-occupational-exposure" }]
   }
 ];
-

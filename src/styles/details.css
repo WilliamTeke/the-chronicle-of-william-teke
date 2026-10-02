@@ -149,3 +149,5 @@ body:has(.roots-dialog[open]) { overflow:hidden; }
 .prediction-cabinet .cabinet-bottom { color:#58462e; padding:16px 4px 0; }
 .prediction-cabinet button:focus-visible { outline-color:#51368a; }
 @media(max-width:767px) { .prediction-cabinet { padding:22px 10px 16px; }.prediction-cabinet .cabinet-top { gap:8px; }.prediction-cabinet .folder-tab { padding:20px 12px; gap:10px; }.file-type { display:none; }.prediction-cabinet .folder-paper { margin:0 10px 10px; padding-top:20px; } }
+
+.prediction-references { display:flex; flex-wrap:wrap; gap:12px 22px; border-top:1px solid #d8cebf; padding-top:16px; }.prediction-references a { color:#514638; font-size:12px; line-height:1.7; text-decoration:underline; text-underline-offset:4px; }.folder-writing { max-width:760px; }

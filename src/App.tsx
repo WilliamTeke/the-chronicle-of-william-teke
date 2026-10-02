@@ -399,7 +399,7 @@ export default function App() {
       <section id="predictions" style={{ padding: "64px 48px", background: "#05090c" }}>
         <div style={{ maxWidth: 1000, margin: "0 auto" }}>
           <SectionHeader label="Ideas I’m exploring" title="My top three predictions right now" />
-          <p className="predictions-intro">My personal guesses about where technology and work could go. These are ideas I’m exploring, not certainties, and I expect them to change as I learn more.</p>
+          <p className="predictions-intro">Three personal hypotheses about technology and work, informed by research. Here’s what supports each one, where the evidence stops, and what I’m watching.</p>
 
           <PredictionCabinet predictions={predictions} />
 

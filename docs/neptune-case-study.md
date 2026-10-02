@@ -9,7 +9,7 @@
 
 Original documents are not published, avoiding exposure of individual records and other personal data in screenshots. The site provides source notes rather than distributing raw files. Citywide trip estimates are never presented as demand at the 160-space location. Presence estimates in the dashboard chart exceed 160 in places and may cover a different footprint or overlapping paid time; these are not mapped to the simulated lot.
 
-## Simulation
+## Retired simulation (removed from the portfolio on October 2, 2026)
 
 A deterministic, hypothetical four-hour parking scenario starts empty. Both alternatives receive the same constant arrivals (default 90/hour, adjustable 30–120). Baseline dwell is 140 minutes, inspired by paid duration, not calibrated from observed occupancy. Proposal dwell is adjustable 60–180 minutes. Between zero and three spaces may be reserved for loading, reducing general capacity. Both alternatives default to identical assumptions.
 
