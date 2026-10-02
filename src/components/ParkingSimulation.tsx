@@ -1,16 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { simulateParking, PARKING_CAPACITY, SCENARIO_MINUTES, type ParkingSnapshot } from '../data/parkingModel';
+import { simulateParking, SCENARIO_MINUTES } from '../data/parkingModel';
 
-function ParkingLot({ snapshot, proposed, bays }: { snapshot: ParkingSnapshot; proposed?: boolean; bays: number }) {
-  return <div className={`parking-lot ${proposed ? 'parking-lot-proposed' : ''}`}>
-    <div className="parking-lot-header"><span>{proposed ? 'Proposed scenario' : 'Baseline scenario'}</span><strong>{snapshot.parked}<small> / {PARKING_CAPACITY-bays} occupied</small></strong></div>
-    <div className="parking-street" aria-hidden="true"><span>BEACHES TOWN CENTER</span><i /><span>CONCEPTUAL LAYOUT</span></div>
-    <div className="parking-spaces" role="img" aria-label={`${snapshot.parked} occupied general spaces, ${160-bays-snapshot.parked} available, ${bays} reserved loading bays. Schematic, not an actual map.`}>
-      {Array.from({length:160},(_,i)=><span key={i} className={`parking-space ${i>=160-bays ? 'is-loading' : snapshot.slots[i] ? 'is-occupied' : ''}`} />)}
-    </div>
-    <div className="parking-lot-metrics"><div><strong>{snapshot.admitted}</strong><span>Visits accommodated</span></div><div><strong>{snapshot.unserved}</strong><span>Arrivals without a space</span></div></div>
-  </div>;
-}
 export default function ParkingSimulation() {
   const [demand,setDemand]=useState(90);
   const [stay,setStay]=useState(140);
@@ -42,10 +32,8 @@ export default function ParkingSimulation() {
       <label>Reserved loading bays <strong>{bays}</strong><input aria-label="Reserved loading bays" type="range" min="0" max="3" step="1" value={bays} onChange={e=>{pause();setBays(+e.target.value);}}/><small>Removes these spaces from general parking</small></label>
     </div>
     <div className="parking-presets"><button onClick={()=>{pause();setStay(110);setBays(2);}}>Try shorter stays + 2 loading bays</button><button onClick={()=>{pause();setDemand(90);setStay(140);setBays(0);setMinute(180);}}>Reset to equal conditions</button></div>
-    <div className="parking-comparison"><ParkingLot snapshot={baseline[minute]} bays={0}/><ParkingLot snapshot={proposal[minute]} bays={bays} proposed/></div>
-    <div className="parking-legend"><span><i className="legend-before"/>Baseline occupied</span><span><i className="legend-after"/>Proposal occupied</span><span><i/>Available</span><span><i className="legend-loading"/>Loading bay</span></div>
     <div className="parking-playback"><button onClick={()=>{if(!playing && minute===SCENARIO_MINUTES)setMinute(0);setPlaying(!playing);}} aria-label={playing?'Pause parking simulation':'Play parking simulation'}>{playing?'Pause':'Play'} <span aria-hidden="true">{playing?'Ⅱ':'▷'}</span></button><label>Elapsed time <strong>{Math.floor(minute/60)}h {String(minute%60).padStart(2,'0')}m</strong><input aria-label="Simulation elapsed minutes" type="range" min="0" max="240" step="1" value={minute} onChange={e=>{pause();setMinute(+e.target.value);}}/></label></div>
     <p className="simulation-reading" aria-live="polite">{!playing && (stay===140 && bays===0 ? 'Equal assumptions produce equal results. Change an assumption to explore the tradeoff.' : `At this point, the proposed scenario accommodates ${proposal[minute].admitted-baseline[minute].admitted >=0 ? '+' : ''}${proposal[minute].admitted-baseline[minute].admitted} visits compared with the baseline. This is a model result, not a forecast.`)}</p>
-    <details className="simulation-method"><summary>How this model works</summary><p>Both lots start empty and receive the same evenly spaced arrivals for four hours. Each admitted vehicle stays for the selected duration; departures free a space before the next arrival. An arrival with no space leaves this model rather than joining a queue. Counts are cumulative visits, not unique people.</p><p>The 160-space constraint comes from the white paper. The 140-minute baseline is inspired by the earlier team’s March 2022 paid-duration analysis; paid time is not observed time on site. Arrival rates, constant stays, and the shorter-stay scenario are assumptions. There is no estimated relationship between parking price and behavior.</p><p>Loading bays reduce general parking capacity here. Delivery use, traffic safety, visitor spending, revenue, searching, and demand shifting are not modeled. The drawings show 160 schematic spaces, not the actual street layout.</p></details>
+    <details className="simulation-method"><summary>How this model works</summary><p>Both lots start empty and receive the same evenly spaced arrivals for four hours. Each admitted vehicle stays for the selected duration; departures free a space before the next arrival. An arrival with no space leaves this model rather than joining a queue. Counts are cumulative visits, not unique people.</p><p>The 160-space constraint comes from the white paper. The 140-minute baseline is inspired by the earlier team’s March 2022 paid-duration analysis; paid time is not observed time on site. Arrival rates, constant stays, and the shorter-stay scenario are assumptions. There is no estimated relationship between parking price and behavior.</p><p>Loading bays reduce general parking capacity here. Delivery use, traffic safety, visitor spending, revenue, searching, and demand shifting are not modeled.</p></details>
   </section>;
 }
