@@ -33,3 +33,30 @@
  .chronicle #projects .project-surface { padding:22px !important; }.chronicle .introduction { padding-top:52px; padding-bottom:48px; }
 }
 @media(prefers-reduced-motion:reduce) { html { scroll-behavior:auto !important; }.chronicle *, .chronicle *::before,.chronicle *::after { animation-duration:.01ms !important; transition-duration:.01ms !important; } }
+
+/* A quiet, spring-driven atlas drawer with native modal focus containment. */
+.roots-dialog.roots-drawer { inset:0; margin:0; width:100%; max-width:none; height:100%; max-height:none; padding:0; border:0; border-radius:0; background:transparent; overflow:hidden; box-shadow:none; }
+.roots-dialog.roots-drawer[open] { display:flex; align-items:flex-end; justify-content:center; }
+.roots-dialog.roots-drawer::backdrop { background:#02070bb8; backdrop-filter:blur(6px); }
+.roots-drawer-panel { display:flex; flex-direction:column; width:min(100%,1040px); height:min(760px,90dvh); max-height:90dvh; border:1px solid #ffffff20; border-bottom:0; border-radius:28px 28px 0 0; background:#0c141a; box-shadow:0 -20px 100px #0006; overflow:hidden; }
+.roots-drag-handle { display:flex; justify-content:center; padding:14px 0 8px; cursor:grab; touch-action:none; flex-shrink:0; }
+.roots-drag-handle:active { cursor:grabbing; }
+.roots-drag-handle span { width:36px; height:4px; border-radius:4px; background:#63727a; }
+.roots-drawer .roots-toolbar { padding:8px 32px 18px; border-bottom:1px solid #ffffff0d; flex-shrink:0; }
+.roots-drawer .roots-toolbar button { min-height:40px; background:#ffffff08; border-color:#ffffff16; }
+.roots-drawer-content { padding:0 32px 28px; overflow-y:auto; overscroll-behavior:contain; }
+.roots-drawer .atlas-grid { gap:10px; }
+.roots-drawer .atlas-expandable { border-color:#ffffff12; background:#101b22; }
+.roots-drawer .atlas-expandable[open] { border-color:#8fbfc34d; background:#14232c; }
+.roots-drawer .atlas-footnote { padding-top:12px; }
+.atlas-loading { min-height:260px; display:grid; place-items:center; color:#aab6bd; }
+.chronicle .prediction-folder .folder-paper { animation:none; }
+.chronicle .folder-tab { transition:background .18s,color .18s; }
+.chronicle .folder-tab:focus-visible,.roots-toolbar button:focus-visible { outline:2px solid #b5d4db; outline-offset:4px; }
+@media(max-width:600px) {
+ .roots-drawer-panel { max-height:92dvh; border-radius:22px 22px 0 0; }
+ .roots-drawer .roots-toolbar { padding:6px 20px 14px; }
+ .roots-drawer-content { padding:0 20px max(24px,env(safe-area-inset-bottom)); }
+ .roots-drawer .atlas-heading { gap:12px; }
+}
+@media(prefers-reduced-motion:reduce) { .roots-drag-handle { cursor:default; } }

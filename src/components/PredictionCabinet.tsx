@@ -1,5 +1,6 @@
 import { BuilderLab } from './PredictionLabs';
 import { useState } from 'react';
+import { motion, useReducedMotion } from 'framer-motion';
 
 interface Prediction { n: string; title: string; body: string; bullets: string[] }
 
@@ -10,6 +11,7 @@ const notes: Record<string, { watch: string; question: string }> = {
 };
 
 export default function PredictionCabinet({ predictions }: { predictions: Prediction[] }) {
+  const reduceMotion = useReducedMotion();
   const [open, setOpen] = useState<number | null>(null);
   return <div className="prediction-cabinet" onKeyDown={event => {
     if (event.key === 'Escape') {
@@ -24,12 +26,16 @@ export default function PredictionCabinet({ predictions }: { predictions: Predic
         <h3><button type="button" className="folder-tab" id={`prediction-tab-${index}`} aria-controls={`prediction-panel-${index}`} aria-expanded={open === index} onClick={() => { setOpen(current => current === index ? null : index); }}>
           <span className="folder-number">{String(index + 1).padStart(2, '0')}</span><span className="folder-name">{prediction.title}</span><span className="file-type" aria-hidden="true">FIELD NOTE</span><span className="folder-toggle" aria-hidden="true">{open === index ? '−' : '+'}</span>
         </button></h3>
-        <div id={`prediction-panel-${index}`} role="region" aria-labelledby={`prediction-tab-${index}`} hidden={open !== index}>
+        <motion.div id={`prediction-panel-${index}`} role="region" aria-labelledby={`prediction-tab-${index}`}
+          inert={open !== index} aria-hidden={open !== index} initial={false}
+          animate={{ height: open === index ? 'auto' : 0, opacity: open === index ? 1 : 0 }}
+          transition={{ duration: reduceMotion ? 0 : 0.28, ease: [0.22, 1, 0.36, 1] }}
+          style={{ overflow: 'hidden' }}>
           <div className={`folder-paper ${prediction.n === "builders" ? "with-visual" : ""}`}>
             <div className="folder-writing"><div className="file-document-header"><span>WILLIAM TEKE / PERSONAL PREDICTIONS</span><span>NOTE {String(index + 1).padStart(2, "0")}</span></div><p>{prediction.body}</p><ul>{prediction.bullets.map(bullet => <li key={bullet}>{bullet}</li>)}</ul><div className="prediction-watch"><span>What I’d watch</span><p>{notes[prediction.n].watch}</p><span>The open question</span><p>{notes[prediction.n].question}</p></div></div>
             {(prediction.n === "builders") && <div className="folder-visual-column"><span className="prediction-status">Personal hypothesis · Open to revision</span>{prediction.n === 'builders' && <BuilderLab />}</div>}
           </div>
-        </div>
+        </motion.div>
       </article>)}
     </div>
     <div className="cabinet-bottom"><span>PERSONAL PREDICTIONS</span><span>{String(predictions.length).padStart(2, '0')} files</span></div>
